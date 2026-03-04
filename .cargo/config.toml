@@ -1,0 +1,21 @@
+# Cargo 配置文件
+# 设置默认构建目标为 MinGW（项目使用 MinGW + CMake）
+
+[build]
+# 默认使用 MinGW 目标平台
+target = "x86_64-pc-windows-gnu"
+
+# 配置 MinGW 工具链路径
+# 根据您的实际 MinGW 安装路径调整
+[target.x86_64-pc-windows-gnu]
+linker = "D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe"
+ar = "D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\ar.exe"
+
+# 注意：cc crate 需要编译器在 PATH 中
+# 如果构建失败，请在构建前设置 PATH：
+# $env:PATH = "D:\Applications\tools\QT\Tools\mingw1120_64\bin;$env:PATH"
+# 或者将 MinGW bin 目录添加到系统 PATH 环境变量中
+
+# 如果需要使用其他目标平台，可以在命令行中覆盖：
+# cargo build --release --target x86_64-pc-windows-msvc
+
