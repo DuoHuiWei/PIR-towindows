@@ -93,6 +93,7 @@ extern "C" {
 #include <cstring>
 #include <vector>
 #include <thread>
+#include <inttypes.h>
 
 // 跨平台的 CPU ID 获取函数
 #ifdef _WIN32
@@ -135,7 +136,7 @@ struct HashMap *TABLE;
 const size_t KEY_LEN = 16;
 const size_t INP_LEN = 04;
 const size_t ENC_LEN = 33;
-const size_t N_CHUNK = 65536; // script auto change this
+const size_t N_CHUNK = 1024; // script auto change this
 const size_t THREAD_NUM = 8;
 const uint32_t THREAD_SIZE = N_CHUNK / THREAD_NUM;
 
@@ -411,21 +412,49 @@ extern "C"
 
     int load_table()
     {
+        auto start = high_resolution_clock::now();
+        printf("load_table: opening %s\n", TABLE_LOG);
+        fflush(stdout);
+
         FILE *file = fopen(TABLE_LOG, "rb");
 
         if (file == NULL) return printf("Error opening file");
 
         TABLE = (struct HashMap *)malloc(sizeof(struct HashMap));
+        if (TABLE == NULL)
+        {
+            printf("load_table: malloc HashMap failed\n");
+            fflush(stdout);
+            fclose(file);
+            return -1;
+        }
+
+        printf("load_table: allocated HashMap (%zu bytes)\n", sizeof(struct HashMap));
+        fflush(stdout);
 
         secp256k1_context *CTX = secp256k1_context_create(SECP256K1_CONTEXT_NONE);
+        printf("load_table: created secp256k1 context\n");
+        fflush(stdout);
 
         int good = secp256k1_load_discrete_log(CTX);
 
-        if (!good) return printf("erro loading dlp");
+        if (!good)
+        {
+            printf("load_table: error loading discrete log precompute\n");
+            fflush(stdout);
+            fclose(file);
+            return -1;
+        }
+
+        printf("load_table: loaded secp256k1 discrete log precompute\n");
+        printf("load_table: HASHMAP_SIZE=%u, BABY_RANGE=%u\n", (uint32_t)HASHMAP_SIZE, (uint32_t)BABY_RANGE);
+        fflush(stdout);
 
         uint32_t current = 0;
 
         uint8_t length = 0;
+
+        const uint32_t bucket_progress = 5000000;
 
         for (uint32_t i = 0; i < HASHMAP_SIZE; i++)
         {
@@ -440,9 +469,28 @@ extern "C"
             }
 
             current = current + length;
+
+            if ((i + 1) % bucket_progress == 0 || i + 1 == HASHMAP_SIZE)
+            {
+                auto now = high_resolution_clock::now();
+                auto elapsed = duration_cast<seconds>(now - start).count();
+                printf(
+                    "load_table: buckets %" PRIu32 "/%" PRIu32 ", nodes %" PRIu32 ", elapsed %llds\n",
+                    i + 1,
+                    (uint32_t)HASHMAP_SIZE,
+                    current,
+                    (long long)elapsed
+                );
+                fflush(stdout);
+            }
         }
 
         fclose(file);
+
+        auto finis = high_resolution_clock::now();
+        auto elapsed_ms = duration_cast<milliseconds>(finis - start).count();
+        printf("load_table: completed, total nodes=%" PRIu32 ", elapsed=%lldms\n", current, (long long)elapsed_ms);
+        fflush(stdout);
 
         return 0;
     }

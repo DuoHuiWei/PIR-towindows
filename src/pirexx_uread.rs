@@ -3,6 +3,8 @@ use std::convert::TryInto;
 use std::fs::File;
 use std::fs::OpenOptions;
 use std::io::Read;
+use std::io::Seek;
+use std::io::SeekFrom;
 use std::io::Write;
 use std::net::TcpStream;
 use std::ops::DerefMut;
@@ -60,7 +62,24 @@ impl Client
         
         // elgamal_key.read_exact(&mut raw_sk).expect("read sk fail");
 
-        let mut wfile = File::open("detw").expect("init detw fail");
+        let mut wfile = OpenOptions::new()
+            .read(true)
+            .write(true)
+            .open("detw").expect("init detw fail");
+
+        let detw_len = wfile.metadata().expect("detw metadata fail").len();
+
+        if detw_len == 0
+        {
+            println!("warning: detw is empty, repairing to 0x0000");
+            wfile.write_all(& (0u16).to_be_bytes()).expect("repair detw fail");
+            wfile.flush().expect("flush repaired detw fail");
+            wfile.seek(SeekFrom::Start(0)).expect("seek repaired detw fail");
+        }
+        else if detw_len != 2
+        {
+            panic!("detw length invalid: expected 2 bytes, got {} bytes", detw_len);
+        }
 
         let mut raw_det = [0u8; 2];
 
@@ -68,7 +87,7 @@ impl Client
 
         let wdet = u16::from_be_bytes(raw_det);
 
-        let wfile = File::create("detw").expect("init detw fail");
+        wfile.seek(SeekFrom::Start(0)).expect("seek detw fail");
 
 
         let item = File::create("item").expect("init item file fail");
@@ -352,7 +371,9 @@ impl Client
 
 
         self.wdet = (((self.wdet + 1) as usize) % HSIZE) as u16;
+        self.wfile.seek(SeekFrom::Start(0)).expect("seek detw fail");
         self.wfile.write_all(& self.wdet.to_be_bytes()).expect("next pos");
+        self.wfile.flush().expect("flush detw fail");
     }
 
     pub fn recover_dbitem(& self, input: [& [u8]; 4]) -> (Vec<u8>, Duration)
@@ -444,21 +465,29 @@ impl Client
 
 fn main()
 {
+    let load_start = Instant::now();
     println!("\nLoading Table ...");
 
     unsafe {load_table()}
 
+    println!("Loading Table done in {:?}", Instant::now() - load_start);
+
     println!("===== PIREX+ (Per Client Cost) Test DB: 2^{:?} entries {:?} KB", LSIZE * 2, BSIZE / 1024);
 
+    let client_init_start = Instant::now();
     let mut client = Client::new();
+    println!("Client::new done in {:?}", Instant::now() - client_init_start);
 
     let index = (12482 % NSIZE) as INDX;
     let n_test = 1;
 
     for _ in 0 .. n_test
     {
+        let access_start = Instant::now();
         client.access(index);
+        println!("client access done in {:?}", Instant::now() - access_start);
     }
 
     unsafe {free_table()}
+    println!("free_table done");
 }

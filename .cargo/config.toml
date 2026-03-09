@@ -8,8 +8,15 @@ target = "x86_64-pc-windows-gnu"
 # 配置 MinGW 工具链路径
 # 根据您的实际 MinGW 安装路径调整
 [target.x86_64-pc-windows-gnu]
-linker = "D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe"
-ar = "D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\ar.exe"
+linker = "D:\\mingw64\\bin\\gcc.exe"
+ar = "D:\\mingw64\\bin\\ar.exe"
+
+[env]
+CC = { value = "D:\\mingw64\\bin\\gcc.exe", force = true }
+CXX = { value = "D:\\mingw64\\bin\\g++.exe", force = true }
+AR = { value = "D:\\mingw64\\bin\\ar.exe", force = true }
+CARGO_TARGET_X86_64_PC_WINDOWS_GNU_LINKER = { value = "D:\\mingw64\\bin\\gcc.exe", force = true }
+CARGO_TARGET_X86_64_PC_WINDOWS_GNU_AR = { value = "D:\\mingw64\\bin\\ar.exe", force = true }
 
 # 注意：cc crate 需要编译器在 PATH 中
 # 如果构建失败，请在构建前设置 PATH：

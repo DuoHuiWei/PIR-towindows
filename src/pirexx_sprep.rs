@@ -15,6 +15,8 @@ use memmap::MmapMut;
 mod libs;
 use libs::*;
 
+const THREAD_PROGRESS_INTERVAL: usize = 256;
+const NETWORK_PROGRESS_INTERVAL: usize = 64 * 1024 * 1024;
 
 fn process_thread(it: usize, kset: Vec<u8>) -> (Duration, Vec<u8>)
 {
@@ -35,6 +37,11 @@ fn process_thread(it: usize, kset: Vec<u8>) -> (Duration, Vec<u8>)
         // println!("hint: {:?}", val);
         
         pos.copy_from_slice(val);
+
+        if (i + 1) % THREAD_PROGRESS_INTERVAL == 0 || i + 1 == REGION
+        {
+            println!("thread {it} progress {}/{}", i + 1, REGION);
+        }
     }
 
     let finis = Instant::now();
@@ -44,8 +51,30 @@ fn process_thread(it: usize, kset: Vec<u8>) -> (Duration, Vec<u8>)
     return (finis - start, hint);
 }
 
+fn read_exact_with_progress(stream: &mut TcpStream, buffer: &mut [u8], label: &str)
+{
+    let mut filled = 0usize;
+
+    while filled < buffer.len()
+    {
+        let read = stream.read(&mut buffer[filled ..]).expect(label);
+        if read == 0
+        {
+            panic!("{label}: connection closed at {filled}/{} bytes", buffer.len());
+        }
+
+        filled += read;
+
+        if filled % NETWORK_PROGRESS_INTERVAL == 0 || filled == buffer.len()
+        {
+            println!("{label}: {filled}/{} bytes", buffer.len());
+        }
+    }
+}
+
 fn handle_client(mut stream: TcpStream)
 {    
+    println!("sprep: accepted client, receiving {THREAD} kset regions");
     let mut handles = vec![];
     
     for i in 0 .. THREAD
@@ -53,6 +82,7 @@ fn handle_client(mut stream: TcpStream)
         let mut kset = vec![0u8; KSIZE * REGION];
         
         stream.read_exact(& mut kset).expect("request fail");
+        println!("sprep: received kset region {}/{}", i + 1, THREAD);
         
         let handle = thread::spawn(move || {
             return process_thread(i, kset);
@@ -69,11 +99,14 @@ fn handle_client(mut stream: TcpStream)
         let (xx, res) = handle.join().unwrap();
         result[i] = res;
         total[0] += xx;
+        println!("sprep: thread {i} joined");
     }
 
+    println!("sprep: all threads completed, sending {} hint regions", THREAD);
     for i in 0 .. THREAD
     {
         stream.write_all(& result[i]).expect("response fail");
+        println!("sprep: sent hint region {}/{}", i + 1, THREAD);
     }
 
     // ----- START RECEIVING ENCRYPTED PARITY -----
@@ -91,11 +124,11 @@ fn handle_client(mut stream: TcpStream)
     let mut mount = unsafe { MmapMut::map_mut(& pfile).expect("map fail") };
     let ehint = mount.deref_mut();
 
-    stream.read_exact(& mut ehint[.. (len_buffer / 2)]).expect("response fail"); 
-
-    ehint[(len_buffer / 2) ..].fill_with(|| 0);
+    println!("sprep: waiting for encrypted parity, total {} bytes", len_buffer);
+    read_exact_with_progress(&mut stream, &mut ehint[.. len_buffer], "sprep encrypted parity"); 
 
     pfile.flush().expect("flush fail");
+    println!("sprep: encrypted parity persisted to ehint");
 
     // ----- FINISH RECEIVING ENCRYPTED PARITY -----
 
@@ -112,6 +145,7 @@ fn handle_client(mut stream: TcpStream)
 fn main()
 {
     let listener = TcpListener::bind(SERVER_ADDRESS).expect("error binding");
+    println!("sprep: listening on {SERVER_ADDRESS}");
 
     loop {
         match listener.accept() {
