@@ -44,6 +44,7 @@ extern "C"
 pub struct Client {
     crypto: Crypto,
     item: File,
+    data: File,
     kset: MmapMut,
     ppos: MmapMut,
     wdet: u16,
@@ -52,6 +53,50 @@ pub struct Client {
 
 impl Client
 {
+    const DEBUG_BABY_RANGE: u32 = 134217728;
+
+    fn log_words(label: &str, block: &[u8])
+    {
+        let preview: Vec<u32> = block
+            .chunks_exact(MSIZE)
+            .take(8)
+            .map(|chunk| {
+                let chunk: [u8; MSIZE] = chunk.try_into().expect("preview word fail");
+                u32::from_be_bytes(chunk)
+            })
+            .collect();
+
+        println!("{label} first_words {:?}", preview);
+    }
+
+    fn log_words_normalized(label: &str, block: &[u8])
+    {
+        let preview: Vec<u32> = block
+            .chunks_exact(MSIZE)
+            .take(8)
+            .map(|chunk| {
+                let chunk: [u8; MSIZE] = chunk.try_into().expect("preview word fail");
+                u32::from_be_bytes(chunk).wrapping_sub(Self::DEBUG_BABY_RANGE)
+            })
+            .collect();
+
+        println!("{label} first_words_minus_baby_range {:?}", preview);
+    }
+
+    fn normalize_block(&self, block: &[u8]) -> Vec<u8>
+    {
+        let mut normalized = vec![0u8; block.len()];
+
+        for (index, chunk) in block.chunks_exact(MSIZE).enumerate()
+        {
+            let chunk: [u8; MSIZE] = chunk.try_into().expect("normalize word fail");
+            let value = u32::from_be_bytes(chunk).wrapping_sub(Self::DEBUG_BABY_RANGE);
+            normalized[index * MSIZE .. (index + 1) * MSIZE].copy_from_slice(&value.to_be_bytes());
+        }
+
+        normalized
+    }
+
     pub fn new() -> Self
     {
         let crypto = Crypto::new();
@@ -91,6 +136,7 @@ impl Client
 
 
         let item = File::create("item").expect("init item file fail");
+        let data = File::open("data").expect("open data fail");
 
         let key_file = OpenOptions::new()
             .read(true)
@@ -107,7 +153,7 @@ impl Client
 
         println!("client storage nbytes {:?}", kset.len() + ppos.len());
 
-        Self {crypto, item, kset, ppos, wdet, wfile}
+        Self {crypto, item, data, kset, ppos, wdet, wfile}
     }
 
     pub fn search(& self, pk: usize, offset: B_OFFSET) -> (&[u8], Vec<u8>, Vec<u8>, usize, Duration)
@@ -249,14 +295,17 @@ impl Client
 
     pub fn parity(& self, _bid: usize, half_a: & [u8], half_b: &[u8]) -> Vec<u8>
     {
-        let mut res = vec![0u8; ESIZE];
-        let mut _test = vec![117u8; BSIZE];
+        assert_eq!(half_a.len(), ESIZE, "half_a length invalid");
+        assert_eq!(half_b.len(), ESIZE, "half_b length invalid");
+
+        let mut enc = vec![0u8; ESIZE];
+        let mut block = vec![0u8; BSIZE];
 
         let start = Instant::now();
 
         for i in 0 .. ESIZE
         {
-            res[i] = half_a[i] ^ half_b[i]
+            enc[i] = half_a[i] ^ half_b[i]
         }
 
         let finis = Instant::now();
@@ -265,19 +314,65 @@ impl Client
 
         unsafe {
             set_key_and_bid(KEY.as_ptr(), KEY.len(), _bid as u32);
-            set_input_encryption(_test.as_ptr(), _test.len());
-            thread_encrypt();
-            get_output_encryption(res.as_mut_ptr(), res.len());
-        }
-
-        unsafe {
-            set_key_and_bid(KEY.as_ptr(), KEY.len(), _bid as u32);
-            set_input_decryption(res.as_ptr(), res.len());
+            set_input_decryption(enc.as_ptr(), enc.len());
             thread_decrypt();
-            get_output_decryption(_test.as_mut_ptr(), _test.len());
+            get_output_decryption(block.as_mut_ptr(), block.len());
         }
 
-        return _test;
+        return block;
+    }
+
+    pub fn expected_block(& mut self, index: usize) -> Vec<u8>
+    {
+        let mut block = vec![0u8; BSIZE];
+        self.data.seek(SeekFrom::Start((index * BSIZE) as u64)).expect("seek data fail");
+        self.data.read_exact(&mut block).expect("read data fail");
+        block
+    }
+
+    pub fn report_data_match(& mut self, index: usize, data_item: &[u8])
+    {
+        let expected = self.expected_block(index);
+
+        let mut mismatch_count = 0usize;
+        let mut first_mismatch = None;
+
+        for (offset, (actual, expected)) in data_item.iter().zip(expected.iter()).enumerate()
+        {
+            if actual != expected
+            {
+                mismatch_count += 1;
+
+                if first_mismatch.is_none()
+                {
+                    first_mismatch = Some((offset, *actual, *expected));
+                }
+            }
+        }
+
+        let expected_is_zero = expected.iter().all(|value| *value == 0);
+
+        if mismatch_count == 0
+        {
+            println!("data check ok: recovered block matches data[{index}]");
+
+            if expected_is_zero
+            {
+                println!("data check note: data[{index}] is all-zero, likely sparse/set_len initialized");
+            }
+        }
+        else
+        {
+            let (offset, actual, expected) = first_mismatch.expect("missing mismatch detail");
+            println!(
+                "data check mismatch: data[{index}] differs at byte {offset}, actual={actual}, expected={expected}, total_mismatches={mismatch_count}"
+            );
+
+            if expected_is_zero
+            {
+                println!("data check note: expected block is all-zero, so non-zero recovery suggests protocol/correctness bug");
+            }
+        }
     }
 
     
@@ -328,52 +423,67 @@ impl Client
         let current_parity = self.parity(hint_index, & x_parity, & y_parity);
         let rewrite_parity = self.parity(counter, & a_parity, & b_parity);
 
+        Self::log_words("current_parity", &current_parity);
+        Self::log_words_normalized("current_parity", &current_parity);
+        Self::log_words("rewrite_parity", &rewrite_parity);
+        Self::log_words_normalized("rewrite_parity", &rewrite_parity);
+        Self::log_words("q0_result[0]", &q0_result[0]);
+        Self::log_words("q0_result[1]", &q0_result[1]);
+        Self::log_words("q1_result[1]", &q1_result[1]);
+
 
         let (data_item, t_rec) = self.recover_dbitem([& q0_result[0], & q0_result[1], & current_parity, & q1_result[1]]);
         let (refresh_parity, t_ref) = self.refresh_parity([& r0_result[0], & r0_result[1], & data_item, & r1_result[1]]);
+        let normalized_data_item = self.normalize_block(&data_item);
+
+        Self::log_words("data_item", &data_item);
+        Self::log_words_normalized("data_item", &data_item);
+        Self::log_words("refresh_parity", &refresh_parity);
+        Self::log_words_normalized("refresh_parity", &refresh_parity);
 
         println!("recover dbitem delay {:?}", t_rec + t_ref);
         self.rewrite(rewrite_parity, counter, refresh_parity, hint_index);
+        self.report_data_match(x as usize, &normalized_data_item);
 
 
-        let view = format!("{:?}", data_item);
+        let view = format!("{:?}", normalized_data_item);
         self.item.write_all(view.as_bytes()).unwrap();
     }
 
-    pub fn rewrite(& mut self, _rewrite_parity: Vec<u8>, _counter: usize, _refresh_parity: Vec<u8>, _hint_index: usize)
+    pub fn rewrite(& mut self, rewrite_parity: Vec<u8>, counter: usize, refresh_parity: Vec<u8>, hint_index: usize)
     {   
         let mut stream = TcpStream::connect(SERVER_ADDRESS).expect("stream fail");
 
-        let mut _enc_left = vec![0u8; ESIZE];
-        let mut _enc_righ = vec![0u8; ESIZE];
+        let mut enc_left = vec![0u8; ESIZE];
+        let mut enc_righ = vec![0u8; ESIZE];
 
-        // unsafe {
-        //     set_key_and_bid(KEY.as_ptr(), KEY.len(), counter as u32);
-        //     set_input_encryption(rewrite_parity.as_ptr(), rewrite_parity.len());
-        //     thread_encrypt();
-        //     get_output_encryption(enc_left.as_mut_ptr(), enc_left.len());
-        // }
+        unsafe {
+            set_key_and_bid(KEY.as_ptr(), KEY.len(), counter as u32);
+            set_input_encryption(rewrite_parity.as_ptr(), rewrite_parity.len());
+            thread_encrypt();
+            get_output_encryption(enc_left.as_mut_ptr(), enc_left.len());
+        }
 
-        // // need additional code review
-
-        // unsafe {
-        //     set_key_and_bid(KEY.as_ptr(), KEY.len(), hint_index as u32);
-        //     set_input_encryption(refresh_parity.as_ptr(), refresh_parity.len());
-        //     thread_encrypt();
-        //     get_output_encryption(enc_righ.as_mut_ptr(), enc_righ.len());
-        // }
+        unsafe {
+            set_key_and_bid(KEY.as_ptr(), KEY.len(), hint_index as u32);
+            set_input_encryption(refresh_parity.as_ptr(), refresh_parity.len());
+            thread_encrypt();
+            get_output_encryption(enc_righ.as_mut_ptr(), enc_righ.len());
+        }
         
-        let write_data = [self.wdet.to_be_bytes().to_vec(), _enc_left, _enc_righ].concat();
+        let write_data = [self.wdet.to_be_bytes().to_vec(), enc_left, enc_righ].concat();
         stream.write_all(& write_data).expect("oblivious write fail");
 
         println!("oblivious write nbytes {:?}", ESIZE * 2);
         println!("oblivious write takes {:?}ms (in 40 Mbps)", ESIZE * 2 / 5000);
+        println!("oblivious write sent for counter={counter}, hint_index={hint_index}");
 
 
         self.wdet = (((self.wdet + 1) as usize) % HSIZE) as u16;
         self.wfile.seek(SeekFrom::Start(0)).expect("seek detw fail");
         self.wfile.write_all(& self.wdet.to_be_bytes()).expect("next pos");
         self.wfile.flush().expect("flush detw fail");
+        println!("oblivious write local detw persisted as {}", self.wdet);
     }
 
     pub fn recover_dbitem(& self, input: [& [u8]; 4]) -> (Vec<u8>, Duration)

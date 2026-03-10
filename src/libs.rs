@@ -462,6 +462,8 @@ impl HintStorage {
 
     pub fn parity(& mut self, arr: Vec<u8>) -> (Duration, Vec<u8>)
     {        
+        self.clear_regis();
+
         let bitstr = BitVec::<_, Msb0>::from_vec(arr.to_vec());
 
         let mut t_comp = Duration::from_secs(0);
@@ -474,7 +476,10 @@ impl HintStorage {
             }
         }
 
-        return (t_comp, self.xor_regis.clone());
+        let result = self.xor_regis.clone();
+        self.clear_regis();
+
+        return (t_comp, result);
     }
 
     pub fn clear_regis(& mut self)
