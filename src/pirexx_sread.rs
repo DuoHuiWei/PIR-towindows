@@ -24,6 +24,20 @@ fn log_words(label: &str, block: &[u8])
     println!("{label} first_words {:?}", preview);
 }
 
+fn log_enc_words(label: &str, block: &[u8])
+{
+    let preview: Vec<u32> = block
+        .chunks_exact(33)
+        .take(4)
+        .map(|chunk| {
+            let head: [u8; 4] = chunk[.. 4].try_into().expect("enc preview word fail");
+            u32::from_be_bytes(head)
+        })
+        .collect();
+
+    println!("{label} enc_head_words {:?}", preview);
+}
+
 
 fn handle_client(storage: & mut StoragePlus, hbuffer: & mut HintStorage, mut stream: TcpStream)
 {
@@ -119,6 +133,9 @@ fn handle_write(hbuffer: & mut HintStorage, mut stream: TcpStream)
     stream.read_exact(& mut block).expect("request write fail");
 
     let counter = u16::from_be_bytes(raw_pos) as usize;
+    println!("handle_write counter={counter} right_slot={}", counter + HSIZE);
+    log_enc_words("handle_write left", &block[.. ESIZE]);
+    log_enc_words("handle_write right", &block[ESIZE ..]);
     hbuffer.write(counter, & block[.. ESIZE]);
     hbuffer.write(counter + HSIZE, & block[ESIZE ..]);
 }

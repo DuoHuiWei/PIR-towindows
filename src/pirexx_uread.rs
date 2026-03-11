@@ -83,6 +83,20 @@ impl Client
         println!("{label} first_words_minus_baby_range {:?}", preview);
     }
 
+    fn log_enc_words(label: &str, block: &[u8])
+    {
+        let preview: Vec<u32> = block
+            .chunks_exact(33)
+            .take(4)
+            .map(|chunk| {
+                let head: [u8; 4] = chunk[.. 4].try_into().expect("enc preview word fail");
+                u32::from_be_bytes(head)
+            })
+            .collect();
+
+        println!("{label} enc_head_words {:?}", preview);
+    }
+
     pub fn new() -> Self
     {
         let crypto = Crypto::new();
@@ -491,6 +505,11 @@ impl Client
             thread_encrypt();
             get_output_encryption(enc_righ.as_mut_ptr(), enc_righ.len());
         }
+
+        Self::log_words("rewrite plain left", &rewrite_parity);
+        Self::log_words("rewrite plain right", &refresh_parity);
+        Self::log_enc_words("rewrite enc left", &enc_left);
+        Self::log_enc_words("rewrite enc right", &enc_righ);
         
         let write_data = [self.wdet.to_be_bytes().to_vec(), enc_left, enc_righ].concat();
         stream.write_all(& write_data).expect("oblivious write fail");
@@ -610,10 +629,11 @@ fn main()
     println!("Client::new done in {:?}", Instant::now() - client_init_start);
 
     let index = (12482 % NSIZE) as INDX;
-    let n_test = 1;
+    let n_test = 2;
 
     for _ in 0 .. n_test
     {
+        println!("===== client access begin =====");
         let access_start = Instant::now();
         client.access(index);
         println!("client access done in {:?}", Instant::now() - access_start);
