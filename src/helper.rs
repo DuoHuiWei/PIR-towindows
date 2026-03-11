@@ -1,10 +1,15 @@
 
 #![allow(dead_code)]
 
+use std::env;
 use std::fs::File;
 use std::fs::OpenOptions;
+use std::fs::copy;
+use std::fs::hard_link;
+use std::fs::remove_file;
 use std::io::Write;
 use std::ops::DerefMut;
+use std::path::PathBuf;
 use std::time::Duration;
 use std::time::Instant;
 use rand::Rng;
@@ -15,6 +20,54 @@ use memmap::MmapMut;
 
 mod libs;
 use libs::*;
+
+fn source_data_path() -> PathBuf
+{
+    env::var("PIREXX_SOURCE_DATA")
+        .map(PathBuf::from)
+        .unwrap_or_else(|_| PathBuf::from("data"))
+}
+
+fn reset_state_file(name: &str)
+{
+    let path = state_path(name);
+    if path.exists()
+    {
+        remove_file(&path).expect("remove stale state file fail");
+    }
+}
+
+fn init_state_dir()
+{
+    ensure_state_dir();
+
+    let source = source_data_path();
+    let target = state_path("data");
+
+    if target.exists()
+    {
+        remove_file(&target).expect("remove existing state data fail");
+    }
+
+    if source != target
+    {
+        match hard_link(&source, &target)
+        {
+            Ok(_) => println!("helper: hard-linked data from {:?} to {:?}", source, target),
+            Err(_) => {
+                copy(&source, &target).expect("copy source data into state dir fail");
+                println!("helper: copied data from {:?} to {:?}", source, target);
+            }
+        }
+    }
+
+    for name in ["hint", "ehint", "kset", "ppos", "detw", "item"]
+    {
+        reset_state_file(name);
+    }
+
+    println!("helper: state dir prepared at {:?}", state_dir());
+}
 
 
 fn test_read() -> Duration
@@ -288,8 +341,17 @@ fn test_external_elgamal()
 
 fn main()
 {
-    init_data();
-    init_hint_local();
-    init_wdet();
-    init_hint_remote();
+    let mut args = env::args().skip(1);
+
+    match args.next().as_deref()
+    {
+        Some("init-state") => init_state_dir(),
+        Some("init-all") | None => {
+            init_data();
+            init_hint_local();
+            init_wdet();
+            init_hint_remote();
+        },
+        Some(other) => panic!("unknown helper command: {}", other),
+    }
 }

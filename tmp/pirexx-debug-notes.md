@@ -395,3 +395,33 @@ Conclusion:
 
 - state-directory switching is functioning for the tested `pirexx` server read path
 - this creates a practical base for later real-file / multi-dataset workflows
+
+### Second practical enhancement
+
+Added a lightweight `helper init-state` command to reduce manual setup mistakes when switching datasets.
+
+Current behavior:
+
+- reads `PIREXX_STATE_DIR`
+- reads optional `PIREXX_SOURCE_DATA`
+- prepares `<STATE_DIR>/data` from the source data file
+- prefers hard-linking, falls back to copying
+- removes stale state artifacts before a fresh run:
+  - `hint`
+  - `ehint`
+  - `kset`
+  - `ppos`
+  - `detw`
+  - `item`
+
+Why this matters:
+
+- avoids reusing stale per-dataset state by accident
+- makes isolated multi-dataset testing much easier
+- stays outside the `sprep/uprep/sread/uread` protocol logic, so risk is comparatively low
+
+Validation summary:
+
+- prepared `tmp/state_auto` via `helper init-state`
+- reran `pirexx_sprep -> pirexx_uprep -> pirexx_sread -> pirexx_uread`
+- verified regression samples in the isolated state directory still pass
