@@ -165,3 +165,67 @@ Still worth validating separately:
 
 - second and later online reads after rewrite
 - whether the `x_parity_dec == BABY_RANGE` / `y_parity_dec == BABY_RANGE` behavior is the intended ciphertext-combination semantics or just an implementation quirk
+
+## Later Validation: Restart And Long Sequence
+
+Additional validations were run on the current `main-debug` tree after the earlier fresh-read recovery fix.
+
+### Restart `sread` Only
+
+Sequence:
+
+1. fresh preprocess
+2. start `pirexx_sread`
+3. run `pirexx_uread` for two accesses
+4. stop `pirexx_sread`
+5. restart `pirexx_sread`
+6. run `pirexx_uread` again for two more accesses
+
+Observed:
+
+- accesses 1 through 4 all logged `data check ok`
+- `ppos` advanced as expected across the restart
+- server `handle_write` continued receiving non-zero encrypted rewrite payloads
+
+### Full Process Restart
+
+Sequence:
+
+1. fresh preprocess
+2. stop all `pirexx_*` processes
+3. start fresh `pirexx_sread` + run `pirexx_uread`
+4. stop all `pirexx_*` processes again
+5. start fresh `pirexx_sread` + run `pirexx_uread` again
+
+Observed:
+
+- accesses 1 through 4 all logged `data check ok`
+- `ppos` progressed `63 -> 9216 -> 9217 -> 9218`
+- `detw` progressed `0 -> 1 -> 2 -> 3 -> 4`
+
+Conclusion:
+
+- rewrite state survives not only a server-read restart, but also a full stop/start of all relevant `pirexx_*` processes in the current workflow
+
+### Long Sequence Same-Block Validation
+
+The same non-zero block was accessed 8 times in one fresh run.
+
+Observed:
+
+- all 8 accesses logged `data check ok`
+- `ppos` progressed continuously:
+  `39 -> 9216 -> 9217 -> 9218 -> 9219 -> 9220 -> 9221 -> 9222`
+- `detw` progressed continuously from `0` to `8`
+- no server errors were logged
+
+Conclusion:
+
+- for the tested block (`data[12482]`), the current `main-debug` path is stable over at least 8 consecutive accesses
+
+### New Most Valuable Next Step
+
+The highest-value remaining check is no longer "does rewrite work at all?"
+It is now:
+
+- do other non-zero blocks behave the same way, or is this stability specific to the current injected sample block?
