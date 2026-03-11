@@ -5,9 +5,24 @@ use std::net::TcpListener;
 use std::net::TcpStream;
 use std::time::Duration;
 use std::time::Instant;
+use std::convert::TryInto;
 
 mod libs;
 use libs::*;
+
+fn log_words(label: &str, block: &[u8])
+{
+    let preview: Vec<u32> = block
+        .chunks_exact(MSIZE)
+        .take(8)
+        .map(|chunk| {
+            let chunk: [u8; MSIZE] = chunk.try_into().expect("preview word fail");
+            u32::from_be_bytes(chunk)
+        })
+        .collect();
+
+    println!("{label} first_words {:?}", preview);
+}
 
 
 fn handle_client(storage: & mut StoragePlus, hbuffer: & mut HintStorage, mut stream: TcpStream)
@@ -116,6 +131,10 @@ fn main()
 
     let mut storage = StoragePlus::new();
     let mut hbuffer = HintStorage::new();
+
+    let debug_index = 12482usize % NSIZE;
+    let debug_block = storage.debug_block(debug_index);
+    log_words(&format!("server data[{debug_index}]"), &debug_block);
 
     let mut switch = 0;
 

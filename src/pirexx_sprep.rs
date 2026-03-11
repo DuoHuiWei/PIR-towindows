@@ -116,19 +116,25 @@ fn handle_client(mut stream: TcpStream)
         .write(true)
         .create(true)
         .open("ehint").expect("init hint fail");
+    let acknown = [0u8; 1];
 
     let len_buffer = HSIZE * ESIZE * 2;
+    let recv_len = len_buffer / 2;
 
     pfile.set_len(len_buffer as u64).expect("error hint size");
 
     let mut mount = unsafe { MmapMut::map_mut(& pfile).expect("map fail") };
     let ehint = mount.deref_mut();
 
-    println!("sprep: waiting for encrypted parity, total {} bytes", len_buffer);
-    read_exact_with_progress(&mut stream, &mut ehint[.. len_buffer], "sprep encrypted parity"); 
+    println!("sprep: waiting for encrypted parity, total {} bytes (initial half {})", len_buffer, recv_len);
+    read_exact_with_progress(&mut stream, &mut ehint[.. recv_len], "sprep encrypted parity");
+    ehint[recv_len ..].fill(0);
 
+    mount.flush().expect("flush ehint mmap fail");
     pfile.flush().expect("flush fail");
-    println!("sprep: encrypted parity persisted to ehint");
+    stream.write_all(&acknown).expect("encrypted parity ack fail");
+    stream.flush().expect("encrypted parity ack flush fail");
+    println!("sprep: encrypted parity persisted to ehint (second half zero-initialized)");
 
     // ----- FINISH RECEIVING ENCRYPTED PARITY -----
 

@@ -408,6 +408,13 @@ impl StoragePlus {
 
         return (self.result(), t_comp);
     }
+
+    pub fn debug_block(& self, index: usize) -> Vec<u8>
+    {
+        let mut block = vec![0u8; BSIZE];
+        block.copy_from_slice(& self.map_space[index * BSIZE .. (index + 1) * BSIZE]);
+        block
+    }
 }
 
 

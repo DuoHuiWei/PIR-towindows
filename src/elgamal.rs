@@ -16,8 +16,8 @@ use aes::cipher::generic_array::GenericArray;
 
 
 pub type SINT = u8;
-pub type PINT = u16;
-pub const M_SIZE : usize = 2;
+pub type PINT = u32;
+pub const M_SIZE : usize = 4;
 pub const B_SQRT : PINT = 64000 + SINT::MAX as PINT;
 pub const F_EXPA : usize = 33;
 

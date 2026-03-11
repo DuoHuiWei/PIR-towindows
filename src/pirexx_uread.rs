@@ -83,20 +83,6 @@ impl Client
         println!("{label} first_words_minus_baby_range {:?}", preview);
     }
 
-    fn normalize_block(&self, block: &[u8]) -> Vec<u8>
-    {
-        let mut normalized = vec![0u8; block.len()];
-
-        for (index, chunk) in block.chunks_exact(MSIZE).enumerate()
-        {
-            let chunk: [u8; MSIZE] = chunk.try_into().expect("normalize word fail");
-            let value = u32::from_be_bytes(chunk).wrapping_sub(Self::DEBUG_BABY_RANGE);
-            normalized[index * MSIZE .. (index + 1) * MSIZE].copy_from_slice(&value.to_be_bytes());
-        }
-
-        normalized
-    }
-
     pub fn new() -> Self
     {
         let crypto = Crypto::new();
@@ -176,8 +162,7 @@ impl Client
                 let (str_a, str_b, _t_gen) = self.crypto.gen_pir(pos);
                 t_comp += Instant::now() - start;
 
-                // println!("key index {:?}", i);
-                // println!("par index {:?}", pos);
+                println!("search hit: pk={pk}, hint_index={i}, ppos={pos}");
                 
                 return (key, str_a, str_b, i, t_comp);
             }
@@ -322,6 +307,33 @@ impl Client
         return block;
     }
 
+    pub fn decrypt_enc_block(& self, bid: usize, enc: &[u8]) -> Vec<u8>
+    {
+        assert_eq!(enc.len(), ESIZE, "enc length invalid");
+
+        let mut block = vec![0u8; BSIZE];
+
+        unsafe {
+            set_key_and_bid(KEY.as_ptr(), KEY.len(), bid as u32);
+            set_input_decryption(enc.as_ptr(), enc.len());
+            thread_decrypt();
+            get_output_decryption(block.as_mut_ptr(), block.len());
+        }
+
+        block
+    }
+
+    pub fn local_ehint_block(& self, index: usize) -> Vec<u8>
+    {
+        let mut file = File::open("ehint").expect("open ehint fail");
+        let mut block = vec![0u8; ESIZE];
+
+        file.seek(SeekFrom::Start((index * ESIZE) as u64)).expect("seek ehint fail");
+        file.read_exact(&mut block).expect("read ehint fail");
+
+        block
+    }
+
     pub fn expected_block(& mut self, index: usize) -> Vec<u8>
     {
         let mut block = vec![0u8; BSIZE];
@@ -419,10 +431,20 @@ impl Client
         let (q0_result, r0_result, x_parity, a_parity) = self.request(SERVER_ADDRESS, query_0, refresh_0, & x_bitvec, & a_bitvec);
         let (q1_result, r1_result, y_parity, b_parity) = self.request(SERVER_ADDRESS, query_1, refresh_1, & y_bitvec, & b_bitvec);
 
+        let local_ehint = self.local_ehint_block(hint_index);
+        let local_ehint_dec = self.decrypt_enc_block(hint_index, &local_ehint);
+        let x_parity_dec = self.decrypt_enc_block(hint_index, &x_parity);
+        let y_parity_dec = self.decrypt_enc_block(hint_index, &y_parity);
 
         let current_parity = self.parity(hint_index, & x_parity, & y_parity);
         let rewrite_parity = self.parity(counter, & a_parity, & b_parity);
 
+        Self::log_words("local_ehint[hint_index]_dec", &local_ehint_dec);
+        Self::log_words_normalized("local_ehint[hint_index]_dec", &local_ehint_dec);
+        Self::log_words("x_parity_dec", &x_parity_dec);
+        Self::log_words_normalized("x_parity_dec", &x_parity_dec);
+        Self::log_words("y_parity_dec", &y_parity_dec);
+        Self::log_words_normalized("y_parity_dec", &y_parity_dec);
         Self::log_words("current_parity", &current_parity);
         Self::log_words_normalized("current_parity", &current_parity);
         Self::log_words("rewrite_parity", &rewrite_parity);
@@ -434,7 +456,6 @@ impl Client
 
         let (data_item, t_rec) = self.recover_dbitem([& q0_result[0], & q0_result[1], & current_parity, & q1_result[1]]);
         let (refresh_parity, t_ref) = self.refresh_parity([& r0_result[0], & r0_result[1], & data_item, & r1_result[1]]);
-        let normalized_data_item = self.normalize_block(&data_item);
 
         Self::log_words("data_item", &data_item);
         Self::log_words_normalized("data_item", &data_item);
@@ -443,10 +464,10 @@ impl Client
 
         println!("recover dbitem delay {:?}", t_rec + t_ref);
         self.rewrite(rewrite_parity, counter, refresh_parity, hint_index);
-        self.report_data_match(x as usize, &normalized_data_item);
+        self.report_data_match(x as usize, &data_item);
 
 
-        let view = format!("{:?}", normalized_data_item);
+        let view = format!("{:?}", data_item);
         self.item.write_all(view.as_bytes()).unwrap();
     }
 

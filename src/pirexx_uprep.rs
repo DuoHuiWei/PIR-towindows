@@ -2,22 +2,110 @@
 use std::fs::File;
 use std::fs::OpenOptions;
 use std::io::Read;
+use std::io::Seek;
 use std::io::Write;
 use std::net::TcpStream;
 use std::time::Instant;
 use std::ops::DerefMut;
 use memmap::MmapMut;
+use std::convert::TryInto;
 
 mod libs;
 use libs::*;
 
-mod elgamal;
-use elgamal::*;
-
-use crate::elgamal::parallel_encrypt;
-
 const HINT_READ_PROGRESS_INTERVAL: usize = 32 * 1024 * 1024;
 const ENCRYPT_PROGRESS_INTERVAL: usize = 256;
+const KEY : [u8; 16] = [0x77; 16];
+const DEBUG_BABY_RANGE: u32 = 134217728;
+
+extern "C"
+{
+    fn set_key_and_bid(input: *const u8, size: usize, bid: u32);
+
+    fn set_input_encryption(input: *const u8, size: usize);
+
+    fn set_input_decryption(input: *const u8, size: usize);
+
+    fn get_output_encryption(input: *mut u8, size: usize);
+
+    fn get_output_decryption(input: *mut u8, size: usize);
+
+    fn load_table();
+
+    fn free_table();
+
+    fn thread_encrypt();
+
+    fn thread_decrypt();
+}
+
+fn preview_words(block: &[u8]) -> Vec<u32>
+{
+    block
+        .chunks_exact(MSIZE)
+        .take(8)
+        .map(|chunk| {
+            let chunk: [u8; MSIZE] = chunk.try_into().expect("preview word fail");
+            u32::from_be_bytes(chunk)
+        })
+        .collect()
+}
+
+fn preview_words_normalized(block: &[u8]) -> Vec<u32>
+{
+    block
+        .chunks_exact(MSIZE)
+        .take(8)
+        .map(|chunk| {
+            let chunk: [u8; MSIZE] = chunk.try_into().expect("preview word fail");
+            u32::from_be_bytes(chunk).wrapping_sub(DEBUG_BABY_RANGE)
+        })
+        .collect()
+}
+
+fn preview_bytes(block: &[u8]) -> Vec<u8>
+{
+    block.iter().take(16).copied().collect()
+}
+
+fn encrypt_block(bid: usize, block: &[u8]) -> Vec<u8>
+{
+    let mut enc = vec![0u8; ESIZE];
+
+    unsafe {
+        set_key_and_bid(KEY.as_ptr(), KEY.len(), bid as u32);
+        set_input_encryption(block.as_ptr(), block.len());
+        thread_encrypt();
+        get_output_encryption(enc.as_mut_ptr(), enc.len());
+    }
+
+    enc
+}
+
+fn decrypt_block(bid: usize, enc: &[u8]) -> Vec<u8>
+{
+    let mut block = vec![0u8; BSIZE];
+
+    unsafe {
+        set_key_and_bid(KEY.as_ptr(), KEY.len(), bid as u32);
+        set_input_decryption(enc.as_ptr(), enc.len());
+        thread_decrypt();
+        get_output_decryption(block.as_mut_ptr(), block.len());
+    }
+
+    block
+}
+
+fn read_ehint_block(index: usize) -> Vec<u8>
+{
+    let mut file = File::open("ehint").expect("open ehint fail");
+    let mut block = vec![0u8; ESIZE];
+
+    file.seek(std::io::SeekFrom::Start((index * ESIZE) as u64)).expect("seek ehint fail");
+    file.read_exact(&mut block).expect("read ehint fail");
+
+    block
+}
 
 fn read_exact_with_progress(stream: &mut TcpStream, buffer: &mut [u8], label: &str)
 {
@@ -64,12 +152,6 @@ fn main()
     let mut disk = unsafe { MmapMut::map_mut(& fs_par).expect("map fail") };
     let hint = disk.deref_mut();
 
-    let mut ahe_secret = [0u8; 32];
-
-    crypto.os_random(& mut ahe_secret);
-    
-    let ahe = AHE::new(ahe_secret);
-
     let start = Instant::now();
 
     crypto.os_random(& mut kset);
@@ -80,9 +162,51 @@ fn main()
     read_exact_with_progress(&mut stream, hint, "uprep hint");
     println!("uprep: received hint, starting encryption");
 
+    let mut nonzero_blocks = 0usize;
+    let mut first_nonzero_block = None;
+    for (index, block) in hint.chunks(BSIZE).enumerate()
+    {
+        if block.iter().any(|byte| *byte != 0)
+        {
+            nonzero_blocks += 1;
+            if first_nonzero_block.is_none()
+            {
+                first_nonzero_block = Some((index, preview_words(block)));
+            }
+        }
+    }
+
+    println!("uprep: hint nonzero block count {}", nonzero_blocks);
+    match &first_nonzero_block
+    {
+        Some((index, preview)) => println!("uprep: first nonzero hint block {} words {:?}", index, preview),
+        None => println!("uprep: all hint blocks are zero"),
+    }
+
+    let mut self_check_enc = None;
+
+    if let Some((index, _preview)) = first_nonzero_block
+    {
+        let block = &hint[index * BSIZE .. (index + 1) * BSIZE];
+        println!("uprep: running local roundtrip self-check for hint block {}", index);
+
+        unsafe { load_table() };
+
+        let enc = encrypt_block(index, block);
+        let dec = decrypt_block(index, &enc);
+
+        println!("uprep: self-check plain words {:?}", preview_words(block));
+        println!("uprep: self-check dec words {:?}", preview_words(&dec));
+        println!("uprep: self-check dec words_minus_baby_range {:?}", preview_words_normalized(&dec));
+
+        self_check_enc = Some((index, enc));
+
+        unsafe { free_table() };
+    }
+
     for (iter, block) in hint.chunks(BSIZE).enumerate()
     {
-        let (enc, _time) = parallel_encrypt(&ahe, iter, & block);
+        let enc = encrypt_block(iter, block);
     
         stream.write_all(& enc).expect("send parity fail");
 
@@ -93,7 +217,10 @@ fn main()
     }
 
     println!("uprep: finished sending encrypted parity");
-    
+    let mut acknown = [0u8; 1];
+    stream.read_exact(&mut acknown).expect("wait encrypted parity ack fail");
+    println!("uprep: server acknowledged encrypted parity");
+
     let finis = Instant::now();
 
     let mut file = OpenOptions::new()
@@ -116,17 +243,21 @@ fn main()
     fs_pos.flush().expect("flush ppos fail");
     println!("uprep: persisted ppos");
 
-
-    let mut elgamal_key = File::create("ekey").expect("init ekey fail");
-
-    elgamal_key.write_all(& ahe_secret).expect("save elgamal keys");
-    elgamal_key.flush().expect("flush ekey fail");
-    println!("uprep: persisted ekey");
-
     let mut wdet = File::create("detw").expect("init detw fail");
 
     wdet.write_all(& (0 as u16).to_be_bytes()).expect("save detw");
     wdet.flush().expect("flush detw fail");
     println!("uprep: persisted detw");
+
+    if let Some((index, local_enc)) = self_check_enc
+    {
+        let remote_enc = read_ehint_block(index);
+        let same = local_enc == remote_enc;
+
+        println!("uprep: self-check remote ehint[{}] matches local enc {}", index, same);
+        println!("uprep: self-check local enc first_bytes {:?}", preview_bytes(&local_enc));
+        println!("uprep: self-check remote enc first_bytes {:?}", preview_bytes(&remote_enc));
+    }
+
     println!("uprep: completed successfully");
 }
