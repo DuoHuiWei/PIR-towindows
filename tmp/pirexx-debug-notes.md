@@ -229,3 +229,61 @@ The highest-value remaining check is no longer "does rewrite work at all?"
 It is now:
 
 - do other non-zero blocks behave the same way, or is this stability specific to the current injected sample block?
+
+## Current Regression Sample Set
+
+The current working tree now intentionally keeps a small non-zero regression sample set in `data`.
+
+Blocks and patterns:
+
+- `12482` -> repeated `0x01020304`
+- `1000` -> repeated `0x02030405`
+- `50000` -> repeated `0x04050607`
+- `200000` -> repeated `0x0708090A`
+
+Supporting backup:
+
+- original contents for the three injected sample blocks are stored in
+  `tmp/multi-sample-block-backup.json`
+
+Current recommendation:
+
+- keep these four sample blocks in place for future regression testing
+- use them as the default non-zero validation set unless a later test specifically needs a clean one-sample dataset
+
+## Multi-Sample Long Sequence Validation
+
+Using the current regression sample set:
+
+- `12482`
+- `1000`
+- `50000`
+- `200000`
+
+one fresh run was executed with:
+
+- `PIREXX_TEST_INDICES=12482,1000,50000,200000`
+- `PIREXX_N_TEST=8`
+
+Observed:
+
+- total accesses: `32`
+- total successful validations: `32`
+- total mismatches: `0`
+- no `sprep` / `sread` error output
+
+Per-sample outcome:
+
+- `12482`: 8 / 8 successful
+- `1000`: 8 / 8 successful
+- `50000`: 8 / 8 successful
+- `200000`: 8 / 8 successful
+
+State progression also remained consistent:
+
+- `detw` advanced continuously up to `32`
+- each sample block's `ppos` advanced monotonically after each rewrite
+
+Current conclusion:
+
+- on the current `main-debug` tree, the earlier "non-zero online read collapses back to zero" problem is no longer reproducible on the current regression sample set
