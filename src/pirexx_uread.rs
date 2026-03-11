@@ -8,6 +8,7 @@ use std::io::SeekFrom;
 use std::io::Write;
 use std::net::TcpStream;
 use std::ops::DerefMut;
+use std::env;
 use std::time::Duration;
 use std::time::Instant;
 use memmap::MmapMut;
@@ -628,15 +629,35 @@ fn main()
     let mut client = Client::new();
     println!("Client::new done in {:?}", Instant::now() - client_init_start);
 
-    let index = (12482 % NSIZE) as INDX;
-    let n_test = 2;
+    let indices: Vec<INDX> = env::var("PIREXX_TEST_INDICES")
+        .ok()
+        .map(|value| {
+            value
+                .split(',')
+                .filter_map(|part| part.trim().parse::<usize>().ok())
+                .map(|index| (index % NSIZE) as INDX)
+                .collect::<Vec<_>>()
+        })
+        .filter(|indices| !indices.is_empty())
+        .unwrap_or_else(|| vec![(12482 % NSIZE) as INDX]);
 
-    for _ in 0 .. n_test
+    let n_test = env::var("PIREXX_N_TEST")
+        .ok()
+        .and_then(|value| value.parse::<usize>().ok())
+        .filter(|value| *value > 0)
+        .unwrap_or(2);
+
+    println!("Test indices {:?}, n_test {}", indices, n_test);
+
+    for index in indices
     {
-        println!("===== client access begin =====");
-        let access_start = Instant::now();
-        client.access(index);
-        println!("client access done in {:?}", Instant::now() - access_start);
+        for iter in 0 .. n_test
+        {
+            println!("===== client access begin index={} iter={}/{} =====", index, iter + 1, n_test);
+            let access_start = Instant::now();
+            client.access(index);
+            println!("client access done in {:?}", Instant::now() - access_start);
+        }
     }
 
     unsafe {free_table()}
