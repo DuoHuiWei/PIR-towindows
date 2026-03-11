@@ -425,3 +425,129 @@ Validation summary:
 - prepared `tmp/state_auto` via `helper init-state`
 - reran `pirexx_sprep -> pirexx_uprep -> pirexx_sread -> pirexx_uread`
 - verified regression samples in the isolated state directory still pass
+
+### Next practical target
+
+Multi-file dataset planning is now split into a separate note:
+
+- `tmp/pirexx-multifile-dataset-plan.md`
+
+Core conclusion for that phase:
+
+- many real files should be packed into one `data`
+- one `data` corresponds to one database snapshot
+- one snapshot should have one corresponding state directory per run copy
+
+### Multi-file dataset MVP progress
+
+Implemented the first external tooling piece:
+
+- `utils/pirexx_dataset_packer.py`
+
+Current capability:
+
+- input: a directory tree of real files
+- output:
+  - `data`
+  - `manifest.json`
+- packing rules:
+  - stable lexicographic file order
+  - block size fixed at `4096`
+  - tail block zero-padded
+  - unused blocks left zero-filled in the `1 GiB` data image
+
+Validation run:
+
+- sample input root: `tmp/multifile-demo/input`
+- snapshot output root: `tmp/multifile-demo/snapshot`
+- packed files:
+  - `docs/report.txt`
+  - `notes.txt`
+  - `bin/image.bin`
+- observed result:
+  - `files packed: 3`
+  - `used blocks: 4 / 262144`
+  - output `data` size `1073741824`
+  - all files verified by reconstructing bytes from `data` using `manifest.json`
+
+Immediate next practical target after this:
+
+- add a restore/verify helper that reads blocks through `pirexx_uread` by manifest range and reconstructs named files
+
+### Multi-file restore MVP progress
+
+Implemented the second external tooling piece:
+
+- `utils/pirexx_dataset_restore.py`
+
+Current capability:
+
+- input:
+  - snapshot directory containing `data` and `manifest.json`
+- output:
+  - verify selected files or all files against manifest SHA-256
+  - optionally restore files into an output directory using original relative paths
+
+Validation run:
+
+- verify-only command succeeded for all 3 sample files
+- restore command wrote all 3 sample files into `tmp/multifile-demo/restored`
+- direct hash comparison between:
+  - `tmp/multifile-demo/input`
+  - `tmp/multifile-demo/restored`
+  confirmed all files match exactly
+
+Practical meaning:
+
+- the file-level layer is now real, not just a design note
+- we can already pack and restore named files deterministically outside the PIR online path
+- the next bridge is replacing direct `data` reads with repeated `pirexx_uread` block access
+
+### PIR-backed multi-file restore bridge
+
+Implemented the bridge from manifest-driven file restore to real `pirexx_uread` block access.
+
+Code changes:
+
+- `src/pirexx_uread.rs`
+  - added optional raw block export controlled by `PIREXX_ITEM_RAW_PATH`
+  - default text `item` output behavior remains unchanged
+- `utils/pirexx_dataset_restore.py`
+  - added `--reader pir`
+  - added `--state-dir`
+  - added `--uread-command`
+  - in PIR mode, the script now:
+    - resolves file block ranges from `manifest.json`
+    - invokes `pirexx_uread` once per block
+    - collects exported raw blocks
+    - reconstructs original files
+    - verifies SHA-256
+
+End-to-end validation on `tmp/multifile-demo`:
+
+1. built binaries with nightly toolchain
+2. prepared isolated state:
+   - `helper init-state`
+3. completed preprocess:
+   - `pirexx_sprep`
+   - `pirexx_uprep`
+4. started online server:
+   - `pirexx_sread`
+5. restored all 3 files through:
+   - `utils/pirexx_dataset_restore.py --reader pir ...`
+
+Observed result:
+
+- `restored files: 3`
+- file-by-file hash comparison between:
+  - `tmp/multifile-demo/input`
+  - `tmp/multifile-demo/restored-pir`
+  returned:
+  - `pir restore comparison ok`
+
+Meaning:
+
+- the current branch can now pack multiple real files into one snapshot
+- generate one matching PIR state set for that snapshot
+- restore named files through the actual online `pirexx_uread` path
+- verify that reconstructed bytes exactly match the original files

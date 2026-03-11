@@ -1,5 +1,6 @@
 
 use std::convert::TryInto;
+use std::fs;
 use std::fs::File;
 use std::fs::OpenOptions;
 use std::io::Read;
@@ -8,6 +9,7 @@ use std::io::SeekFrom;
 use std::io::Write;
 use std::net::TcpStream;
 use std::ops::DerefMut;
+use std::path::PathBuf;
 use std::env;
 use std::time::Duration;
 use std::time::Instant;
@@ -96,6 +98,23 @@ impl Client
             .collect();
 
         println!("{label} enc_head_words {:?}", preview);
+    }
+
+    fn export_raw_block(index: usize, block: &[u8])
+    {
+        let Some(path) = env::var("PIREXX_ITEM_RAW_PATH").ok() else {
+            return;
+        };
+
+        let output = PathBuf::from(path);
+
+        if let Some(parent) = output.parent()
+        {
+            fs::create_dir_all(parent).expect("create raw item parent fail");
+        }
+
+        fs::write(&output, block).expect("write raw item fail");
+        println!("raw block exported: index={index}, path={:?}, nbytes={}", output, block.len());
     }
 
     pub fn new() -> Self
@@ -481,6 +500,7 @@ impl Client
         println!("recover dbitem delay {:?}", t_rec + t_ref);
         self.rewrite(rewrite_parity, counter, refresh_parity, hint_index);
         self.report_data_match(x as usize, &data_item);
+        Self::export_raw_block(x as usize, &data_item);
 
 
         let view = format!("{:?}", data_item);
