@@ -98,7 +98,7 @@ fn decrypt_block(bid: usize, enc: &[u8]) -> Vec<u8>
 
 fn read_ehint_block(index: usize) -> Vec<u8>
 {
-    let mut file = File::open("ehint").expect("open ehint fail");
+    let mut file = File::open(state_path("ehint")).expect("open ehint fail");
     let mut block = vec![0u8; ESIZE];
 
     file.seek(std::io::SeekFrom::Start((index * ESIZE) as u64)).expect("seek ehint fail");
@@ -135,8 +135,10 @@ fn main()
     let crypto = Crypto::new();
     println!("uprep: connected, creating local files");
 
-    let mut fs_key = File::create("kset").expect("init kset fail");
-    let mut fs_pos = File::create("ppos").expect("init ppos fail");
+    ensure_state_dir();
+
+    let mut fs_key = File::create(state_path("kset")).expect("init kset fail");
+    let mut fs_pos = File::create(state_path("ppos")).expect("init ppos fail");
 
     let mut kset = vec![0u8; KSIZE * HSIZE];
     let mut ppos = vec![0u8; 2 * HSIZE];
@@ -145,7 +147,7 @@ fn main()
         .read(true)
         .write(true)
         .create(true)
-        .open("hint").expect("init hint fail");
+        .open(state_path("hint")).expect("init hint fail");
 
     fs_par.set_len((BSIZE * HSIZE) as u64).expect("error hint size");
 
@@ -243,7 +245,7 @@ fn main()
     fs_pos.flush().expect("flush ppos fail");
     println!("uprep: persisted ppos");
 
-    let mut wdet = File::create("detw").expect("init detw fail");
+    let mut wdet = File::create(state_path("detw")).expect("init detw fail");
 
     wdet.write_all(& (0 as u16).to_be_bytes()).expect("save detw");
     wdet.flush().expect("flush detw fail");

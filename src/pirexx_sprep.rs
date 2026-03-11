@@ -115,7 +115,7 @@ fn handle_client(mut stream: TcpStream)
         .read(true)
         .write(true)
         .create(true)
-        .open("ehint").expect("init hint fail");
+        .open(state_path("ehint")).expect("init hint fail");
     let acknown = [0u8; 1];
 
     let len_buffer = HSIZE * ESIZE * 2;
@@ -150,6 +150,7 @@ fn handle_client(mut stream: TcpStream)
 
 fn main()
 {
+    ensure_state_dir();
     let listener = TcpListener::bind(SERVER_ADDRESS).expect("error binding");
     println!("sprep: listening on {SERVER_ADDRESS}");
 

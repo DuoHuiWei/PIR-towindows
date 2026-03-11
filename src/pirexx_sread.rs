@@ -149,7 +149,7 @@ fn main()
     let mut storage = StoragePlus::new();
     let mut hbuffer = HintStorage::new();
 
-    let debug_index = 12482usize % NSIZE;
+    let debug_index = debug_index(12482usize);
     let debug_block = storage.debug_block(debug_index);
     log_words(&format!("server data[{debug_index}]"), &debug_block);
 

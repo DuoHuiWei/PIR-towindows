@@ -101,6 +101,7 @@ impl Client
     pub fn new() -> Self
     {
         let crypto = Crypto::new();
+        ensure_state_dir();
         
         // let mut elgamal_key = File::open("ekey").expect("open fail");
         
@@ -111,7 +112,7 @@ impl Client
         let mut wfile = OpenOptions::new()
             .read(true)
             .write(true)
-            .open("detw").expect("init detw fail");
+            .open(state_path("detw")).expect("init detw fail");
 
         let detw_len = wfile.metadata().expect("detw metadata fail").len();
 
@@ -136,18 +137,18 @@ impl Client
         wfile.seek(SeekFrom::Start(0)).expect("seek detw fail");
 
 
-        let item = File::create("item").expect("init item file fail");
-        let data = File::open("data").expect("open data fail");
+        let item = File::create(state_path("item")).expect("init item file fail");
+        let data = File::open(data_path()).expect("open data fail");
 
         let key_file = OpenOptions::new()
             .read(true)
             .write(true)
-            .open("kset").expect("init kset fail");
+            .open(state_path("kset")).expect("init kset fail");
 
         let pos_file = OpenOptions::new()
             .read(true)
             .write(true)
-            .open("ppos").expect("init ppos fail");
+            .open(state_path("ppos")).expect("init ppos fail");
 
         let kset = unsafe { MmapMut::map_mut(& key_file).expect("map kset fail") };
         let ppos = unsafe { MmapMut::map_mut(& pos_file).expect("map ppos fail") };
@@ -340,7 +341,7 @@ impl Client
 
     pub fn local_ehint_block(& self, index: usize) -> Vec<u8>
     {
-        let mut file = File::open("ehint").expect("open ehint fail");
+        let mut file = File::open(state_path("ehint")).expect("open ehint fail");
         let mut block = vec![0u8; ESIZE];
 
         file.seek(SeekFrom::Start((index * ESIZE) as u64)).expect("seek ehint fail");

@@ -45,11 +45,12 @@ fn test_read() -> Duration
 
 fn init_data()
 {
+    ensure_state_dir();
     let mut file = OpenOptions::new()
     .read(true)
     .write(true)
     .create(true)
-    .open("data").expect("init data fail");
+    .open(data_path()).expect("init data fail");
 
     file.set_len((BSIZE * NSIZE) as u64).expect("error file size");
 
@@ -74,7 +75,7 @@ fn init_data()
 
 fn db_read()
 {
-    let file = File::open("data").expect("open data fail");
+    let file = File::open(data_path()).expect("open data fail");
     let data = unsafe { Mmap::map(& file).expect("map fail") };
 
     let indice = 12482;
@@ -86,11 +87,12 @@ fn db_read()
 
 fn init_hint_remote()
 {
+    ensure_state_dir();
     let mut pfile = OpenOptions::new()
         .read(true)
         .write(true)
         .create(true)
-        .open("ehint").expect("init hint fail");
+        .open(state_path("ehint")).expect("init hint fail");
 
     let len_buffer = HSIZE * ESIZE * 2;
 
@@ -101,11 +103,12 @@ fn init_hint_remote()
 
 fn init_hint_local()
 {
+    ensure_state_dir();
     let mut pfile = OpenOptions::new()
         .read(true)
         .write(true)
         .create(true)
-        .open("hint").expect("init hint fail");
+        .open(state_path("hint")).expect("init hint fail");
 
     pfile.set_len((HSIZE * BSIZE) as u64).expect("error hint size");
 
@@ -121,7 +124,7 @@ fn init_hint_local()
         .read(true)
         .write(true)
         .create(true)
-        .open("kset").expect("init kset fail");
+        .open(state_path("kset")).expect("init kset fail");
 
     pkey.set_len((HSIZE * KSIZE) as u64).expect("error kset size");
 
@@ -133,7 +136,7 @@ fn init_hint_local()
     pkey.flush().expect("flush fail");
 
 
-    let mut fs_pos = File::create("ppos").expect("init ppos fail");
+    let mut fs_pos = File::create(state_path("ppos")).expect("init ppos fail");
     let mut ppos = vec![0u8; 2 * HSIZE];
 
     for (i, each) in ppos.chunks_mut(2).enumerate()
@@ -146,7 +149,8 @@ fn init_hint_local()
 
 fn init_wdet()
 {
-    let mut wdet = File::create("detw").expect("init detw fail");
+    ensure_state_dir();
+    let mut wdet = File::create(state_path("detw")).expect("init detw fail");
 
     wdet.write_all(& (0 as u16).to_be_bytes()).expect("save detw");
 }
@@ -154,7 +158,8 @@ fn init_wdet()
 
 fn init_ppos()
 {
-    let mut fs_pos = File::create("ppos").expect("init ppos fail");
+    ensure_state_dir();
+    let mut fs_pos = File::create(state_path("ppos")).expect("init ppos fail");
 
     let mut ppos = vec![0u8; 2 * HSIZE];
 

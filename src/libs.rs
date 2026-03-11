@@ -9,7 +9,10 @@ use aes::cipher::generic_array::GenericArray;
 use rand::rngs::OsRng;
 use rand::RngCore;
 use std::convert::TryInto;
+use std::env;
+use std::fs::create_dir_all;
 use std::fs::{File, OpenOptions};
+use std::path::PathBuf;
 use std::time::{Instant, Duration};
 use memmap::{Mmap, MmapMut};
 use packed_simd::{Simd, u8x64};
@@ -61,6 +64,39 @@ pub const MSIZE : usize = 4; // number of element to group for modulo
 pub const F_EXP : usize = 33;
 pub const ESIZE : usize = BSIZE / MSIZE * F_EXP; // encrypted block size
 pub type PINT = u32;
+
+pub fn state_dir() -> PathBuf
+{
+    env::var("PIREXX_STATE_DIR")
+        .map(PathBuf::from)
+        .unwrap_or_else(|_| PathBuf::from("."))
+}
+
+pub fn ensure_state_dir()
+{
+    create_dir_all(state_dir()).expect("create state dir fail");
+}
+
+pub fn state_path(name: &str) -> PathBuf
+{
+    state_dir().join(name)
+}
+
+pub fn data_path() -> PathBuf
+{
+    env::var("PIREXX_DATA_PATH")
+        .map(PathBuf::from)
+        .unwrap_or_else(|_| state_path("data"))
+}
+
+pub fn debug_index(default: usize) -> usize
+{
+    env::var("PIREXX_DEBUG_INDEX")
+        .ok()
+        .and_then(|value| value.parse::<usize>().ok())
+        .map(|index| index % NSIZE)
+        .unwrap_or(default % NSIZE)
+}
 
 
 pub fn parse_index_1(_: INDX, bytes: & [u8]) -> usize
@@ -222,7 +258,7 @@ impl Storage {
 
     pub fn new() -> Self
     {
-        let arr_block = File::open("data").expect("open data fail");
+        let arr_block = File::open(data_path()).expect("open data fail");
         let map_space = unsafe { Mmap::map(& arr_block).expect("map fail") };
         let xor_regis = [LANE::splat(0); BUNIT];
 
@@ -324,7 +360,7 @@ impl StoragePlus {
 
     pub fn new() -> Self
     {
-        let arr_block = File::open("data").expect("open data fail");
+        let arr_block = File::open(data_path()).expect("open data fail");
         let map_space = unsafe { Mmap::map(& arr_block).expect("map fail") };
         let mod_regis = [0; BSIZE / MSIZE];
 
@@ -439,7 +475,7 @@ impl HintStorage {
         let arr_block = OpenOptions::new()
             .read(true)
             .write(true)
-            .open("ehint").expect("ehint kset fail");
+            .open(state_path("ehint")).expect("ehint kset fail");
 
         let map_space = unsafe { MmapMut::map_mut(& arr_block).expect("map fail") };
 

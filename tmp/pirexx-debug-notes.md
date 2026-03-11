@@ -336,3 +336,62 @@ Planned focus areas:
 3. exercising encryption / decryption against real multiple files rather than only the current synthetic regression sample set
 4. making block size, database size (`N`), and related parameters easier to vary and test
 5. evaluating which current implementation assumptions can be generalized into more practical workflows
+
+## Practical Hardening Progress
+
+### First implemented practical enhancement
+
+The first low-risk practical enhancement in this branch is state-directory support.
+
+New environment-controlled inputs:
+
+- `PIREXX_STATE_DIR`
+  - controls where state files are read/written
+  - intended to isolate different working datasets
+- `PIREXX_DATA_PATH`
+  - still supported
+  - now defaults to `<STATE_DIR>/data` when not explicitly set
+- `PIREXX_DEBUG_INDEX`
+  - controls which block `pirexx_sread` previews at startup
+
+State files now routed through `STATE_DIR` in the active `pirexx` path:
+
+- `hint`
+- `ehint`
+- `kset`
+- `ppos`
+- `detw`
+- `item`
+
+### Why this was chosen first
+
+This change is lower risk than immediately parameterizing:
+
+- block size
+- `N`
+- `HSIZE`
+- FFI chunk geometry
+
+because those deeper parameters are still tightly coupled to compile-time constants across `libs.rs` and `helper.cpp`.
+
+### Smoke-test result
+
+A lightweight smoke test was run with:
+
+- `PIREXX_STATE_DIR=tmp/state_alt`
+- `PIREXX_DEBUG_INDEX=1000`
+
+and a separate state directory containing hard-linked `data` / `ehint`.
+
+Observed startup output from `pirexx_sread`:
+
+- `server data[1000] first_words [33752069, ...]`
+
+which matches the injected regression pattern:
+
+- `0x02030405` repeated
+
+Conclusion:
+
+- state-directory switching is functioning for the tested `pirexx` server read path
+- this creates a practical base for later real-file / multi-dataset workflows
