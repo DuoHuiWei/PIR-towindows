@@ -287,3 +287,52 @@ State progression also remained consistent:
 Current conclusion:
 
 - on the current `main-debug` tree, the earlier "non-zero online read collapses back to zero" problem is no longer reproducible on the current regression sample set
+
+## Initial Debug Closure
+
+The original debug target for this phase is considered complete.
+
+### Final conclusion for the initial debug phase
+
+- the earlier symptom "non-zero block passes zero-block tests but online non-zero recovery collapses back to zero" is not reproducible on the current `main-debug` tree
+- the current working implementation has been validated on:
+  - fresh first read
+  - second read after rewrite
+  - restart of `sread`
+  - full stop/start of all relevant `pirexx_*` processes
+  - long same-block access sequences
+  - multi-sample non-zero regression blocks
+
+### Most important stabilized findings
+
+- `data -> hint` is working on the current tree
+- `sprep/uprep` encrypted hint transfer is stable with the current ACK-based completion handling
+- `rewrite` is active and functioning in the current `main-debug` path
+- the previous false mismatch caused by incorrect `BABY_RANGE` normalization in `uread` has been removed
+- the current regression sample set is sufficient for repeated non-zero regression checks
+
+### Recommended next phase
+
+The next phase is no longer "find where the non-zero block becomes zero".
+It is now one or both of:
+
+1. codebase cleanup / consolidation
+2. protocol-level comparison against `linux-clean` and the paper, to identify which current deviations are acceptable engineering substitutions and which should be realigned
+
+### Practical status
+
+- treat the current branch as a validated working implementation for the tested regression set
+- treat `linux-clean` as the primary semantic / design reference
+- treat further work as cleanup and reconciliation, not as continuation of the original zero-recovery incident
+
+## Next Branch Focus
+
+The branch created after this initial debug closure is intended for practical hardening work rather than incident debugging.
+
+Planned focus areas:
+
+1. performance / acceleration experiments
+2. robustness improvements
+3. exercising encryption / decryption against real multiple files rather than only the current synthetic regression sample set
+4. making block size, database size (`N`), and related parameters easier to vary and test
+5. evaluating which current implementation assumptions can be generalized into more practical workflows
