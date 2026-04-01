@@ -51,14 +51,14 @@ fn preview_words(block: &[u8]) -> Vec<u32>
         .collect()
 }
 
-fn preview_words_normalized(block: &[u8]) -> Vec<u32>
+fn preview_words_delta_from_baby_range(block: &[u8]) -> Vec<i64>
 {
     block
         .chunks_exact(MSIZE)
         .take(8)
         .map(|chunk| {
             let chunk: [u8; MSIZE] = chunk.try_into().expect("preview word fail");
-            u32::from_be_bytes(chunk).wrapping_sub(DEBUG_BABY_RANGE)
+            i64::from(u32::from_be_bytes(chunk)) - i64::from(DEBUG_BABY_RANGE)
         })
         .collect()
 }
@@ -211,7 +211,10 @@ fn main()
 
             println!("uprep: self-check nonzero plain words {:?}", preview_words(block));
             println!("uprep: self-check nonzero dec words {:?}", preview_words(&dec));
-            println!("uprep: self-check nonzero dec words_minus_baby_range {:?}", preview_words_normalized(&dec));
+            println!(
+                "uprep: self-check nonzero dec words_delta_from_baby_range {:?}",
+                preview_words_delta_from_baby_range(&dec)
+            );
 
             self_check_enc = Some((index, enc));
         }
@@ -226,7 +229,10 @@ fn main()
 
             println!("uprep: self-check zero plain words {:?}", preview_words(block));
             println!("uprep: self-check zero dec words {:?}", preview_words(&dec));
-            println!("uprep: self-check zero dec words_minus_baby_range {:?}", preview_words_normalized(&dec));
+            println!(
+                "uprep: self-check zero dec words_delta_from_baby_range {:?}",
+                preview_words_delta_from_baby_range(&dec)
+            );
         }
 
         unsafe { free_table() };

@@ -70,18 +70,18 @@ impl Client
         println!("{label} first_words {:?}", preview);
     }
 
-    fn log_words_normalized(label: &str, block: &[u8])
+    fn log_words_delta_from_baby_range(label: &str, block: &[u8])
     {
-        let preview: Vec<u32> = block
+        let preview: Vec<i64> = block
             .chunks_exact(MSIZE)
             .take(8)
             .map(|chunk| {
                 let chunk: [u8; MSIZE] = chunk.try_into().expect("preview word fail");
-                u32::from_be_bytes(chunk).wrapping_sub(Self::DEBUG_BABY_RANGE)
+                i64::from(u32::from_be_bytes(chunk)) - i64::from(Self::DEBUG_BABY_RANGE)
             })
             .collect();
 
-        println!("{label} first_words_minus_baby_range {:?}", preview);
+        println!("{label} first_words_delta_from_baby_range {:?}", preview);
     }
 
     fn log_enc_words(label: &str, block: &[u8])
@@ -456,15 +456,15 @@ impl Client
         let rewrite_parity = self.parity(counter, & a_parity, & b_parity);
 
         Self::log_words("local_ehint[hint_index]_dec", &local_ehint_dec);
-        Self::log_words_normalized("local_ehint[hint_index]_dec", &local_ehint_dec);
+        Self::log_words_delta_from_baby_range("local_ehint[hint_index]_dec", &local_ehint_dec);
         Self::log_words("x_parity_dec", &x_parity_dec);
-        Self::log_words_normalized("x_parity_dec", &x_parity_dec);
+        Self::log_words_delta_from_baby_range("x_parity_dec", &x_parity_dec);
         Self::log_words("y_parity_dec", &y_parity_dec);
-        Self::log_words_normalized("y_parity_dec", &y_parity_dec);
+        Self::log_words_delta_from_baby_range("y_parity_dec", &y_parity_dec);
         Self::log_words("current_parity", &current_parity);
-        Self::log_words_normalized("current_parity", &current_parity);
+        Self::log_words_delta_from_baby_range("current_parity", &current_parity);
         Self::log_words("rewrite_parity", &rewrite_parity);
-        Self::log_words_normalized("rewrite_parity", &rewrite_parity);
+        Self::log_words_delta_from_baby_range("rewrite_parity", &rewrite_parity);
         Self::log_words("q0_result[0]", &q0_result[0]);
         Self::log_words("q0_result[1]", &q0_result[1]);
         Self::log_words("q1_result[1]", &q1_result[1]);
@@ -474,9 +474,9 @@ impl Client
         let (refresh_parity, t_ref) = self.refresh_parity([& r0_result[0], & r0_result[1], & data_item, & r1_result[1]]);
 
         Self::log_words("data_item", &data_item);
-        Self::log_words_normalized("data_item", &data_item);
+        Self::log_words_delta_from_baby_range("data_item", &data_item);
         Self::log_words("refresh_parity", &refresh_parity);
-        Self::log_words_normalized("refresh_parity", &refresh_parity);
+        Self::log_words_delta_from_baby_range("refresh_parity", &refresh_parity);
 
         println!("recover dbitem delay {:?}", t_rec + t_ref);
         self.rewrite(rewrite_parity, counter, refresh_parity, hint_index);
