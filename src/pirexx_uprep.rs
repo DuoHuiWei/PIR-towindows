@@ -166,6 +166,7 @@ fn main()
 
     let mut nonzero_blocks = 0usize;
     let mut first_nonzero_block = None;
+    let mut first_zero_block = None;
     for (index, block) in hint.chunks(BSIZE).enumerate()
     {
         if block.iter().any(|byte| *byte != 0)
@@ -176,6 +177,10 @@ fn main()
                 first_nonzero_block = Some((index, preview_words(block)));
             }
         }
+        else if first_zero_block.is_none()
+        {
+            first_zero_block = Some(index);
+        }
     }
 
     println!("uprep: hint nonzero block count {}", nonzero_blocks);
@@ -184,24 +189,45 @@ fn main()
         Some((index, preview)) => println!("uprep: first nonzero hint block {} words {:?}", index, preview),
         None => println!("uprep: all hint blocks are zero"),
     }
+    match first_zero_block
+    {
+        Some(index) => println!("uprep: first zero hint block {}", index),
+        None => println!("uprep: no zero hint block found"),
+    }
 
     let mut self_check_enc = None;
 
-    if let Some((index, _preview)) = first_nonzero_block
+    if first_nonzero_block.is_some() || first_zero_block.is_some()
     {
-        let block = &hint[index * BSIZE .. (index + 1) * BSIZE];
-        println!("uprep: running local roundtrip self-check for hint block {}", index);
-
         unsafe { load_table() };
 
-        let enc = encrypt_block(index, block);
-        let dec = decrypt_block(index, &enc);
+        if let Some((index, _preview)) = first_nonzero_block
+        {
+            let block = &hint[index * BSIZE .. (index + 1) * BSIZE];
+            println!("uprep: running local roundtrip self-check for nonzero hint block {}", index);
 
-        println!("uprep: self-check plain words {:?}", preview_words(block));
-        println!("uprep: self-check dec words {:?}", preview_words(&dec));
-        println!("uprep: self-check dec words_minus_baby_range {:?}", preview_words_normalized(&dec));
+            let enc = encrypt_block(index, block);
+            let dec = decrypt_block(index, &enc);
 
-        self_check_enc = Some((index, enc));
+            println!("uprep: self-check nonzero plain words {:?}", preview_words(block));
+            println!("uprep: self-check nonzero dec words {:?}", preview_words(&dec));
+            println!("uprep: self-check nonzero dec words_minus_baby_range {:?}", preview_words_normalized(&dec));
+
+            self_check_enc = Some((index, enc));
+        }
+
+        if let Some(index) = first_zero_block
+        {
+            let block = &hint[index * BSIZE .. (index + 1) * BSIZE];
+            println!("uprep: running local roundtrip self-check for zero hint block {}", index);
+
+            let enc = encrypt_block(index, block);
+            let dec = decrypt_block(index, &enc);
+
+            println!("uprep: self-check zero plain words {:?}", preview_words(block));
+            println!("uprep: self-check zero dec words {:?}", preview_words(&dec));
+            println!("uprep: self-check zero dec words_minus_baby_range {:?}", preview_words_normalized(&dec));
+        }
 
         unsafe { free_table() };
     }

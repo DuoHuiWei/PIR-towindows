@@ -186,6 +186,7 @@ void decrypter(uint32_t start, vector<long int>& rtimes, size_t index)
 {
     // int cpu = sched_getcpu();
     // printf("current CPU ID: %d \n", cpu);
+    static int reverse_debug_count = 0;
 
     secp256k1_context *CTX = secp256k1_context_create(SECP256K1_CONTEXT_NONE);
 
@@ -201,7 +202,34 @@ void decrypter(uint32_t start, vector<long int>& rtimes, size_t index)
     {
         memcpy(&BLIND[28], &counter, sizeof(counter));
         good = secp256k1_elgamal_decryption(CTX, TABLE, &ENC[counter * ENC_LEN], ENC_LEN, BLIND, 32, &DEC[counter * INP_LEN], INP_LEN, BABY_RANGE);
+        if (reverse_debug_count < 8)
+        {
+            uint8_t *before = &DEC[counter * INP_LEN];
+            printf(
+                "reverse debug before: counter=%" PRIu32 " bytes=%u,%u,%u,%u\n",
+                counter,
+                before[0],
+                before[1],
+                before[2],
+                before[3]
+            );
+            fflush(stdout);
+        }
         reverse(&DEC[counter * INP_LEN], &DEC[(counter + 1) * INP_LEN]);
+        if (reverse_debug_count < 8)
+        {
+            uint8_t *after = &DEC[counter * INP_LEN];
+            printf(
+                "reverse debug after: counter=%" PRIu32 " bytes=%u,%u,%u,%u\n",
+                counter,
+                after[0],
+                after[1],
+                after[2],
+                after[3]
+            );
+            fflush(stdout);
+            reverse_debug_count++;
+        }
     }
 
     auto tail = high_resolution_clock::now();
@@ -241,7 +269,7 @@ extern "C"
             total += res;
         }
 
-        printf("client decrypt delay %lldms \n", (long long)(total / THREAD_NUM));
+        // printf("client decrypt delay %lldms \n", (long long)(total / THREAD_NUM));
         fflush(stdout);
     }
 
@@ -268,7 +296,7 @@ extern "C"
             total += res;
         }
 
-        printf("client encrypt delay %lldms \n", (long long)(total / THREAD_NUM));
+        // printf("client encrypt delay %lldms \n", (long long)(total / THREAD_NUM));
         fflush(stdout);
     }
 

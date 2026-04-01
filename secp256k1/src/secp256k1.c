@@ -913,6 +913,8 @@ int secp256k1_elgamal_decryption(const secp256k1_context* ctx, struct HashMap *t
     secp256k1_scalar scalar_blind;
     uint64_t hash_key;
     uint32_t i = 0, j = 0, result = 0;
+    int initial_infinity = 0;
+    static int zero_path_debug_count = 0;
 
     if (ctx == NULL || inputlen != 33 || blindlen != 32 || outputlen != 4) return printf("ERROR!!!");
 
@@ -922,6 +924,21 @@ int secp256k1_elgamal_decryption(const secp256k1_context* ctx, struct HashMap *t
 
     secp256k1_ecmult_gen(&ctx->ecmult_gen_ctx, &enc_jacobi, &scalar_blind);
     secp256k1_gej_add_ge(&enc_jacobi, &enc_jacobi, &enc_affine);
+    initial_infinity = secp256k1_gej_is_infinity(&enc_jacobi);
+    if (initial_infinity) {
+        result = 0;
+        if (zero_path_debug_count < 32) {
+            printf(
+                "zero-path debug: initial_infinity=%d early_return_zero range=%u\n",
+                initial_infinity,
+                range
+            );
+            fflush(stdout);
+            zero_path_debug_count++;
+        }
+        memcpy(output, &result, outputlen);
+        return 1;
+    }
     secp256k1_gej_hash_key(enc_jacobi, &hash_key);
     
     for (i = 0; i <= GIANT_STEP; i++)
@@ -936,6 +953,20 @@ int secp256k1_elgamal_decryption(const secp256k1_context* ctx, struct HashMap *t
     if (i >= range) return printf("DEAD DEAD DEAD \n");
 
     result = i * range + j;
+    if ((initial_infinity || result == range || result == 2 * range || j == range) && zero_path_debug_count < 32)
+    {
+        printf(
+            "zero-path debug: initial_infinity=%d i=%u j=%u result=%u range=%u hash_key=%llu\n",
+            initial_infinity,
+            i,
+            j,
+            result,
+            range,
+            (unsigned long long)hash_key
+        );
+        fflush(stdout);
+        zero_path_debug_count++;
+    }
     memcpy(output, &result, outputlen);
     
     return 1;
