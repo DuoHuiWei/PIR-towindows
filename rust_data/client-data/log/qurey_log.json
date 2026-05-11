@@ -1,0 +1,164 @@
+[
+  {
+    "query_username": "admin",
+    "db_name": "bank2604",
+    "file_name": "alpha_notes.txt",
+    "download_action": "pirex+",
+    "query_time_utc": "2026-05-11T10:34:51+00:00",
+    "download_result": "成功",
+    "avg_block_query_time_ms": 18.2241
+  },
+  {
+    "query_username": "admin",
+    "db_name": "bank2604",
+    "file_name": "beta_report.txt",
+    "download_action": "pirex",
+    "query_time_utc": "2026-05-11T10:39:12+00:00",
+    "download_result": "成功",
+    "avg_block_query_time_ms": 23.8014
+  },
+  {
+    "query_username": "user001",
+    "db_name": "bank2604",
+    "file_name": "gamma_summary.txt",
+    "download_action": "直接恢复",
+    "query_time_utc": "2026-05-11T10:45:08+00:00",
+    "download_result": "成功",
+    "avg_block_query_time_ms": null
+  },
+  {
+    "query_username": "user002",
+    "db_name": "banktestt1",
+    "file_name": "demo_ledger.txt",
+    "download_action": "pirex+",
+    "query_time_utc": "2026-05-11T10:51:33+00:00",
+    "download_result": "失败",
+    "avg_block_query_time_ms": 41.5502
+  },
+  {
+    "query_username": "admin",
+    "db_name": "banktestt1",
+    "file_name": "notes.txt",
+    "download_action": "直接恢复",
+    "query_time_utc": "2026-05-11T11:02:27+00:00",
+    "download_result": "成功",
+    "avg_block_query_time_ms": null
+  },
+  {
+    "query_username": "user003",
+    "db_name": "bank2604",
+    "file_name": "alpha_notes.txt",
+    "download_action": "pirex",
+    "query_time_utc": "2026-05-11T11:08:19+00:00",
+    "download_result": "失败",
+    "avg_block_query_time_ms": 29.1178
+  },
+  {
+    "query_username": "admin",
+    "db_name": "bank2604",
+    "file_name": "alpha_notes.txt",
+    "download_action": "pirex",
+    "query_time_utc": "2026-05-11T10:37:09.614220+00:00",
+    "download_result": "failed",
+    "avg_block_query_time_ms": null
+  },
+  {
+    "query_username": "admin",
+    "db_name": "bank2604",
+    "file_name": "beta_report.txt",
+    "download_action": "pirex",
+    "query_time_utc": "2026-05-11T10:37:17.045050+00:00",
+    "download_result": "failed",
+    "avg_block_query_time_ms": null
+  },
+  {
+    "query_username": "admin",
+    "db_name": "bank2604",
+    "file_name": "gamma_summary.txt",
+    "download_action": "pirex",
+    "query_time_utc": "2026-05-11T10:37:20.556107+00:00",
+    "download_result": "failed",
+    "avg_block_query_time_ms": null
+  },
+  {
+    "query_username": "admin",
+    "db_name": "bank2604",
+    "file_name": "alpha_notes.txt",
+    "download_action": "pirex",
+    "query_time_utc": "2026-05-11T12:51:27.409436+00:00",
+    "download_result": "failed",
+    "avg_block_query_time_ms": null
+  },
+  {
+    "query_username": "admin",
+    "db_name": "test1",
+    "file_name": "附5.docx",
+    "download_action": "pirex",
+    "query_time_utc": "2026-05-11T12:51:46.924149+00:00",
+    "download_result": "failed",
+    "avg_block_query_time_ms": null
+  },
+  {
+    "query_username": "admin",
+    "db_name": "test1",
+    "file_name": "附7.docx",
+    "download_action": "pirex",
+    "query_time_utc": "2026-05-11T12:51:51.462857+00:00",
+    "download_result": "failed",
+    "avg_block_query_time_ms": null
+  },
+  {
+    "query_username": "admin",
+    "db_name": "bank2604",
+    "file_name": "alpha_notes.txt",
+    "download_action": "pirex",
+    "query_time_utc": "2026-05-11T13:24:38.634086+00:00",
+    "download_result": "failed",
+    "avg_block_query_time_ms": null
+  },
+  {
+    "query_username": "admin",
+    "db_name": "bank1",
+    "file_name": "提案.docx",
+    "download_action": "direct",
+    "query_time_utc": "2026-05-11T14:35:33.385030+00:00",
+    "download_result": "success",
+    "avg_block_query_time_ms": null
+  },
+  {
+    "query_username": "admin",
+    "db_name": "bank1",
+    "file_name": "提案.docx",
+    "download_action": "direct",
+    "query_time_utc": "2026-05-11T14:40:31.731581+00:00",
+    "download_result": "success",
+    "avg_block_query_time_ms": null
+  },
+  {
+    "query_username": "admin",
+    "db_name": "bank1",
+    "file_name": "提案.docx",
+    "download_action": "direct",
+    "query_time_utc": "2026-05-11T14:40:43.458410+00:00",
+    "download_result": "success",
+    "avg_block_query_time_ms": null
+  },
+  {
+    "query_username": "admin",
+    "db_name": "bank1",
+    "file_name": "提案.docx",
+    "download_action": "direct",
+    "query_time_utc": "2026-05-11T14:41:46.536809+00:00",
+    "download_result": "success",
+    "avg_block_query_time_ms": null
+  },
+  {
+    "query_username": "admin",
+    "db_name": "bank1",
+    "file_name": "提案.docx",
+    "download_action": "pirex",
+    "query_time_utc": "2026-05-11T14:41:50.730545+00:00",
+    "download_result": "success",
+    "avg_block_query_time_ms": 17.3107
+  }
+]

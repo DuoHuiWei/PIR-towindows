@@ -1,0 +1,11 @@
+{
+  "databases": [
+    {
+      "db_name": "bank1",
+      "created_at_utc": "2026-05-11T14:12:52.172948+00:00",
+      "file_count": 3,
+      "total_size_bytes": 147258,
+      "prep_status": "pirex"
+    }
+  ]
+}

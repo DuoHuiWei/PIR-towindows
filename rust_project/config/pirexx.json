@@ -1,0 +1,8 @@
+{
+  "workspace_root": "E:\\pir-worktrees\\new-work-v1",
+  "server_data_root": "rust_data\\server-data",
+  "data_dir_name": "snapshot",
+  "data_file_name": "data.bin",
+  "state_dir_name": "state-pirexx",
+  "raw_item_export_dir": "rust_data\\client-data\\data_item"
+}

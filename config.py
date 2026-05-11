@@ -1,65 +1,154 @@
+from __future__ import annotations
 
-import sys
 from pathlib import Path
 
 
-lib_path = Path("src/libs.rs")
-util_path = Path("utils/helper.cpp")
+WORKSPACE_ROOT = Path(r"E:\pir-worktrees\new-work-v1")
+
+# Server-side database layout
+SERVER_DATA_ROOT = Path(r"rust_data\server-data")
+SOURCE_DATA_DIR_NAME = "data"
+SNAPSHOT_DIR_NAME = "snapshot"
+PACKED_DATA_FILE_NAME = "data.bin"
+
+# Client-side metadata and temporary block exports
+CLIENT_MANIFEST_DIR = Path(r"rust_data\client-data\manifest")
+CLIENT_DATA_ITEM_DIR = Path(r"rust_data\client-data\data_item")
+CLIENT_LOG_DIR = Path(r"rust_data\client-data\log")
+CLIENT_TMPDATA_DIR = Path(r"tmpdata")
+
+# Final restored file output root
+RECOVER_ROOT = Path("recover-file")
+
+# Current PIREXX geometry
+PIREXX_BLOCK_SIZE = 256 * 1024
+PIREXX_BLOCK_COUNT = 256
+PIREX_BLOCK_SIZE = PIREXX_BLOCK_SIZE
+PIREX_BLOCK_COUNT = PIREXX_BLOCK_COUNT
+SHOW_UPLOAD_LIMIT_HINT = False
+
+# Rust invocation defaults
+RUST_PROJECT_DIR = WORKSPACE_ROOT / "rust_project"
+RUST_TARGET_RELEASE_DIR = RUST_PROJECT_DIR / r"target\x86_64-pc-windows-gnu\release"
+RUST_SCHEME_BIN_DIR = RUST_PROJECT_DIR / "bin"
 
 
-def replace_prefixed_line(lines, prefix, replacement):
-    replaced = 0
-
-    for index, line in enumerate(lines):
-        if line.startswith(prefix):
-            lines[index] = replacement
-            replaced += 1
-
-    if replaced != 1:
-        raise RuntimeError(f"expected exactly one line starting with {prefix!r}, found {replaced}")
+def _resolve_rust_binary(scheme_name: str, binary_name: str) -> Path:
+    preferred = RUST_SCHEME_BIN_DIR / scheme_name / binary_name
+    fallback = RUST_TARGET_RELEASE_DIR / binary_name
+    return preferred if preferred.is_file() else fallback
 
 
-def front_mask(psize):
-    raw = bin(pow(2, psize // 2) - 1)
-    if psize // 2 > 8:
-        return raw[:-8]
-    return raw
+PIREX_UREAD_EXE = _resolve_rust_binary("pirex", "pirex_uread.exe")
+PIREX_SREAD_EXE = _resolve_rust_binary("pirex", "pirex_sread.exe")
+PIREX_UPREP_EXE = _resolve_rust_binary("pirex", "pirex_uprep.exe")
+PIREX_SPREP_EXE = _resolve_rust_binary("pirex", "pirex_sprep.exe")
+PIREXX_UREAD_EXE = _resolve_rust_binary("pirexx", "pirexx_uread.exe")
+PIREXX_SREAD_EXE = _resolve_rust_binary("pirexx", "pirexx_sread.exe")
+PIREXX_UPREP_EXE = _resolve_rust_binary("pirexx", "pirexx_uprep.exe")
+PIREXX_SPREP_EXE = _resolve_rust_binary("pirexx", "pirexx_sprep.exe")
+HELPER_EXE = RUST_TARGET_RELEASE_DIR / "helper.exe"
+
+PIREX_SERVER_ADDRESS = "127.0.0.1:52024"
+PIREXX_SERVER_ADDRESS = "127.0.0.1:52014"
+SERVER_API_BASE_URL = "http://127.0.0.1:8001"
 
 
-def main():
-    if len(sys.argv) != 3:
-        raise SystemExit("usage: python config.py <bsize> <psize>")
-
-    bsize = int(sys.argv[1])
-    psize = int(sys.argv[2])
-
-    libs_lines = lib_path.read_text(encoding="utf-8").splitlines(keepends=True)
-    helper_lines = util_path.read_text(encoding="utf-8").splitlines(keepends=True)
-
-    replace_prefixed_line(libs_lines, "pub const BUNIT: usize =", f"pub const BUNIT: usize = {bsize}; // one block has __ chunks\n")
-    replace_prefixed_line(libs_lines, "pub const NSIZE: usize =", f"pub const NSIZE: usize = {pow(2, psize)}; // dbase size\n")
-    replace_prefixed_line(libs_lines, "pub const LSIZE: usize =", f"pub const LSIZE: usize = {psize // 2}; // logarithm sqrt\n")
-    replace_prefixed_line(libs_lines, "pub const HSIZE: usize =", f"pub const HSIZE: usize = SSIZE * {psize}; // hint size\n")
-    replace_prefixed_line(libs_lines, "pub const FRONT: u8 =", f"pub const FRONT: u8 = {front_mask(psize)};\n")
-
-    if psize // 2 > 8:
-        replace_prefixed_line(libs_lines, "pub const ISIZE: usize =", "pub const ISIZE: usize = 0004; // one indice has __ bytes\n")
-        replace_prefixed_line(libs_lines, "pub const ISQRT: usize =", "pub const ISQRT: usize = 0002; // one offset has __ bytes\n")
-        replace_prefixed_line(libs_lines, "pub type SQRT =", "pub type SQRT = u16;\n")
-        replace_prefixed_line(libs_lines, "pub type INDX =", "pub type INDX = u32;\n")
-    else:
-        replace_prefixed_line(libs_lines, "pub const ISIZE: usize =", "pub const ISIZE: usize = 0002; // one indice has __ bytes\n")
-        replace_prefixed_line(libs_lines, "pub const ISQRT: usize =", "pub const ISQRT: usize = 0001; // one offset has __ bytes\n")
-        replace_prefixed_line(libs_lines, "pub type SQRT =", "pub type SQRT = u8;\n")
-        replace_prefixed_line(libs_lines, "pub type INDX =", "pub type INDX = u16;\n")
-
-    replace_prefixed_line(helper_lines, "const size_t N_CHUNK =", f"const size_t N_CHUNK = {bsize * 16}; // script auto change this\n")
-
-    lib_path.write_text("".join(libs_lines), encoding="utf-8")
-    util_path.write_text("".join(helper_lines), encoding="utf-8")
-
-    print(f"updated config: BUNIT={bsize}, NSIZE=2^{psize}, helper N_CHUNK={bsize * 16}")
+def workspace_path(*parts: str) -> Path:
+    return WORKSPACE_ROOT.joinpath(*parts)
 
 
-if __name__ == "__main__":
-    main()
+def server_data_root() -> Path:
+    return WORKSPACE_ROOT / SERVER_DATA_ROOT
+
+
+def database_root(db_name: str) -> Path:
+    return server_data_root() / db_name
+
+
+def source_data_dir(db_name: str) -> Path:
+    return database_root(db_name) / SOURCE_DATA_DIR_NAME
+
+
+def snapshot_dir(db_name: str) -> Path:
+    return database_root(db_name) / SNAPSHOT_DIR_NAME
+
+
+def packed_data_path(db_name: str) -> Path:
+    return snapshot_dir(db_name) / PACKED_DATA_FILE_NAME
+
+
+def snapshot_manifest_path(db_name: str) -> Path:
+    return snapshot_dir(db_name) / f"{db_name}_manifest.json"
+
+
+def server_pirex_state_dir(db_name: str) -> Path:
+    return database_root(db_name) / "state-pirex"
+
+
+def server_pirexx_state_dir(db_name: str) -> Path:
+    return database_root(db_name) / "state-pirexx"
+
+
+def client_manifest_dir() -> Path:
+    return WORKSPACE_ROOT / CLIENT_MANIFEST_DIR
+
+
+def manifest_path(db_name: str) -> Path:
+    return client_manifest_dir() / f"{db_name}_manifest.json"
+
+
+def client_data_item_dir() -> Path:
+    return WORKSPACE_ROOT / CLIENT_DATA_ITEM_DIR
+
+
+def client_pirex_data_item_dir() -> Path:
+    return WORKSPACE_ROOT / Path(r"rust_data\client-data\data_item_pirex")
+
+
+def client_pirexx_data_item_dir() -> Path:
+    return client_data_item_dir()
+
+
+def client_log_dir() -> Path:
+    return WORKSPACE_ROOT / CLIENT_LOG_DIR
+
+
+def client_query_log_path() -> Path:
+    return client_log_dir() / "qurey_log.json"
+
+
+def client_user_manager_log_path() -> Path:
+    return client_log_dir() / "user_manager_log.json"
+
+
+def client_database_log_path() -> Path:
+    return client_log_dir() / "database_log.json"
+
+
+def client_all_log_path() -> Path:
+    return client_log_dir() / "all_log.json"
+
+
+def client_preprocessing_log_path() -> Path:
+    return client_log_dir() / "preprocessing_log.json"
+
+
+def client_tmpdata_root() -> Path:
+    return WORKSPACE_ROOT / CLIENT_TMPDATA_DIR
+
+
+def recover_root() -> Path:
+    return WORKSPACE_ROOT / RECOVER_ROOT
+
+
+def recover_db_dir(db_name: str) -> Path:
+    return recover_root() / db_name
+
+
+def pirexx_dataset_capacity_bytes() -> int:
+    return PIREXX_BLOCK_SIZE * PIREXX_BLOCK_COUNT
+
+
+def pirex_dataset_capacity_bytes() -> int:
+    return PIREX_BLOCK_SIZE * PIREX_BLOCK_COUNT

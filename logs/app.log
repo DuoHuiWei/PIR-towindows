@@ -1,0 +1,550 @@
+2026-05-06T22:31:33 [login] user=admin role=admin
+2026-05-06T22:45:03 [restore_direct] db=bank2604 file=alpha_notes.txt
+2026-05-06T22:52:59 [restore_direct] db=bank2604 file=alpha_notes.txt
+2026-05-06T23:03:29 [restore_pir] db=bank2604 file=alpha_notes.txt server=127.0.0.1:52014
+2026-05-06T23:13:51 [sread_start_error] db=bank2604 error=pirexx_sread failed to start for bank2604 at 127.0.0.1:64651
+stdout:
+server data[194] first_words [0, 0, 0, 0, 0, 0, 0, 0]
+
+===== PIREX+ (Per Server Cost) Test DB: 2^8 entries 256 KB
+
+stderr:
+thread 'main' panicked at src/pirexx_sread.rs:56:38:
+request pir fail: Error { kind: UnexpectedEof, message: "failed to fill whole buffer" }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+2026-05-06T23:14:16 [sread_start] db=bank2604 addr=127.0.0.1:64685
+2026-05-06T23:14:31 [restore_pir_error] db=bank2604 file=alpha_notes.txt error=pirexx_uread failed for alpha_notes.txt
+stdout:
+
+Loading Table ...
+load_table: opening utils/dlp.bin
+load_table: allocated HashMap (2738041616 bytes)
+load_table: created secp256k1 context
+load_table: loaded secp256k1 discrete log precompute
+load_table: HASHMAP_SIZE=147639491, BABY_RANGE=134217728
+load_table: buckets 5000000/147639491, nodes 4687556, elapsed 0s
+load_table: buckets 10000000/147639491, nodes 9376243, elapsed 0s
+load_table: buckets 15000000/147639491, nodes 14014470, elapsed 1s
+load_table: buckets 20000000/147639491, nodes 18544184, elapsed 1s
+load_table: buckets 25000000/147639491, nodes 23074044, elapsed 2s
+load_table: buckets 30000000/147639491, nodes 27604467, elapsed 2s
+load_table: buckets 35000000/147639491, nodes 32136781, elapsed 3s
+load_table: buckets 40000000/147639491, nodes 36668489, elapsed 3s
+load_table: buckets 45000000/147639491, nodes 41201418, elapsed 4s
+load_table: buckets 50000000/147639491, nodes 45733774, elapsed 4s
+load_table: buckets 55000000/147639491, nodes 50265759, elapsed 4s
+load_table: buckets 60000000/147639491, nodes 54798129, elapsed 5s
+load_table: buckets 65000000/147639491, nodes 59328700, elapsed 5s
+load_table: buckets 70000000/147639491, nodes 63860203, elapsed 6s
+load_table: buckets 75000000/147639491, nodes 68391740, elapsed 6s
+load_table: buckets 80000000/147639491, nodes 72922282, elapsed 6s
+load_table: buckets 85000000/147639491, nodes 77451468, elapsed 7s
+load_table: buckets 90000000/147639491, nodes 81982146, elapsed 7s
+load_table: buckets 95000000/147639491, nodes 86514946, elapsed 8s
+load_table: buckets 100000000/147639491, nodes 91047594, elapsed 8s
+load_table: buckets 105000000/147639491, nodes 95579135, elapsed 9s
+load_table: buckets 110000000/147639491, nodes 100108343, elapsed 9s
+load_table: buckets 115000000/147639491, nodes 104637329, elapsed 9s
+load_table: buckets 120000000/147639491, nodes 109168210, elapsed 10s
+load_table: buckets 125000000/147639491, nodes 113698365, elapsed 10s
+load_table: buckets 130000000/147639491, nodes 118233456, elapsed 11s
+load_table: buckets 135000000/147639491, nodes 122763785, elapsed 11s
+load_table: buckets 140000000/147639491, nodes 127293678, elapsed 12s
+load_table: buckets 145000000/147639491, nodes 131828481, elapsed 12s
+load_table: buckets 147639491/147639491, nodes 134217728, elapsed 12s
+load_table: completed, total nodes=134217728, elapsed=12767ms
+Loading Table done in 12.7675668s
+===== PIREX+ (Per Client Cost) Test DB: 2^8 entries 256 KB
+client storage nbytes 2304
+Client::new done in 10.6912ms
+Test indices [0], n_test 1
+===== client access begin index=0 iter=1/1 =====
+search hit: pk=0, hint_index=1, ppos=128
+generate query delay 13.6碌s
+
+stderr:
+None
+2026-05-06T23:18:29 [sread_start] db=bank2604 addr=127.0.0.1:65189
+2026-05-06T23:18:47 [sread_start] db=bank2604 addr=127.0.0.1:65189
+2026-05-06T23:19:15 [restore_pir_error] db=bank2604 file=alpha_notes.txt error=sha256 mismatch for alpha_notes.txt: expected 05dccf3a45d6f3a6d5237a32fe148b5cef6f04903f2321082fee4197700369e4, got f5a6fefcf273004ec9c7af7b53166fb89ec398b18ba2889184dff0e6b61c9daf
+2026-05-06T23:33:58 [login] user=admin role=admin
+2026-05-06T23:41:36 [login] user=admin role=admin
+2026-05-07T00:25:35 [login] user=admin role=admin
+2026-05-07T00:41:40 [login] user=admin role=admin
+2026-05-07T00:42:22 [database_create] db=bankdemo2
+2026-05-07T00:42:22 [client_database_create] db=bankdemo2
+2026-05-07T00:42:31 [client_database_create_error] db=bankdemo2 error=database already exists: bankdemo2
+2026-05-07T00:53:06 [login] user=admin role=admin
+2026-05-07T00:53:33 [database_create] db=bankdemo3
+2026-05-07T00:53:33 [client_database_create] db=bankdemo3
+2026-05-07T00:53:45 [client_database_create_error] db=bankdemo3 error=database already exists: bankdemo3
+2026-05-07T01:42:49 [login] user=admin role=admin
+2026-05-07T01:46:41 [login] user=admin role=admin
+2026-05-07T01:48:18 [database_create] db=bankupload1
+2026-05-07T01:48:18 [client_database_create] db=bankupload1
+2026-05-07T01:50:14 [client_tmpdata_stage_error] db=数据库添加成功 error=db_name must match [A-Za-z0-9_-]+
+2026-05-07T01:50:21 [client_tmpdata_stage_error] db=数据库添加成功 error=db_name must match [A-Za-z0-9_-]+
+2026-05-07T02:18:33 [login] user=admin role=admin
+2026-05-07T02:19:15 [client_database_create_error] db=bankdemo2 error=database already exists: bankdemo2
+2026-05-07T02:19:46 [database_create] db=bankdemo4
+2026-05-07T02:19:46 [client_database_create] db=bankdemo4
+2026-05-07T02:19:51 [client_tmpdata_stage_error] db=数据库添加成功 error=db_name must match [A-Za-z0-9_-]+
+2026-05-07T02:20:13 [client_tmpdata_stage_error] db=数据库添加成功 error=db_name must match [A-Za-z0-9_-]+
+2026-05-07T02:31:48 [login] user=admin role=admin
+2026-05-07T02:32:43 [database_create] db=bank00
+2026-05-07T02:32:43 [client_database_create] db=bank00
+2026-05-07T02:32:48 [client_tmpdata_stage] db=bank00 files=1
+2026-05-07T02:32:59 [database_upload] db=bank00 files=1
+2026-05-07T02:32:59 [client_database_upload] db=bank00 files=1
+2026-05-07T02:33:15 [client_tmpdata_stage] db=bank00 files=1
+2026-05-07T02:33:31 [client_tmpdata_stage] db=bank00 files=1
+2026-05-07T02:33:39 [client_tmpdata_stage] db=bank00 files=1
+2026-05-07T02:33:45 [client_tmpdata_stage] db=bank00 files=0
+2026-05-07T02:33:57 [client_tmpdata_stage] db=bank00 files=1
+2026-05-07T02:44:55 [login] user=admin role=admin
+2026-05-07T02:45:58 [client_tmpdata_stage] db=bank00 files=0
+2026-05-07T02:47:27 [sread_start_error] db=bank00 error=pirexx_sread failed to start for bank00 at 127.0.0.1:50734
+stdout:
+
+stderr:
+None
+2026-05-07T02:47:27 [client_database_select_error] db=bank00 error=server API returned HTTP 400: {"detail":"pirexx_sread failed to start for bank00 at 127.0.0.1:50734\nstdout:\n\nstderr:\nNone"}
+2026-05-07T02:47:32 [sread_start] db=bank2604 addr=127.0.0.1:50763
+2026-05-07T02:47:32 [client_database_select] db=bank2604 server=127.0.0.1:50763
+2026-05-07T02:51:04 [login] user=admin role=admin
+2026-05-07T02:55:11 [login] user=admin role=admin
+2026-05-07T03:03:46 [login] user=admin role=admin
+2026-05-07T03:08:20 [login] user=admin role=admin
+2026-05-07T03:08:35 [login] user=admin role=admin
+2026-05-07T03:09:38 [login] user=admin role=admin
+2026-05-07T03:12:27 [login] user=admin role=admin
+2026-05-07T03:12:47 [sread_start] db=bank2604 addr=127.0.0.1:53067
+2026-05-07T03:12:47 [client_database_select] db=bank2604 server=127.0.0.1:53067
+2026-05-07T03:13:49 [login] user=admin role=admin
+2026-05-07T03:13:54 [sread_start] db=bank2604 addr=127.0.0.1:53171
+2026-05-07T03:13:54 [client_database_select] db=bank2604 server=127.0.0.1:53171
+2026-05-07T03:25:00 [login] user=admin role=admin
+2026-05-07T03:25:04 [sread_start] db=bank2604 addr=127.0.0.1:54055
+2026-05-07T03:25:04 [client_database_select] db=bank2604 server=127.0.0.1:54055
+2026-05-07T03:25:50 [database_create] db=1
+2026-05-07T03:25:50 [client_database_create] db=1
+2026-05-07T03:25:54 [database_create] db=2
+2026-05-07T03:25:54 [client_database_create] db=2
+2026-05-07T03:26:00 [database_create] db=3
+2026-05-07T03:26:00 [client_database_create] db=3
+2026-05-07T03:26:09 [database_create] db=4
+2026-05-07T03:26:09 [client_database_create] db=4
+2026-05-07T03:29:46 [login] user=admin role=admin
+2026-05-07T03:30:05 [client_database_create_error] db=3 error=database already exists: 3
+2026-05-07T03:30:09 [database_create] db=10
+2026-05-07T03:30:09 [client_database_create] db=10
+2026-05-07T03:32:15 [login] user=admin role=admin
+2026-05-07T03:52:23 [login] user=admin role=admin
+2026-05-07T10:34:56 [login] user=admin role=admin
+2026-05-07T10:41:49 [sread_start] db=bank2604 addr=127.0.0.1:53167
+2026-05-07T10:41:49 [client_database_select] db=bank2604 server=127.0.0.1:53167
+2026-05-07T10:42:04 [sread_start_error] db=bankupload1 error=pirexx_sread failed to start for bankupload1 at 127.0.0.1:53428
+stdout:
+
+stderr:
+None
+2026-05-07T10:42:04 [client_database_select_error] db=bankupload1 error=server API returned HTTP 400: {"detail":"pirexx_sread failed to start for bankupload1 at 127.0.0.1:53428\nstdout:\n\nstderr:\nNone"}
+2026-05-07T10:42:08 [sread_start] db=bank2604 addr=127.0.0.1:53492
+2026-05-07T10:42:08 [client_database_select] db=bank2604 server=127.0.0.1:53492
+2026-05-07T10:46:19 [login] user=admin role=admin
+2026-05-07T10:58:21 [login] user=admin role=admin
+2026-05-07T11:01:28 [login] user=admin role=admin
+2026-05-07T11:04:38 [login] user=admin role=admin
+2026-05-07T11:05:22 [login] user=admin role=admin
+2026-05-07T11:07:07 [login] user=admin role=admin
+2026-05-07T11:09:40 [login] user=admin role=admin
+2026-05-07T11:14:02 [login] user=admin role=admin
+2026-05-07T11:15:09 [login] user=admin role=admin
+2026-05-07T11:15:55 [login] user=admin role=admin
+2026-05-07T11:16:11 [login] user=admin role=admin
+2026-05-07T11:21:59 [login] user=admin role=admin
+2026-05-07T11:24:16 [login] user=admin role=admin
+2026-05-07T11:25:02 [login] user=admin role=admin
+2026-05-07T11:29:52 [login] user=admin role=admin
+2026-05-07T11:40:13 [login] user=admin role=admin
+2026-05-07T11:45:15 [login] user=admin role=admin
+2026-05-07T12:03:47 [database_delete] db=1
+2026-05-07T12:03:47 [client_database_delete] db=1
+2026-05-07T12:16:49 [login] user=admin role=admin
+2026-05-07T12:17:55 [login] user=admin role=admin
+2026-05-07T12:18:20 [client_account_add] user=123456
+2026-05-07T12:21:13 [login] user=admin role=admin
+2026-05-07T12:22:26 [sread_start_error] db=10 error=pirexx_sread failed to start for 10 at 127.0.0.1:62206
+stdout:
+
+stderr:
+None
+2026-05-07T12:22:26 [client_database_select_error] db=10 error=server API returned HTTP 400: {"detail":"pirexx_sread failed to start for 10 at 127.0.0.1:62206\nstdout:\n\nstderr:\nNone"}
+2026-05-07T12:23:00 [database_upload] db=10 files=4
+2026-05-07T12:23:00 [client_database_upload] db=10 files=4
+2026-05-07T12:24:03 [login] user=admin role=admin
+2026-05-07T12:24:31 [client_tmpdata_stage] db=10 files=3
+2026-05-07T12:24:34 [database_upload] db=10 files=3
+2026-05-07T12:24:34 [client_database_upload] db=10 files=3
+2026-05-07T13:41:38 [login] user=admin role=admin
+2026-05-07T13:42:09 [client_tmpdata_stage] db=10 files=1
+2026-05-07T13:42:33 [database_upload] db=10 files=1
+2026-05-07T13:42:33 [client_database_upload] db=10 files=1
+2026-05-07T13:42:37 [client_database_upload_error] db=10 error=no tmpdata files staged
+2026-05-07T13:42:50 [client_tmpdata_stage] db=10 files=3
+2026-05-07T13:42:51 [database_upload] db=10 files=3
+2026-05-07T13:42:51 [client_database_upload] db=10 files=3
+2026-05-07T13:42:58 [login] user=admin role=admin
+2026-05-07T13:59:30 [sread_start] db=bank2604 addr=127.0.0.1:65291
+2026-05-07T13:59:30 [client_database_select] db=bank2604 server=127.0.0.1:65291
+2026-05-07T19:29:21 [sread_start_error] db=bank00 error=pirexx_sread failed to start for bank00 at 127.0.0.1:54142
+stdout:
+
+stderr:
+None
+2026-05-07T19:29:21 [client_database_select_error] db=bank00 error=server API returned HTTP 400: {"detail":"pirexx_sread failed to start for bank00 at 127.0.0.1:54142\nstdout:\n\nstderr:\nNone"}
+2026-05-07T19:32:44 [login] user=admin role=admin
+2026-05-07T19:35:17 [login] user=admin role=admin
+2026-05-07T21:32:58 [login] user=admin role=admin
+2026-05-07T22:13:42 [login] user=admin role=admin
+2026-05-07T22:14:16 [database_create] db=5
+2026-05-07T22:14:16 [client_database_create] db=5
+2026-05-07T22:14:25 [database_create_error] db=10 error=database already exists: 10
+2026-05-07T22:14:25 [client_database_create_error] db=10 error=server API returned HTTP 400: {"detail":"database already exists: 10"}
+2026-05-07T22:14:41 [database_create] db=9
+2026-05-07T22:14:41 [client_database_create] db=9
+2026-05-07T22:15:00 [database_create_error] db=3 error=database already exists: 3
+2026-05-07T22:15:00 [client_database_create_error] db=3 error=server API returned HTTP 400: {"detail":"database already exists: 3"}
+2026-05-07T22:15:09 [database_create_error] db=3 error=database already exists: 3
+2026-05-07T22:15:09 [client_database_create_error] db=3 error=server API returned HTTP 400: {"detail":"database already exists: 3"}
+2026-05-07T22:22:54 [login] user=admin role=admin
+2026-05-07T22:34:16 [sread_start] db=bank2604 addr=127.0.0.1:58964
+2026-05-07T22:34:16 [client_database_select] db=bank2604 server=127.0.0.1:58964
+2026-05-07T22:35:58 [login] user=admin role=admin
+2026-05-07T22:43:10 [database_create] db=banktestt1
+2026-05-07T22:43:10 [client_database_create] db=banktestt1
+2026-05-07T22:43:20 [client_tmpdata_stage] db=banktestt1 files=3
+2026-05-07T22:43:22 [database_upload] db=banktestt1 files=3
+2026-05-07T22:43:22 [client_database_upload] db=banktestt1 files=3
+2026-05-08T15:49:34 [login] user=admin role=admin
+2026-05-08T21:18:50 [login] user=admin role=admin
+2026-05-08T22:44:32 [login] user=admin role=admin
+2026-05-08T22:57:07 [login] user=admin role=admin
+2026-05-09T21:51:04 [login] user=admin role=admin
+2026-05-09T21:51:35 [database_delete] db=5
+2026-05-09T21:51:35 [client_database_delete] db=5
+2026-05-09T21:51:42 [database_delete] db=9
+2026-05-09T21:51:42 [client_database_delete] db=9
+2026-05-10T11:20:16 [login] user=admin role=admin
+2026-05-10T11:20:26 [login] user=admin role=admin
+2026-05-10T19:14:18 [login] user=admin role=admin
+2026-05-10T19:21:16 [login] user=admin role=admin
+2026-05-10T22:19:14 [pirex_preprocess_start] db=bank2604 addr=127.0.0.1:62262
+2026-05-10T22:19:14 [pirex_preprocess_finalize] db=bank2604 success=True manifest_deleted=True
+2026-05-10T22:19:14 [client_pirex_preprocess] db=bank2604 manifest=E:\pir-worktrees\new-work-v1\rust_data\client-data\manifest\bank2604_manifest.json
+2026-05-11T00:03:02 [login] user=admin role=admin
+2026-05-11T00:03:49 [sread_start] db=bank2604 addr=127.0.0.1:64943
+2026-05-11T00:03:49 [client_database_select] db=bank2604 server=127.0.0.1:64943
+2026-05-11T00:32:26 [login] user=admin role=admin
+2026-05-11T00:32:29 [sread_start] db=bank2604 addr=127.0.0.1:64943
+2026-05-11T00:32:29 [client_database_select] db=bank2604 server=127.0.0.1:64943
+2026-05-11T00:32:36 [pirex_sread_start] db=bank2604 addr=127.0.0.1:49898
+2026-05-11T00:32:36 [restore_pirex] db=bank2604 file=alpha_notes.txt server=127.0.0.1:49898
+2026-05-11T00:32:46 [sread_start] db=bank2604 addr=127.0.0.1:64943
+2026-05-11T00:32:46 [client_database_select] db=bank2604 server=127.0.0.1:64943
+2026-05-11T00:54:53 [login] user=admin role=admin
+2026-05-11T00:54:55 [sread_start] db=bank2604 addr=127.0.0.1:64943
+2026-05-11T00:54:55 [client_database_select] db=bank2604 server=127.0.0.1:64943
+2026-05-11T00:55:11 [restore_pirex] db=bank2604 file=alpha_notes.txt server=127.0.0.1:49898
+2026-05-11T00:57:30 [login] user=admin role=admin
+2026-05-11T00:57:32 [sread_start] db=bank2604 addr=127.0.0.1:64943
+2026-05-11T00:57:32 [client_database_select] db=bank2604 server=127.0.0.1:64943
+2026-05-11T00:57:57 [restore_pirexx_error] db=bank2604 file=alpha_notes.txt error=sha256 mismatch for alpha_notes.txt: expected 05dccf3a45d6f3a6d5237a32fe148b5cef6f04903f2321082fee4197700369e4, got f5a6fefcf273004ec9c7af7b53166fb89ec398b18ba2889184dff0e6b61c9daf
+2026-05-11T01:01:57 [login] user=admin role=admin
+2026-05-11T01:10:12 [sread_start] db=bank2604 addr=127.0.0.1:64943
+2026-05-11T01:10:12 [client_database_select] db=bank2604 server=127.0.0.1:64943
+2026-05-11T01:17:21 [sread_start] db=bank2604 addr=127.0.0.1:64943
+2026-05-11T01:17:21 [client_database_select] db=bank2604 server=127.0.0.1:64943
+2026-05-11T01:17:57 [restore_pirexx_error] db=bank2604 file=alpha_notes.txt error=sha256 mismatch for alpha_notes.txt: expected 05dccf3a45d6f3a6d5237a32fe148b5cef6f04903f2321082fee4197700369e4, got f5a6fefcf273004ec9c7af7b53166fb89ec398b18ba2889184dff0e6b61c9daf
+2026-05-11T01:18:18 [sread_start] db=banktestt1 addr=127.0.0.1:52388
+2026-05-11T01:18:18 [client_database_select] db=banktestt1 server=127.0.0.1:52388
+2026-05-11T01:18:34 [sread_start] db=bank2604 addr=127.0.0.1:52403
+2026-05-11T01:18:34 [client_database_select] db=bank2604 server=127.0.0.1:52403
+2026-05-11T01:18:57 [restore_pirexx_error] db=bank2604 file=alpha_notes.txt error=sha256 mismatch for alpha_notes.txt: expected 05dccf3a45d6f3a6d5237a32fe148b5cef6f04903f2321082fee4197700369e4, got f5a6fefcf273004ec9c7af7b53166fb89ec398b18ba2889184dff0e6b61c9daf
+2026-05-11T01:20:28 [login] user=admin role=admin
+2026-05-11T01:22:22 [sread_start] db=bank2604 addr=127.0.0.1:52403
+2026-05-11T01:22:22 [client_database_select] db=bank2604 server=127.0.0.1:52403
+2026-05-11T01:24:16 [login] user=admin role=admin
+2026-05-11T01:25:01 [pirex_preprocess_start_error] db=bank2604 error=[Errno 22] Invalid argument: 'E:\\pir-worktrees\\new-work-v1\\rust_data\\server-data\\bank2604\\snapshot\\data.bin'
+2026-05-11T01:25:01 [client_pirex_preprocess_error] db=bank2604 error=server API returned HTTP 400: {"detail":"[Errno 22] Invalid argument: 'E:\\\\pir-worktrees\\\\new-work-v1\\\\rust_data\\\\server-data\\\\bank2604\\\\snapshot\\\\data.bin'"}
+2026-05-11T01:25:36 [pirex_preprocess_start_error] db=bank2604 error=[Errno 22] Invalid argument: 'E:\\pir-worktrees\\new-work-v1\\rust_data\\server-data\\bank2604\\snapshot\\data.bin'
+2026-05-11T01:25:36 [client_pirex_preprocess_error] db=bank2604 error=server API returned HTTP 400: {"detail":"[Errno 22] Invalid argument: 'E:\\\\pir-worktrees\\\\new-work-v1\\\\rust_data\\\\server-data\\\\bank2604\\\\snapshot\\\\data.bin'"}
+2026-05-11T01:25:43 [pirexx_preprocess_start_error] db=bank2604 error=[Errno 22] Invalid argument: 'E:\\pir-worktrees\\new-work-v1\\rust_data\\server-data\\bank2604\\snapshot\\data.bin'
+2026-05-11T01:25:43 [client_pirexx_preprocess_error] db=bank2604 error=server API returned HTTP 400: {"detail":"[Errno 22] Invalid argument: 'E:\\\\pir-worktrees\\\\new-work-v1\\\\rust_data\\\\server-data\\\\bank2604\\\\snapshot\\\\data.bin'"}
+2026-05-11T01:27:32 [pirex_preprocess_start_error] db=bank2604 error=[Errno 22] Invalid argument: 'E:\\pir-worktrees\\new-work-v1\\rust_data\\server-data\\bank2604\\snapshot\\data.bin'
+2026-05-11T01:27:32 [client_pirex_preprocess_error] db=bank2604 error=server API returned HTTP 400: {"detail":"[Errno 22] Invalid argument: 'E:\\\\pir-worktrees\\\\new-work-v1\\\\rust_data\\\\server-data\\\\bank2604\\\\snapshot\\\\data.bin'"}
+2026-05-11T01:27:48 [pirex_preprocess_start_error] db=bank2604 error=[Errno 22] Invalid argument: 'E:\\pir-worktrees\\new-work-v1\\rust_data\\server-data\\bank2604\\snapshot\\data.bin'
+2026-05-11T01:27:48 [client_pirex_preprocess_error] db=bank2604 error=server API returned HTTP 400: {"detail":"[Errno 22] Invalid argument: 'E:\\\\pir-worktrees\\\\new-work-v1\\\\rust_data\\\\server-data\\\\bank2604\\\\snapshot\\\\data.bin'"}
+2026-05-11T13:10:32 [login] user=admin role=admin
+2026-05-11T13:10:50 [database_create] db=test1
+2026-05-11T13:10:50 [client_database_create] db=test1
+2026-05-11T13:10:55 [client_tmpdata_stage] db=test1 files=3
+2026-05-11T13:10:56 [database_upload] db=test1 files=3
+2026-05-11T13:10:56 [client_database_upload] db=test1 files=3
+2026-05-11T13:11:01 [pirex_preprocess_start] db=test1 addr=127.0.0.1:55897
+2026-05-11T13:11:01 [pirex_preprocess_finalize] db=test1 success=True manifest_deleted=True
+2026-05-11T13:11:01 [client_pirex_preprocess] db=test1 manifest=E:\pir-worktrees\new-work-v1\rust_data\client-data\manifest\test1_manifest.json
+2026-05-11T13:11:16 [pirex_preprocess_start] db=test1 addr=127.0.0.1:55919
+2026-05-11T13:11:16 [pirex_preprocess_finalize] db=test1 success=True manifest_deleted=True
+2026-05-11T13:11:16 [client_pirex_preprocess] db=test1 manifest=E:\pir-worktrees\new-work-v1\rust_data\client-data\manifest\test1_manifest.json
+2026-05-11T13:11:24 [pirex_preprocess_start] db=banktestt1 addr=127.0.0.1:55930
+2026-05-11T13:11:24 [pirex_preprocess_finalize] db=banktestt1 success=True manifest_deleted=True
+2026-05-11T13:11:24 [client_pirex_preprocess] db=banktestt1 manifest=E:\pir-worktrees\new-work-v1\rust_data\client-data\manifest\banktestt1_manifest.json
+2026-05-11T13:11:27 [pirex_preprocess_start] db=bank2604 addr=127.0.0.1:55936
+2026-05-11T13:11:28 [pirex_preprocess_finalize] db=bank2604 success=True manifest_deleted=True
+2026-05-11T13:11:28 [client_pirex_preprocess] db=bank2604 manifest=E:\pir-worktrees\new-work-v1\rust_data\client-data\manifest\bank2604_manifest.json
+2026-05-11T13:26:49 [login] user=admin role=admin
+2026-05-11T13:32:22 [login] user=admin role=admin
+2026-05-11T13:32:42 [sread_start] db=bank2604 addr=127.0.0.1:57093
+2026-05-11T13:32:42 [client_database_select] db=bank2604 server=127.0.0.1:57093
+2026-05-11T13:37:40 [login] user=admin role=admin
+2026-05-11T13:37:43 [sread_start_error] db=banktestt1 error=pirexx_sread failed to start for banktestt1 at 127.0.0.1:57403
+stdout:
+
+stderr:
+None
+2026-05-11T13:37:43 [client_database_select_error] db=banktestt1 error=server API returned HTTP 400: {"detail":"pirexx_sread failed to start for banktestt1 at 127.0.0.1:57403\nstdout:\n\nstderr:\nNone"}
+2026-05-11T13:38:03 [login] user=admin role=admin
+2026-05-11T13:38:05 [sread_start_error] db=banktestt1 error=pirexx_sread failed to start for banktestt1 at 127.0.0.1:57444
+stdout:
+
+stderr:
+None
+2026-05-11T13:38:05 [client_database_select_error] db=banktestt1 error=server API returned HTTP 400: {"detail":"pirexx_sread failed to start for banktestt1 at 127.0.0.1:57444\nstdout:\n\nstderr:\nNone"}
+2026-05-11T13:38:18 [sread_start] db=bank2604 addr=127.0.0.1:57458
+2026-05-11T13:38:18 [client_database_select] db=bank2604 server=127.0.0.1:57458
+2026-05-11T13:38:25 [sread_start_error] db=test1 error=pirexx_sread failed to start for test1 at 127.0.0.1:57469
+stdout:
+
+stderr:
+None
+2026-05-11T13:38:25 [client_database_select_error] db=test1 error=server API returned HTTP 400: {"detail":"pirexx_sread failed to start for test1 at 127.0.0.1:57469\nstdout:\n\nstderr:\nNone"}
+2026-05-11T13:38:27 [sread_start] db=bank2604 addr=127.0.0.1:57475
+2026-05-11T13:38:27 [client_database_select] db=bank2604 server=127.0.0.1:57475
+2026-05-11T13:43:24 [login] user=admin role=admin
+2026-05-11T13:43:28 [sread_start] db=bank2604 addr=127.0.0.1:57475
+2026-05-11T13:43:28 [client_database_select] db=bank2604 server=127.0.0.1:57475
+2026-05-11T13:43:44 [pirex_sread_start] db=bank2604 addr=127.0.0.1:57828
+2026-05-11T13:43:45 [restore_pirex] db=bank2604 file=gamma_summary.txt server=127.0.0.1:57828
+2026-05-11T13:43:51 [restore_direct] db=bank2604 file=beta_report.txt
+2026-05-11T13:44:00 [restore_pirex] db=bank2604 file=beta_report.txt server=127.0.0.1:57828
+2026-05-11T13:51:17 [login] user=admin role=admin
+2026-05-11T13:51:31 [login] user=admin role=admin
+2026-05-11T13:51:54 [login] user=admin role=admin
+2026-05-11T13:53:28 [login] user=admin role=admin
+2026-05-11T13:53:59 [login] user=admin role=admin
+2026-05-11T13:58:12 [login] user=admin role=admin
+2026-05-11T13:58:39 [login] user=admin role=admin
+2026-05-11T14:17:30 [login] user=admin role=admin
+2026-05-11T14:18:31 [client_account_reset] user=user1
+2026-05-11T14:18:47 [client_account_reset] user=user1
+2026-05-11T14:24:39 [login] user=admin role=admin
+2026-05-11T14:27:10 [login] user=admin role=admin
+2026-05-11T14:41:23 [sread_start] db=bank2604 addr=127.0.0.1:61785
+2026-05-11T14:41:23 [client_database_select] db=bank2604 server=127.0.0.1:61785
+2026-05-11T15:20:52 [login] user=admin role=admin
+2026-05-11T15:28:49 [login] user=admin role=admin
+2026-05-11T15:28:54 [sread_start] db=bank2604 addr=127.0.0.1:65070
+2026-05-11T15:28:54 [client_database_select] db=bank2604 server=127.0.0.1:65070
+2026-05-11T15:31:47 [login] user=admin role=admin
+2026-05-11T16:28:59 [sread_start] db=bank2604 addr=127.0.0.1:65070
+2026-05-11T16:28:59 [client_database_select] db=bank2604 server=127.0.0.1:65070
+2026-05-11T16:29:09 [login] user=admin role=admin
+2026-05-11T16:29:22 [client_database_create_error] db=bank 00 error=db_name must match [A-Za-z0-9_-]+
+2026-05-11T16:29:30 [database_create] db=bank00
+2026-05-11T16:29:30 [client_database_create] db=bank00
+2026-05-11T16:29:40 [database_delete] db=bank00
+2026-05-11T16:29:40 [client_unfinished_clear] db=bank00
+2026-05-11T16:29:52 [database_create] db=bank00
+2026-05-11T16:29:52 [client_database_create] db=bank00
+2026-05-11T16:29:54 [client_pirex_preprocess_error] db=bank00 error=数据未上传
+2026-05-11T16:29:58 [client_database_upload_error] db=bank00 error=no tmpdata files staged
+2026-05-11T16:30:01 [client_pirex_preprocess_error] db=bank00 error=数据未上传
+2026-05-11T16:30:42 [database_delete] db=bank00
+2026-05-11T16:30:42 [client_unfinished_clear] db=bank00
+2026-05-11T16:31:00 [pirex_preprocess_start] db=test1 addr=127.0.0.1:50916
+2026-05-11T16:31:01 [pirex_preprocess_finalize] db=test1 success=True manifest_deleted=True
+2026-05-11T16:31:01 [client_pirex_preprocess] db=test1 manifest=E:\pir-worktrees\new-work-v1\rust_data\client-data\manifest\test1_manifest.json
+2026-05-11T16:31:06 [pirex_preprocess_start] db=test1 addr=127.0.0.1:50930
+2026-05-11T16:31:06 [pirex_preprocess_finalize] db=test1 success=True manifest_deleted=True
+2026-05-11T16:31:06 [client_pirex_preprocess] db=test1 manifest=E:\pir-worktrees\new-work-v1\rust_data\client-data\manifest\test1_manifest.json
+2026-05-11T16:31:09 [pirex_preprocess_start] db=test1 addr=127.0.0.1:50938
+2026-05-11T16:31:09 [pirex_preprocess_finalize] db=test1 success=True manifest_deleted=True
+2026-05-11T16:31:09 [client_pirex_preprocess] db=test1 manifest=E:\pir-worktrees\new-work-v1\rust_data\client-data\manifest\test1_manifest.json
+2026-05-11T16:31:11 [pirex_preprocess_start_error] db=banktestt1 error=[Errno 22] Invalid argument: 'E:\\pir-worktrees\\new-work-v1\\rust_data\\server-data\\banktestt1\\snapshot\\data.bin'
+2026-05-11T16:31:11 [client_pirex_preprocess_error] db=banktestt1 error=server API returned HTTP 400: {"detail":"[Errno 22] Invalid argument: 'E:\\\\pir-worktrees\\\\new-work-v1\\\\rust_data\\\\server-data\\\\banktestt1\\\\snapshot\\\\data.bin'"}
+2026-05-11T16:31:21 [pirex_preprocess_start_error] db=bank2604 error=[Errno 22] Invalid argument: 'E:\\pir-worktrees\\new-work-v1\\rust_data\\server-data\\bank2604\\snapshot\\data.bin'
+2026-05-11T16:31:21 [client_pirex_preprocess_error] db=bank2604 error=server API returned HTTP 400: {"detail":"[Errno 22] Invalid argument: 'E:\\\\pir-worktrees\\\\new-work-v1\\\\rust_data\\\\server-data\\\\bank2604\\\\snapshot\\\\data.bin'"}
+2026-05-11T16:31:27 [pirexx_preprocess_start_error] db=bank2604 error=[Errno 22] Invalid argument: 'E:\\pir-worktrees\\new-work-v1\\rust_data\\server-data\\bank2604\\snapshot\\data.bin'
+2026-05-11T16:31:27 [client_pirexx_preprocess_error] db=bank2604 error=server API returned HTTP 400: {"detail":"[Errno 22] Invalid argument: 'E:\\\\pir-worktrees\\\\new-work-v1\\\\rust_data\\\\server-data\\\\bank2604\\\\snapshot\\\\data.bin'"}
+2026-05-11T16:31:29 [pirexx_preprocess_start] db=test1 addr=127.0.0.1:50968
+2026-05-11T16:31:37 [pirexx_preprocess_start] db=test1 addr=127.0.0.1:50983
+2026-05-11T16:32:13 [pirexx_preprocess_finalize] db=test1 success=False manifest_deleted=True
+2026-05-11T16:32:13 [client_pirexx_preprocess_error] db=test1 error='NoneType' object has no attribute 'strip'
+2026-05-11T16:32:23 [pirexx_preprocess_finalize] db=test1 success=False manifest_deleted=False
+2026-05-11T16:32:23 [client_pirexx_preprocess_error] db=test1 error='NoneType' object has no attribute 'strip'
+2026-05-11T17:04:13 [login] user=admin role=admin
+2026-05-11T17:04:18 [pirex_preprocess_start] db=bank2604 addr=127.0.0.1:52476
+2026-05-11T17:04:18 [pirex_preprocess_finalize] db=bank2604 success=True manifest_deleted=True
+2026-05-11T17:04:27 [pirexx_preprocess_start] db=bank2604 addr=127.0.0.1:52505
+2026-05-11T17:08:23 [login] user=admin role=admin
+2026-05-11T17:08:56 [login] user=admin role=admin
+2026-05-11T17:09:00 [pirexx_preprocess_start] db=bank2604 addr=127.0.0.1:52791
+2026-05-11T17:09:03 [pirexx_preprocess_finalize_error] db=bank2604 error=[WinError 5] 拒绝访问。: 'E:\\pir-worktrees\\new-work-v1\\rust_data\\server-data\\bank2604\\state-pirexx\\ehint'
+2026-05-11T17:10:48 [pirexx_preprocess_start] db=bank2604 addr=127.0.0.1:52882
+2026-05-11T17:10:53 [pirexx_preprocess_finalize_error] db=bank2604 error=[WinError 5] 拒绝访问。: 'E:\\pir-worktrees\\new-work-v1\\rust_data\\server-data\\bank2604\\state-pirexx\\hint'
+2026-05-11T17:10:55 [pirexx_preprocess_start_error] db=bank2604 error=[Errno 22] Invalid argument: 'E:\\pir-worktrees\\new-work-v1\\rust_data\\server-data\\bank2604\\snapshot\\data.bin'
+2026-05-11T17:11:00 [pirexx_preprocess_start] db=bank2604 addr=127.0.0.1:52903
+2026-05-11T17:11:04 [pirexx_preprocess_finalize_error] db=bank2604 error=[WinError 5] 拒绝访问。: 'E:\\pir-worktrees\\new-work-v1\\rust_data\\server-data\\bank2604\\state-pirexx\\ehint'
+2026-05-11T17:22:05 [login] user=admin role=admin
+2026-05-11T17:25:06 [sread_start] db=bank2604 addr=127.0.0.1:53862
+2026-05-11T17:25:06 [client_database_select] db=bank2604 server=127.0.0.1:53862
+2026-05-11T17:25:50 [login] user=admin role=admin
+2026-05-11T17:45:46 [login] user=admin role=admin
+2026-05-11T18:02:52 [login] user=admin role=admin
+2026-05-11T18:03:54 [sread_start] db=bank2604 addr=127.0.0.1:56756
+2026-05-11T18:03:54 [client_database_select] db=bank2604 server=127.0.0.1:56756
+2026-05-11T18:08:39 [login] user=admin role=admin
+2026-05-11T18:11:15 [login] user=admin role=admin
+2026-05-11T18:11:24 [sread_start] db=bank2604 addr=127.0.0.1:56756
+2026-05-11T18:11:24 [client_database_select] db=bank2604 server=127.0.0.1:56756
+2026-05-11T18:36:59 [login] user=admin role=admin
+2026-05-11T18:37:04 [sread_start] db=bank2604 addr=127.0.0.1:56756
+2026-05-11T18:37:04 [client_database_select] db=bank2604 server=127.0.0.1:56756
+2026-05-11T18:37:09 [pirex_sread_start] db=bank2604 addr=127.0.0.1:57247
+2026-05-11T18:37:09 [restore_pirex_error] db=bank2604 file=alpha_notes.txt error=pirex_uread failed for alpha_notes.txt
+stdout:
+
+stderr:
+None
+2026-05-11T18:37:17 [restore_pirex_error] db=bank2604 file=beta_report.txt error=pirex_uread failed for beta_report.txt
+stdout:
+
+stderr:
+None
+2026-05-11T18:37:20 [restore_pirex_error] db=bank2604 file=gamma_summary.txt error=pirex_uread failed for gamma_summary.txt
+stdout:
+
+stderr:
+None
+2026-05-11T18:37:29 [pirex_preprocess_start_error] db=bank2604 error=[Errno 22] Invalid argument: 'E:\\pir-worktrees\\new-work-v1\\rust_data\\server-data\\bank2604\\snapshot\\data.bin'
+2026-05-11T20:48:56 [login] user=admin role=admin
+2026-05-11T20:49:02 [pirex_preprocess_start] db=bank2604 addr=127.0.0.1:58717
+2026-05-11T20:49:02 [pirex_preprocess_finalize] db=bank2604 success=True manifest_deleted=True
+2026-05-11T20:49:07 [pirex_preprocess_start] db=banktestt1 addr=127.0.0.1:58742
+2026-05-11T20:49:07 [pirex_preprocess_finalize] db=banktestt1 success=True manifest_deleted=True
+2026-05-11T20:49:47 [pirex_preprocess_start] db=test1 addr=127.0.0.1:58836
+2026-05-11T20:49:47 [pirex_preprocess_finalize] db=test1 success=True manifest_deleted=True
+2026-05-11T20:51:16 [login] user=admin role=admin
+2026-05-11T20:51:19 [sread_start] db=bank2604 addr=127.0.0.1:58992
+2026-05-11T20:51:19 [client_database_select] db=bank2604 server=127.0.0.1:58992
+2026-05-11T20:51:27 [pirex_sread_start] db=bank2604 addr=127.0.0.1:59013
+2026-05-11T20:51:27 [restore_pirex_error] db=bank2604 file=alpha_notes.txt error=pirex_uread failed for alpha_notes.txt
+stdout:
+
+stderr:
+None
+2026-05-11T20:51:45 [sread_start] db=test1 addr=127.0.0.1:59057
+2026-05-11T20:51:45 [client_database_select] db=test1 server=127.0.0.1:59057
+2026-05-11T20:51:46 [pirex_sread_start] db=test1 addr=127.0.0.1:59060
+2026-05-11T20:51:46 [restore_pirex_error] db=test1 file=附5.docx error=pirex_uread failed for 附5.docx
+stdout:
+
+stderr:
+None
+2026-05-11T20:51:51 [restore_pirex_error] db=test1 file=附7.docx error=pirex_uread failed for 附7.docx
+stdout:
+
+stderr:
+None
+2026-05-11T20:52:05 [sread_start] db=bank2604 addr=127.0.0.1:59090
+2026-05-11T20:52:05 [client_database_select] db=bank2604 server=127.0.0.1:59090
+2026-05-11T21:24:34 [login] user=admin role=admin
+2026-05-11T21:24:36 [sread_start] db=bank2604 addr=127.0.0.1:60782
+2026-05-11T21:24:36 [client_database_select] db=bank2604 server=127.0.0.1:60782
+2026-05-11T21:24:38 [pirex_sread_start] db=bank2604 addr=127.0.0.1:60788
+2026-05-11T21:24:38 [restore_pirex_error] db=bank2604 file=alpha_notes.txt error=pirex_uread failed for alpha_notes.txt
+stdout:
+
+stderr:
+None
+2026-05-11T21:24:57 [pirex_preprocess_start_error] db=bank2604 error=[Errno 22] Invalid argument: 'E:\\pir-worktrees\\new-work-v1\\rust_data\\server-data\\bank2604\\snapshot\\data.bin'
+2026-05-11T21:27:49 [database_delete_error] db=bank2604 error=[WinError 5] 拒绝访问。: 'E:\\pir-worktrees\\new-work-v1\\rust_data\\server-data\\bank2604\\snapshot\\data.bin'
+2026-05-11T21:27:49 [client_database_delete_error] db=bank2604 error=server API returned HTTP 400: {"detail":"[WinError 5] 拒绝访问。: 'E:\\\\pir-worktrees\\\\new-work-v1\\\\rust_data\\\\server-data\\\\bank2604\\\\snapshot\\\\data.bin'"}
+2026-05-11T21:28:08 [database_delete_error] db=bank2604 error=[WinError 5] 拒绝访问。: 'E:\\pir-worktrees\\new-work-v1\\rust_data\\server-data\\bank2604\\snapshot\\data.bin'
+2026-05-11T21:28:08 [client_database_delete_error] db=bank2604 error=server API returned HTTP 400: {"detail":"[WinError 5] 拒绝访问。: 'E:\\\\pir-worktrees\\\\new-work-v1\\\\rust_data\\\\server-data\\\\bank2604\\\\snapshot\\\\data.bin'"}
+2026-05-11T21:28:30 [database_delete] db=banktestt1
+2026-05-11T21:28:30 [client_database_delete] db=banktestt1
+2026-05-11T21:28:35 [database_delete_error] db=test1 error=[WinError 5] 拒绝访问。: 'E:\\pir-worktrees\\new-work-v1\\rust_data\\server-data\\test1\\snapshot\\data.bin'
+2026-05-11T21:28:35 [client_database_delete_error] db=test1 error=server API returned HTTP 400: {"detail":"[WinError 5] 拒绝访问。: 'E:\\\\pir-worktrees\\\\new-work-v1\\\\rust_data\\\\server-data\\\\test1\\\\snapshot\\\\data.bin'"}
+2026-05-11T21:36:21 [database_delete] db=bank2604 stopped={'pirexx_sread': False, 'pirex_sread': False, 'pirexx_sprep': False, 'pirex_sprep': False}
+2026-05-11T21:36:21 [client_database_delete] db=bank2604 stopped_jobs=[]
+2026-05-11T21:39:25 [pirex_sread_start] db=test1 addr=127.0.0.1:61878
+2026-05-11T21:39:55 [database_delete] db=test1 stopped={'pirexx_sread': False, 'pirex_sread': True, 'pirexx_sprep': False, 'pirex_sprep': False}
+2026-05-11T21:39:55 [client_database_delete] db=test1 stopped_jobs=[]
+2026-05-11T21:42:50 [login] user=admin role=admin
+2026-05-11T21:54:12 [database_create] db=bank01
+2026-05-11T21:54:12 [client_database_create] db=bank01
+2026-05-11T21:54:17 [client_tmpdata_stage] db=bank01 files=3
+2026-05-11T21:54:18 [database_upload] db=bank01 files=3
+2026-05-11T21:54:18 [client_database_upload] db=bank01 files=3
+2026-05-11T21:54:32 [pirexx_preprocess_start] db=bank01 addr=127.0.0.1:62996
+2026-05-11T21:55:27 [pirexx_preprocess_finalize] db=bank01 success=False manifest_deleted=True
+2026-05-11T21:55:27 [database_delete] db=bank01 stopped={'pirexx_sread': False, 'pirex_sread': False, 'pirexx_sprep': False, 'pirex_sprep': False}
+2026-05-11T21:55:27 [client_database_delete] db=bank01 stopped_jobs=['pirexx']
+2026-05-11T22:12:20 [login] user=admin role=admin
+2026-05-11T22:12:52 [database_create] db=bank1
+2026-05-11T22:12:52 [client_database_create] db=bank1
+2026-05-11T22:12:56 [client_tmpdata_stage] db=bank1 files=3
+2026-05-11T22:12:57 [database_upload] db=bank1 files=3
+2026-05-11T22:12:57 [client_database_upload] db=bank1 files=3
+2026-05-11T22:13:01 [pirex_preprocess_start] db=bank1 addr=127.0.0.1:55170
+2026-05-11T22:13:01 [pirex_preprocess_finalize] db=bank1 success=True manifest_deleted=True
+2026-05-11T22:13:13 [sread_start_error] db=bank1 error=pirexx_sread failed to start for bank1 at 127.0.0.1:55195
+stdout:
+
+stderr:
+None
+2026-05-11T22:13:13 [client_database_select_error] db=bank1 error=server API returned HTTP 400: {"detail":"pirexx_sread failed to start for bank1 at 127.0.0.1:55195\nstdout:\n\nstderr:\nNone"}
+2026-05-11T22:13:20 [sread_start_error] db=bank1 error=pirexx_sread failed to start for bank1 at 127.0.0.1:55213
+stdout:
+
+stderr:
+None
+2026-05-11T22:13:20 [client_database_select_error] db=bank1 error=server API returned HTTP 400: {"detail":"pirexx_sread failed to start for bank1 at 127.0.0.1:55213\nstdout:\n\nstderr:\nNone"}
+2026-05-11T22:21:25 [login] user=admin role=admin
+2026-05-11T22:21:26 [sread_start_error] db=bank1 error=pirexx_sread failed to start for bank1 at 127.0.0.1:55732
+stdout:
+
+stderr:
+None
+2026-05-11T22:21:26 [client_database_select_error] db=bank1 error=server API returned HTTP 400: {"detail":"pirexx_sread failed to start for bank1 at 127.0.0.1:55732\nstdout:\n\nstderr:\nNone"}
+2026-05-11T22:21:28 [sread_start_error] db=bank1 error=pirexx_sread failed to start for bank1 at 127.0.0.1:55739
+stdout:
+
+stderr:
+None
+2026-05-11T22:21:28 [client_database_select_error] db=bank1 error=server API returned HTTP 400: {"detail":"pirexx_sread failed to start for bank1 at 127.0.0.1:55739\nstdout:\n\nstderr:\nNone"}
+2026-05-11T22:21:46 [pirex_sread_start] db=bank1 addr=127.0.0.1:55778
+2026-05-11T22:21:46 [client_database_select] db=bank1 scheme=pirex server=127.0.0.1:55778
+2026-05-11T22:35:17 [login] user=admin role=admin
+2026-05-11T22:35:18 [pirex_sread_start] db=bank1 addr=127.0.0.1:56450
+2026-05-11T22:35:18 [client_database_select] db=bank1 scheme=pirex server=127.0.0.1:56450
+2026-05-11T22:35:33 [restore_direct] db=bank1 file=提案.docx
+2026-05-11T22:40:31 [restore_direct] db=bank1 file=提案.docx
+2026-05-11T22:40:43 [restore_direct] db=bank1 file=提案.docx
+2026-05-11T22:41:46 [restore_direct] db=bank1 file=提案.docx
+2026-05-11T22:41:50 [restore_pirex] db=bank1 file=提案.docx server=127.0.0.1:56450
+2026-05-11T22:43:37 [login] user=admin role=admin
+2026-05-11T23:02:59 [login] user=admin role=admin

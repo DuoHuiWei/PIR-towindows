@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PIREXX 双端文件检索原型</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <section id="login-screen" class="login-screen">
+      <div class="login-card">
+        <div class="login-brand">
+          <span class="brand-pill">PIR FILE</span>
+          <h1>PIREX PIREX+<br>隐私文件检索原型</h1>
+          <p>Rust 核心协议 + Python FastAPI + 本地 Web 控制台</p>
+        </div>
+        <form id="login-form" class="login-form">
+          <label>
+            <span>账号</span>
+            <input id="login-username" name="username" type="text" placeholder="请输入账号" value="admin">
+          </label>
+          <label>
+            <span>密码</span>
+            <input id="login-password" name="password" type="password" placeholder="请输入密码" value="admin123">
+          </label>
+          <button type="submit" class="btn btn-primary btn-block">进入控制台</button>
+          <p id="login-message" class="form-message"></p>
+        </form>
+      </div>
+    </section>
+
+    <section id="dashboard" class="dashboard hidden">
+      <header class="topbar">
+        <div class="topbar-title">
+          <h1>PIREXX 文件检索控制台</h1>
+          <p>客户端 API 统一入口</p>
+        </div>
+        <div class="topbar-user">
+          <div>
+            <strong id="user-nickname">admin</strong>
+            <span id="user-role">admin</span>
+          </div>
+          <button id="logout-button" class="btn btn-ghost">退出</button>
+        </div>
+      </header>
+
+      <div class="nav-strip">
+        <span class="nav-badge">客户端 Web</span>
+        <span>数据库控制</span>
+        <span>PIREXX 恢复</span>
+        <span>日志</span>
+        <span>用户管理</span>
+      </div>
+
+      <main class="main-layout">
+        <aside class="sidebar">
+          <button class="side-link active" data-view="query-view">数据查询</button>
+          <button class="side-link" data-view="metrics-view">性能展示</button>
+          <button class="side-link" data-view="database-view">数据库总览</button>
+          <button class="side-link admin-only" data-view="logs-view">日志</button>
+          <button class="side-link admin-only" data-view="users-view">用户管理</button>
+        </aside>
+
+        <section class="content-area">
+          <div id="query-view" class="view-panel active">
+            <div class="hero-grid">
+              <section class="panel soft-blue">
+                <div class="panel-head">
+                  <h2>查询设置</h2>
+                  <span>文件名检索 / 恢复入口</span>
+                </div>
+                <div class="stack">
+                  <label class="field">
+                    <span>目标数据库</span>
+                    <div class="inline-row">
+                      <select id="query-db-select"></select>
+                      <button id="refresh-databases-button" class="btn btn-ghost btn-confirm">确认</button>
+                    </div>
+                  </label>
+                  <label class="field">
+                    <span>文件查找 关键字查找</span>
+                    <input id="query-keyword" type="text" placeholder="输入文件名关键字">
+                  </label>
+                  <div class="inline-row">
+                    <button id="query-search-button" class="btn btn-primary">查找</button>
+                    <button id="query-all-button" class="btn btn-secondary">全部文件</button>
+                  </div>
+                  <p id="query-message" class="form-message"></p>
+                </div>
+              </section>
+
+              <section class="panel">
+                <div class="panel-head">
+                  <h2>查询结果</h2>
+                  <span>基于 manifest 的文件条目列表</span>
+                </div>
+                <div class="result-shell">
+                  <div class="result-toolbar">
+                    <span>当前数据库文件列表</span>
+                    <span id="query-count-pill" class="pill">0 项</span>
+                  </div>
+                  <div id="query-results" class="result-list empty-state scroll-box medium-scroll">
+                    <p>请选择数据库并执行查找。</p>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <div id="metrics-view" class="view-panel">
+            <section class="panel">
+              <div class="panel-head">
+                <h2>性能展示</h2>
+                <span>下一阶段再接真实协议指标</span>
+              </div>
+              <div class="table-card scroll-box tall-scroll">
+                <table class="compare-table">
+                  <thead>
+                    <tr>
+                      <th>度规</th>
+                      <th>PIREX（基础版）</th>
+                      <th>PIREX+（升级版）</th>
+                      <th>效益</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>客户端存储</td>
+                      <td>294930.0 KB</td>
+                      <td>32.0 KB</td>
+                      <td class="benefit">9217x 简化</td>
+                    </tr>
+                    <tr>
+                      <td>计算时间</td>
+                      <td>38.08 ms</td>
+                      <td>15.43 ms</td>
+                      <td>-22.7 ms</td>
+                    </tr>
+                    <tr>
+                      <td>带宽</td>
+                      <td>256.3 KB</td>
+                      <td>128.0 KB</td>
+                      <td class="benefit">节省 50%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+
+          <div id="database-view" class="view-panel">
+            <div class="section-tabs">
+              <button class="tab-link active" data-db-tab="db-overview-tab">总览</button>
+              <button class="tab-link" data-db-tab="db-create-tab">数据库添加</button>
+            </div>
+
+            <div id="db-overview-tab" class="db-tab active">
+              <div class="split-grid">
+                <section class="panel">
+                  <div class="panel-head">
+                    <h2>数据库总览</h2>
+                    <span>查看现有数据库和文件条目</span>
+                  </div>
+                  <div class="stack">
+                    <label class="field">
+                      <span>数据库</span>
+                      <input id="overview-db-display" type="text" readonly placeholder="点击右侧数据库列表中的选中按钮">
+                    </label>
+                    <div class="inline-row">
+                      <button id="overview-files-button" class="btn btn-primary">文件刷新</button>
+                      <button id="overview-delete-button" class="btn btn-danger">删除数据库</button>
+                    </div>
+                    <textarea id="overview-files-text" class="text-console scroll-box medium-scroll" readonly placeholder="这里显示数据库文件列表"></textarea>
+                  </div>
+                </section>
+
+                <section class="panel accent-panel">
+                  <div class="panel-head">
+                    <h2>数据库列表</h2>
+                    <span>数据库条目、文件数和删除操作</span>
+                  </div>
+                  <div id="overview-database-list-panel" class="result-list scroll-box medium-scroll">
+                    <p>等待加载数据库列表。</p>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <div id="db-create-tab" class="db-tab">
+              <div class="split-grid">
+                <section class="panel">
+                  <div class="panel-head">
+                    <h2>数据库添加</h2>
+                    <span>创建新数据库并准备待上传文件</span>
+                  </div>
+                  <div class="stack">
+                    <label class="field">
+                      <span>新数据库名称</span>
+                      <input id="create-db-name" class="db-name-input" type="text" placeholder="例如 bankdemo1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                    </label>
+                    <div id="create-db-status-inline" class="db-inline-status"></div>
+                    <button id="create-db-button" class="btn btn-primary">添加数据库</button>
+
+                    <label class="field">
+                      <span>上传文件</span>
+                      <div class="file-input-shell">
+                        <input id="upload-files-input" type="file" multiple>
+                        <span id="tmp-file-count-inline" class="file-input-status">未选择任何文件</span>
+                      </div>
+                    </label>
+                    <p id="upload-limit-hint" class="field-hint">当前数据库总打包上限加载中...</p>
+
+                    <div id="tmp-file-list" class="tmp-upload-list empty-state scroll-box medium-scroll">
+                      <p>待上传文件列表为空。</p>
+                    </div>
+
+                    <div class="inline-row">
+                      <button id="upload-files-button" class="btn btn-secondary">上传数据</button>
+                      <button id="unfinished-clear-button" class="btn btn-danger">清空创建</button>
+                      <button id="pack-db-button" class="btn btn-primary">pirex+</button>
+                      <button id="pack-pirex-button" class="btn btn-pirex">pirex</button>
+                    </div>
+                    <p id="create-db-message" class="form-message"></p>
+                  </div>
+                </section>
+
+                <section class="panel panel-stretch">
+                  <div class="panel-head">
+                    <h2>已有数据库</h2>
+                    <span>由客户端 API 从服务端同步列表</span>
+                  </div>
+                  <div id="database-list-panel" class="result-list empty-state scroll-box medium-scroll">
+                    <p>等待加载数据库列表。</p>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+          </div>
+
+          <div id="logs-view" class="view-panel">
+            <div class="section-tabs">
+              <button class="tab-link active" data-log-tab="query-log-tab">查询日志</button>
+              <button class="tab-link" data-log-tab="db-log-tab">数据库日志</button>
+              <button class="tab-link" data-log-tab="user-manager-log-tab">用户管理日志</button>
+            </div>
+            <div id="query-log-tab" class="db-tab active">
+              <section class="panel">
+                <div class="panel-head">
+                  <h2>查询日志</h2>
+                  <span>查看查询者、数据库、文件和下载结果</span>
+                </div>
+                <div class="log-table-shell">
+                  <div class="user-log-table-head query-log-table-head">
+                    <span>查询者账号</span>
+                    <span>数据库</span>
+                    <span>文件名</span>
+                    <span>下载方式</span>
+                    <span>查询时间</span>
+                    <span>下载结果</span>
+                  </div>
+                  <div id="query-log-list" class="user-log-table-body">
+                    <div class="user-log-empty">暂无查询日志</div>
+                  </div>
+                  <div class="log-pagination">
+                    <button id="query-log-prev" class="btn btn-ghost btn-page" type="button">上一页</button>
+                    <div id="query-log-pages" class="log-page-list"></div>
+                    <button id="query-log-next" class="btn btn-ghost btn-page" type="button">下一页</button>
+                  </div>
+                </div>
+              </section>
+            </div>
+            <div id="db-log-tab" class="db-tab">
+              <section class="panel">
+                <div class="panel-head">
+                  <h2>数据库日志</h2>
+                  <span>查看数据库名称、操作类型、操作时间和操作结果</span>
+                </div>
+                <div class="log-table-shell">
+                  <div class="user-log-table-head db-log-table-head">
+                    <span>数据库名称</span>
+                    <span>操作类型</span>
+                    <span>操作时间</span>
+                    <span>操作结果</span>
+                  </div>
+                  <div id="database-log-list" class="user-log-table-body">
+                    <div class="user-log-empty">暂无数据库日志</div>
+                  </div>
+                  <div class="log-pagination">
+                    <button id="db-log-prev" class="btn btn-ghost btn-page" type="button">上一页</button>
+                    <div id="db-log-pages" class="log-page-list"></div>
+                    <button id="db-log-next" class="btn btn-ghost btn-page" type="button">下一页</button>
+                  </div>
+                </div>
+              </section>
+            </div>
+            <div id="user-manager-log-tab" class="db-tab">
+              <section class="panel">
+                <div class="panel-head">
+                  <h2>用户管理日志</h2>
+                  <span>查看管理员账号、操作类型、目标用户和操作时间</span>
+                </div>
+                <div class="log-table-shell">
+                  <div class="user-log-table-head">
+                    <span>管理员账号</span>
+                    <span>操作类型</span>
+                    <span>用户昵称</span>
+                    <span>用户账号</span>
+                    <span>操作时间</span>
+                  </div>
+                  <div id="user-manager-log-list" class="user-log-table-body">
+                    <div class="user-log-empty">暂无用户管理日志</div>
+                  </div>
+                  <div class="log-pagination">
+                    <button id="user-log-prev" class="btn btn-ghost btn-page" type="button">上一页</button>
+                    <div id="user-log-pages" class="log-page-list"></div>
+                    <button id="user-log-next" class="btn btn-ghost btn-page" type="button">下一页</button>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+
+
+          <div id="users-view" class="view-panel">
+            <section class="panel">
+              <div class="panel-head">
+                <h2>用户管理</h2>
+                <span>管理员区域骨架</span>
+              </div>
+              <div class="user-management-grid">
+                <div class="user-main-column">
+                  <div class="user-search-row">
+                    <input id="user-search-input" type="text" placeholder="输入昵称或账号">
+                    <button id="user-search-button" class="btn btn-primary">查询</button>
+                  </div>
+                  <div id="user-list-panel" class="user-list-panel scroll-box">
+                    <div class="user-card-grid">
+                      <p>等待加载用户列表。</p>
+                    </div>
+                  </div>
+                </div>
+                <aside class="user-side-column">
+                  <div class="user-card dashed">
+                    <strong>添加新用户</strong>
+                    <span class="user-card-hint">录入昵称、账号、密码</span>
+                    <button id="open-add-user-button" class="btn btn-primary">添加用户</button>
+                  </div>
+                </aside>
+              </div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </section>
+  </div>
+
+  <div id="app-modal" class="app-modal hidden" aria-hidden="true">
+    <div class="app-modal-card">
+      <div class="app-modal-head">
+        <strong id="app-modal-title">提示</strong>
+      </div>
+      <p id="app-modal-text" class="app-modal-text"></p>
+      <div id="app-modal-body"></div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

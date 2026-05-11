@@ -1,0 +1,855 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CMakeDetermineSystem.cmake:205 (message)"
+      - "CMakeLists.txt:6 (project)"
+    message: |
+      The system is: Windows - 10.0.22631 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:6 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: D:/Applications/tools/QT/Tools/mingw1120_64/bin/gcc.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.exe"
+      
+      The C compiler identification is GNU, found in:
+        D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/3.30.5/CompilerIdC/a.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CMakeDetermineCompilerABI.cmake:74 (try_compile)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:6 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-4gbcqd"
+      binary: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-4gbcqd"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-4gbcqd'
+        
+        Run Build Command(s): D:/Applications/tools/QT/Tools/CMake_64/bin/cmake.exe -E env VERBOSE=1 D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\mingw32-make.exe -f Makefile cmTC_f5f6e/fast
+        D:/Applications/tools/QT/Tools/mingw1120_64/bin/mingw32-make  -f CMakeFiles\\cmTC_f5f6e.dir\\build.make CMakeFiles/cmTC_f5f6e.dir/build
+        mingw32-make[1]: Entering directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-4gbcqd'
+        Building C object CMakeFiles/cmTC_f5f6e.dir/CMakeCCompilerABI.c.obj
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe   -v -o CMakeFiles\\cmTC_f5f6e.dir\\CMakeCCompilerABI.c.obj -c D:\\Applications\\tools\\QT\\Tools\\CMake_64\\share\\cmake-3.30\\Modules\\CMakeCCompilerABI.c
+        Using built-in specs.
+        COLLECT_GCC=D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe
+        Target: x86_64-w64-mingw32
+        Configured with: ../../../src/gcc-11.2.0/configure --host=x86_64-w64-mingw32 --build=x86_64-w64-mingw32 --target=x86_64-w64-mingw32 --prefix=/mingw64 --with-sysroot=/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64 --enable-host-shared --disable-multilib --enable-languages=c,c++,fortran,lto --enable-libstdcxx-time=yes --enable-threads=posix --enable-libgomp --enable-libatomic --enable-lto --enable-graphite --enable-checking=release --enable-fully-dynamic-string --enable-version-specific-runtime-libs --enable-libstdcxx-filesystem-ts=yes --disable-libstdcxx-pch --disable-libstdcxx-debug --enable-bootstrap --disable-rpath --disable-win32-registry --disable-nls --disable-werror --disable-symvers --with-gnu-as --with-gnu-ld --with-arch=nocona --with-tune=core2 --with-libiconv --with-system-zlib --with-gmp=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-mpfr=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-mpc=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-isl=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-pkgversion='x86_64-posix-seh-rev3, Built by MinGW-W64 project' --with-bugurl=https://sourceforge.net/projects/mingw-w64 CFLAGS='-O2 -pipe -fno-ident -I/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/include' CXXFLAGS='-O2 -pipe -fno-ident -I/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/include' CPPFLAGS=' -I/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/include' LDFLAGS='-pipe -fno-ident -L/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/lib -L/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/lib -L/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/lib ' LD_FOR_TARGET=/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/bin/ld.exe --with-boot-ldflags=' -Wl,--disable-dynamicbase -static-libstdc++ -static-libgcc'
+        Thread model: posix
+        Supported LTO compression algorithms: zlib
+        gcc version 11.2.0 (x86_64-posix-seh-rev3, Built by MinGW-W64 project) 
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_f5f6e.dir\\CMakeCCompilerABI.c.obj' '-c' '-mtune=core2' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_f5f6e.dir\\'
+         D:/Applications/tools/QT/Tools/mingw1120_64/bin/../libexec/gcc/x86_64-w64-mingw32/11.2.0/cc1.exe -quiet -v -iprefix D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/ -D_REENTRANT D:\\Applications\\tools\\QT\\Tools\\CMake_64\\share\\cmake-3.30\\Modules\\CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles\\cmTC_f5f6e.dir\\ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=core2 -march=nocona -version -o C:\\Users\\Lenovo\\AppData\\Local\\Temp\\ccYhrPOq.s
+        GNU C17 (x86_64-posix-seh-rev3, Built by MinGW-W64 project) version 11.2.0 (x86_64-w64-mingw32)
+        	compiled by GNU C version 11.2.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring duplicate directory "D:/Applications/tools/QT/Tools/mingw1120_64/lib/gcc/../../lib/gcc/x86_64-w64-mingw32/11.2.0/include"
+        ignoring nonexistent directory "D:/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64D:/a/_temp/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../include"
+        ignoring duplicate directory "D:/Applications/tools/QT/Tools/mingw1120_64/lib/gcc/../../lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed"
+        ignoring duplicate directory "D:/Applications/tools/QT/Tools/mingw1120_64/lib/gcc/../../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/include"
+        ignoring nonexistent directory "D:/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/mingw/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include
+         D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed
+         D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/include
+        End of search list.
+        GNU C17 (x86_64-posix-seh-rev3, Built by MinGW-W64 project) version 11.2.0 (x86_64-w64-mingw32)
+        	compiled by GNU C version 11.2.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        Compiler executable checksum: 91c4f3c4bd8e22d803fb4b1665a580b8
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_f5f6e.dir\\CMakeCCompilerABI.c.obj' '-c' '-mtune=core2' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_f5f6e.dir\\'
+         D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/bin/as.exe -v -o CMakeFiles\\cmTC_f5f6e.dir\\CMakeCCompilerABI.c.obj C:\\Users\\Lenovo\\AppData\\Local\\Temp\\ccYhrPOq.s
+        GNU assembler version 2.37 (x86_64-w64-mingw32) using BFD version (GNU Binutils) 2.37
+        COMPILER_PATH=D:/Applications/tools/QT/Tools/mingw1120_64/bin/../libexec/gcc/x86_64-w64-mingw32/11.2.0/;D:/Applications/tools/QT/Tools/mingw1120_64/bin/../libexec/gcc/;D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/bin/
+        LIBRARY_PATH=D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/;D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/;D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/lib/../lib/;D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../lib/;D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/lib/;D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_f5f6e.dir\\CMakeCCompilerABI.c.obj' '-c' '-mtune=core2' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_f5f6e.dir\\CMakeCCompilerABI.c.'
+        Linking C executable cmTC_f5f6e.exe
+        D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_f5f6e.dir\\link.txt --verbose=1
+        D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_f5f6e.dir/objects.a
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\ar.exe qc CMakeFiles\\cmTC_f5f6e.dir/objects.a @CMakeFiles\\cmTC_f5f6e.dir\\objects1.rsp
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe  -v -Wl,-v -Wl,--whole-archive CMakeFiles\\cmTC_f5f6e.dir/objects.a -Wl,--no-whole-archive -o cmTC_f5f6e.exe -Wl,--out-implib,libcmTC_f5f6e.dll.a -Wl,--major-image-version,0,--minor-image-version,0
+        Using built-in specs.
+        COLLECT_GCC=D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe
+        COLLECT_LTO_WRAPPER=D:/Applications/tools/QT/Tools/mingw1120_64/bin/../libexec/gcc/x86_64-w64-mingw32/11.2.0/lto-wrapper.exe
+        Target: x86_64-w64-mingw32
+        Configured with: ../../../src/gcc-11.2.0/configure --host=x86_64-w64-mingw32 --build=x86_64-w64-mingw32 --target=x86_64-w64-mingw32 --prefix=/mingw64 --with-sysroot=/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64 --enable-host-shared --disable-multilib --enable-languages=c,c++,fortran,lto --enable-libstdcxx-time=yes --enable-threads=posix --enable-libgomp --enable-libatomic --enable-lto --enable-graphite --enable-checking=release --enable-fully-dynamic-string --enable-version-specific-runtime-libs --enable-libstdcxx-filesystem-ts=yes --disable-libstdcxx-pch --disable-libstdcxx-debug --enable-bootstrap --disable-rpath --disable-win32-registry --disable-nls --disable-werror --disable-symvers --with-gnu-as --with-gnu-ld --with-arch=nocona --with-tune=core2 --with-libiconv --with-system-zlib --with-gmp=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-mpfr=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-mpc=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-isl=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-pkgversion='x86_64-posix-seh-rev3, Built by MinGW-W64 project' --with-bugurl=https://sourceforge.net/projects/mingw-w64 CFLAGS='-O2 -pipe -fno-ident -I/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/include' CXXFLAGS='-O2 -pipe -fno-ident -I/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/include' CPPFLAGS=' -I/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/include' LDFLAGS='-pipe -fno-ident -L/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/lib -L/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/lib -L/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/lib ' LD_FOR_TARGET=/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/bin/ld.exe --with-boot-ldflags=' -Wl,--disable-dynamicbase -static-libstdc++ -static-libgcc'
+        Thread model: posix
+        Supported LTO compression algorithms: zlib
+        gcc version 11.2.0 (x86_64-posix-seh-rev3, Built by MinGW-W64 project) 
+        COMPILER_PATH=D:/Applications/tools/QT/Tools/mingw1120_64/bin/../libexec/gcc/x86_64-w64-mingw32/11.2.0/;D:/Applications/tools/QT/Tools/mingw1120_64/bin/../libexec/gcc/;D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/bin/
+        LIBRARY_PATH=D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/;D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/;D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/lib/../lib/;D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../lib/;D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/lib/;D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_f5f6e.exe' '-mtune=core2' '-march=nocona' '-dumpdir' 'cmTC_f5f6e.'
+         D:/Applications/tools/QT/Tools/mingw1120_64/bin/../libexec/gcc/x86_64-w64-mingw32/11.2.0/collect2.exe -plugin D:/Applications/tools/QT/Tools/mingw1120_64/bin/../libexec/gcc/x86_64-w64-mingw32/11.2.0/liblto_plugin.dll -plugin-opt=D:/Applications/tools/QT/Tools/mingw1120_64/bin/../libexec/gcc/x86_64-w64-mingw32/11.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\Lenovo\\AppData\\Local\\Temp\\cc08oF6A.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-liconv -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 --sysroot=D:/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64 -m i386pep -Bdynamic -o cmTC_f5f6e.exe D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/crtbegin.o -LD:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0 -LD:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc -LD:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LD:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../lib -LD:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/lib -LD:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_f5f6e.dir/objects.a --no-whole-archive --out-implib libcmTC_f5f6e.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -liconv -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/crtend.o
+        collect2 version 11.2.0
+        D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe -plugin D:/Applications/tools/QT/Tools/mingw1120_64/bin/../libexec/gcc/x86_64-w64-mingw32/11.2.0/liblto_plugin.dll -plugin-opt=D:/Applications/tools/QT/Tools/mingw1120_64/bin/../libexec/gcc/x86_64-w64-mingw32/11.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\Lenovo\\AppData\\Local\\Temp\\cc08oF6A.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-liconv -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 --sysroot=D:/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64 -m i386pep -Bdynamic -o cmTC_f5f6e.exe D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/crtbegin.o -LD:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0 -LD:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc -LD:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LD:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../lib -LD:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/lib -LD:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_f5f6e.dir/objects.a --no-whole-archive --out-implib libcmTC_f5f6e.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -liconv -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/crtend.o
+        GNU ld (GNU Binutils) 2.37
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_f5f6e.exe' '-mtune=core2' '-march=nocona' '-dumpdir' 'cmTC_f5f6e.'
+        mingw32-make[1]: Leaving directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-4gbcqd'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CMakeDetermineCompilerABI.cmake:182 (message)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:6 (project)"
+    message: |
+      Parsed C implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include]
+          add: [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed]
+          add: [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/include]
+        end of search list found
+        collapse include dir [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include] ==> [D:/Applications/tools/QT/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include]
+        collapse include dir [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed] ==> [D:/Applications/tools/QT/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed]
+        collapse include dir [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/include] ==> [D:/Applications/tools/QT/Tools/mingw1120_64/x86_64-w64-mingw32/include]
+        implicit include dirs: [D:/Applications/tools/QT/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include;D:/Applications/tools/QT/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed;D:/Applications/tools/QT/Tools/mingw1120_64/x86_64-w64-mingw32/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CMakeDetermineCompilerABI.cmake:218 (message)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:6 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?))("|,| |$)]
+        ignore line: [Change Dir: 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-4gbcqd']
+        ignore line: []
+        ignore line: [Run Build Command(s): D:/Applications/tools/QT/Tools/CMake_64/bin/cmake.exe -E env VERBOSE=1 D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\mingw32-make.exe -f Makefile cmTC_f5f6e/fast]
+        ignore line: [D:/Applications/tools/QT/Tools/mingw1120_64/bin/mingw32-make  -f CMakeFiles\\cmTC_f5f6e.dir\\build.make CMakeFiles/cmTC_f5f6e.dir/build]
+        ignore line: [mingw32-make[1]: Entering directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-4gbcqd']
+        ignore line: [Building C object CMakeFiles/cmTC_f5f6e.dir/CMakeCCompilerABI.c.obj]
+        ignore line: [D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe   -v -o CMakeFiles\\cmTC_f5f6e.dir\\CMakeCCompilerABI.c.obj -c D:\\Applications\\tools\\QT\\Tools\\CMake_64\\share\\cmake-3.30\\Modules\\CMakeCCompilerABI.c]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe]
+        ignore line: [Target: x86_64-w64-mingw32]
+        ignore line: [Configured with: ../../../src/gcc-11.2.0/configure --host=x86_64-w64-mingw32 --build=x86_64-w64-mingw32 --target=x86_64-w64-mingw32 --prefix=/mingw64 --with-sysroot=/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64 --enable-host-shared --disable-multilib --enable-languages=c,c++,fortran,lto --enable-libstdcxx-time=yes --enable-threads=posix --enable-libgomp --enable-libatomic --enable-lto --enable-graphite --enable-checking=release --enable-fully-dynamic-string --enable-version-specific-runtime-libs --enable-libstdcxx-filesystem-ts=yes --disable-libstdcxx-pch --disable-libstdcxx-debug --enable-bootstrap --disable-rpath --disable-win32-registry --disable-nls --disable-werror --disable-symvers --with-gnu-as --with-gnu-ld --with-arch=nocona --with-tune=core2 --with-libiconv --with-system-zlib --with-gmp=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-mpfr=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-mpc=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-isl=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-pkgversion='x86_64-posix-seh-rev3, Built by MinGW-W64 project' --with-bugurl=https://sourceforge.net/projects/mingw-w64 CFLAGS='-O2 -pipe -fno-ident -I/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/include' CXXFLAGS='-O2 -pipe -fno-ident -I/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/include' CPPFLAGS=' -I/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/include' LDFLAGS='-pipe -fno-ident -L/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/lib -L/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/lib -L/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/lib ' LD_FOR_TARGET=/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/bin/ld.exe --with-boot-ldflags=' -Wl,--disable-dynamicbase -static-libstdc++ -static-libgcc']
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib]
+        ignore line: [gcc version 11.2.0 (x86_64-posix-seh-rev3  Built by MinGW-W64 project) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_f5f6e.dir\\CMakeCCompilerABI.c.obj' '-c' '-mtune=core2' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_f5f6e.dir\\']
+        ignore line: [ D:/Applications/tools/QT/Tools/mingw1120_64/bin/../libexec/gcc/x86_64-w64-mingw32/11.2.0/cc1.exe -quiet -v -iprefix D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/ -D_REENTRANT D:\\Applications\\tools\\QT\\Tools\\CMake_64\\share\\cmake-3.30\\Modules\\CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles\\cmTC_f5f6e.dir\\ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=core2 -march=nocona -version -o C:\\Users\\Lenovo\\AppData\\Local\\Temp\\ccYhrPOq.s]
+        ignore line: [GNU C17 (x86_64-posix-seh-rev3  Built by MinGW-W64 project) version 11.2.0 (x86_64-w64-mingw32)]
+        ignore line: [	compiled by GNU C version 11.2.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring duplicate directory "D:/Applications/tools/QT/Tools/mingw1120_64/lib/gcc/../../lib/gcc/x86_64-w64-mingw32/11.2.0/include"]
+        ignore line: [ignoring nonexistent directory "D:/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64D:/a/_temp/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../include"]
+        ignore line: [ignoring duplicate directory "D:/Applications/tools/QT/Tools/mingw1120_64/lib/gcc/../../lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed"]
+        ignore line: [ignoring duplicate directory "D:/Applications/tools/QT/Tools/mingw1120_64/lib/gcc/../../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/include"]
+        ignore line: [ignoring nonexistent directory "D:/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/mingw/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include]
+        ignore line: [ D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed]
+        ignore line: [ D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/include]
+        ignore line: [End of search list.]
+        ignore line: [GNU C17 (x86_64-posix-seh-rev3  Built by MinGW-W64 project) version 11.2.0 (x86_64-w64-mingw32)]
+        ignore line: [	compiled by GNU C version 11.2.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [Compiler executable checksum: 91c4f3c4bd8e22d803fb4b1665a580b8]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_f5f6e.dir\\CMakeCCompilerABI.c.obj' '-c' '-mtune=core2' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_f5f6e.dir\\']
+        ignore line: [ D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/bin/as.exe -v -o CMakeFiles\\cmTC_f5f6e.dir\\CMakeCCompilerABI.c.obj C:\\Users\\Lenovo\\AppData\\Local\\Temp\\ccYhrPOq.s]
+        ignore line: [GNU assembler version 2.37 (x86_64-w64-mingw32) using BFD version (GNU Binutils) 2.37]
+        ignore line: [COMPILER_PATH=D:/Applications/tools/QT/Tools/mingw1120_64/bin/../libexec/gcc/x86_64-w64-mingw32/11.2.0/]
+        ignore line: [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../libexec/gcc/]
+        ignore line: [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/bin/]
+        ignore line: [LIBRARY_PATH=D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/]
+        ignore line: [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/]
+        ignore line: [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/lib/../lib/]
+        ignore line: [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../lib/]
+        ignore line: [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/lib/]
+        ignore line: [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_f5f6e.dir\\CMakeCCompilerABI.c.obj' '-c' '-mtune=core2' '-march=nocona' '-dumpdir' 'CMakeFiles\\cmTC_f5f6e.dir\\CMakeCCompilerABI.c.']
+        ignore line: [Linking C executable cmTC_f5f6e.exe]
+        ignore line: [D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_f5f6e.dir\\link.txt --verbose=1]
+        ignore line: [D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_f5f6e.dir/objects.a]
+        ignore line: [D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\ar.exe qc CMakeFiles\\cmTC_f5f6e.dir/objects.a @CMakeFiles\\cmTC_f5f6e.dir\\objects1.rsp]
+        ignore line: [D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe  -v -Wl -v -Wl --whole-archive CMakeFiles\\cmTC_f5f6e.dir/objects.a -Wl --no-whole-archive -o cmTC_f5f6e.exe -Wl --out-implib libcmTC_f5f6e.dll.a -Wl --major-image-version 0 --minor-image-version 0]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe]
+        ignore line: [COLLECT_LTO_WRAPPER=D:/Applications/tools/QT/Tools/mingw1120_64/bin/../libexec/gcc/x86_64-w64-mingw32/11.2.0/lto-wrapper.exe]
+        ignore line: [Target: x86_64-w64-mingw32]
+        ignore line: [Configured with: ../../../src/gcc-11.2.0/configure --host=x86_64-w64-mingw32 --build=x86_64-w64-mingw32 --target=x86_64-w64-mingw32 --prefix=/mingw64 --with-sysroot=/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64 --enable-host-shared --disable-multilib --enable-languages=c,c++,fortran,lto --enable-libstdcxx-time=yes --enable-threads=posix --enable-libgomp --enable-libatomic --enable-lto --enable-graphite --enable-checking=release --enable-fully-dynamic-string --enable-version-specific-runtime-libs --enable-libstdcxx-filesystem-ts=yes --disable-libstdcxx-pch --disable-libstdcxx-debug --enable-bootstrap --disable-rpath --disable-win32-registry --disable-nls --disable-werror --disable-symvers --with-gnu-as --with-gnu-ld --with-arch=nocona --with-tune=core2 --with-libiconv --with-system-zlib --with-gmp=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-mpfr=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-mpc=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-isl=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-pkgversion='x86_64-posix-seh-rev3, Built by MinGW-W64 project' --with-bugurl=https://sourceforge.net/projects/mingw-w64 CFLAGS='-O2 -pipe -fno-ident -I/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/include' CXXFLAGS='-O2 -pipe -fno-ident -I/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/include' CPPFLAGS=' -I/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/include' LDFLAGS='-pipe -fno-ident -L/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/lib -L/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/lib -L/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/lib ' LD_FOR_TARGET=/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/bin/ld.exe --with-boot-ldflags=' -Wl,--disable-dynamicbase -static-libstdc++ -static-libgcc']
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib]
+        ignore line: [gcc version 11.2.0 (x86_64-posix-seh-rev3  Built by MinGW-W64 project) ]
+        ignore line: [COMPILER_PATH=D:/Applications/tools/QT/Tools/mingw1120_64/bin/../libexec/gcc/x86_64-w64-mingw32/11.2.0/]
+        ignore line: [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../libexec/gcc/]
+        ignore line: [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/bin/]
+        ignore line: [LIBRARY_PATH=D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/]
+        ignore line: [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/]
+        ignore line: [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/lib/../lib/]
+        ignore line: [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../lib/]
+        ignore line: [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/lib/]
+        ignore line: [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_f5f6e.exe' '-mtune=core2' '-march=nocona' '-dumpdir' 'cmTC_f5f6e.']
+        link line: [ D:/Applications/tools/QT/Tools/mingw1120_64/bin/../libexec/gcc/x86_64-w64-mingw32/11.2.0/collect2.exe -plugin D:/Applications/tools/QT/Tools/mingw1120_64/bin/../libexec/gcc/x86_64-w64-mingw32/11.2.0/liblto_plugin.dll -plugin-opt=D:/Applications/tools/QT/Tools/mingw1120_64/bin/../libexec/gcc/x86_64-w64-mingw32/11.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\Lenovo\\AppData\\Local\\Temp\\cc08oF6A.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-liconv -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 --sysroot=D:/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64 -m i386pep -Bdynamic -o cmTC_f5f6e.exe D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/crtbegin.o -LD:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0 -LD:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc -LD:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LD:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../lib -LD:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/lib -LD:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_f5f6e.dir/objects.a --no-whole-archive --out-implib libcmTC_f5f6e.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -liconv -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/crtend.o]
+          arg [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../libexec/gcc/x86_64-w64-mingw32/11.2.0/collect2.exe] ==> ignore
+          arg [-plugin] ==> ignore
+          arg [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../libexec/gcc/x86_64-w64-mingw32/11.2.0/liblto_plugin.dll] ==> ignore
+          arg [-plugin-opt=D:/Applications/tools/QT/Tools/mingw1120_64/bin/../libexec/gcc/x86_64-w64-mingw32/11.2.0/lto-wrapper.exe] ==> ignore
+          arg [-plugin-opt=-fresolution=C:\\Users\\Lenovo\\AppData\\Local\\Temp\\cc08oF6A.res] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmingw32] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_eh] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmoldname] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmingwex] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmsvcrt] ==> ignore
+          arg [-plugin-opt=-pass-through=-lkernel32] ==> ignore
+          arg [-plugin-opt=-pass-through=-lpthread] ==> ignore
+          arg [-plugin-opt=-pass-through=-ladvapi32] ==> ignore
+          arg [-plugin-opt=-pass-through=-lshell32] ==> ignore
+          arg [-plugin-opt=-pass-through=-luser32] ==> ignore
+          arg [-plugin-opt=-pass-through=-lkernel32] ==> ignore
+          arg [-plugin-opt=-pass-through=-liconv] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmingw32] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_eh] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmoldname] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmingwex] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmsvcrt] ==> ignore
+          arg [-plugin-opt=-pass-through=-lkernel32] ==> ignore
+          arg [--sysroot=D:/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64] ==> ignore
+          arg [-m] ==> ignore
+          arg [i386pep] ==> ignore
+          arg [-Bdynamic] ==> search dynamic
+          arg [-o] ==> ignore
+          arg [cmTC_f5f6e.exe] ==> ignore
+          arg [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o] ==> obj [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o]
+          arg [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/crtbegin.o] ==> obj [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/crtbegin.o]
+          arg [-LD:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0] ==> dir [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0]
+          arg [-LD:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc] ==> dir [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc]
+          arg [-LD:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/lib/../lib] ==> dir [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/lib/../lib]
+          arg [-LD:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../lib] ==> dir [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../lib]
+          arg [-LD:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/lib] ==> dir [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/lib]
+          arg [-LD:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../..] ==> dir [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../..]
+          arg [-v] ==> ignore
+          arg [--whole-archive] ==> ignore
+          arg [CMakeFiles\\cmTC_f5f6e.dir/objects.a] ==> ignore
+          arg [--no-whole-archive] ==> ignore
+          arg [--out-implib] ==> ignore
+          arg [libcmTC_f5f6e.dll.a] ==> ignore
+          arg [--major-image-version] ==> ignore
+          arg [0] ==> ignore
+          arg [--minor-image-version] ==> ignore
+          arg [0] ==> ignore
+          arg [-lmingw32] ==> lib [mingw32]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lgcc_eh] ==> lib [gcc_eh]
+          arg [-lmoldname] ==> lib [moldname]
+          arg [-lmingwex] ==> lib [mingwex]
+          arg [-lmsvcrt] ==> lib [msvcrt]
+          arg [-lkernel32] ==> lib [kernel32]
+          arg [-lpthread] ==> lib [pthread]
+          arg [-ladvapi32] ==> lib [advapi32]
+          arg [-lshell32] ==> lib [shell32]
+          arg [-luser32] ==> lib [user32]
+          arg [-lkernel32] ==> lib [kernel32]
+          arg [-liconv] ==> lib [iconv]
+          arg [-lmingw32] ==> lib [mingw32]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lgcc_eh] ==> lib [gcc_eh]
+          arg [-lmoldname] ==> lib [moldname]
+          arg [-lmingwex] ==> lib [mingwex]
+          arg [-lmsvcrt] ==> lib [msvcrt]
+          arg [-lkernel32] ==> lib [kernel32]
+          arg [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/crtend.o] ==> obj [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/crtend.o]
+        linker tool for 'C': ../src/gcc-11.2.0/configure --host=x86_64-w64-mingw32 --build=x86_64-w64-mingw32 --target=x86_64-w64-mingw32 --prefix=/mingw64 --with-sysroot=/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64 --enable-host-shared --disable-multilib --enable-languages=c,c++,fortran,lto --enable-libstdcxx-time=yes --enable-threads=posix --enable-libgomp --enable-libatomic --enable-lto --enable-graphite --enable-checking=release --enable-fully-dynamic-string --enable-version-specific-runtime-libs --enable-libstdcxx-filesystem-ts=yes --disable-libstdcxx-pch --disable-libstdcxx-debug --enable-bootstrap --disable-rpath --disable-win32-registry --disable-nls --disable-werror --disable-symvers --with-gnu-as --with-gnu-ld --with-arch=nocona --with-tune=core2 --with-libiconv --with-system-zlib --with-gmp=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-mpfr=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-mpc=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-isl=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-pkgversion='x86_64-posix-seh-rev3, Built by MinGW-W64 project' --with-bugurl=https:/sourceforge.net/projects/mingw-w64 CFLAGS='-O2 -pipe -fno-ident -I/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/include' CXXFLAGS='-O2 -pipe -fno-ident -I/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/include' CPPFLAGS=' -I/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/include' LDFLAGS='-pipe -fno-ident -L/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/lib -L/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/lib -L/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/lib ' LD_FOR_TARGET=/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/bin/ld.exe
+        remove lib [gcc_eh]
+        remove lib [msvcrt]
+        remove lib [gcc_eh]
+        remove lib [msvcrt]
+        collapse obj [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o] ==> [D:/Applications/tools/QT/Tools/mingw1120_64/x86_64-w64-mingw32/lib/crt2.o]
+        collapse obj [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/crtbegin.o] ==> [D:/Applications/tools/QT/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/crtbegin.o]
+        collapse obj [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/crtend.o] ==> [D:/Applications/tools/QT/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/crtend.o]
+        collapse library dir [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0] ==> [D:/Applications/tools/QT/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0]
+        collapse library dir [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc] ==> [D:/Applications/tools/QT/Tools/mingw1120_64/lib/gcc]
+        collapse library dir [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/lib/../lib] ==> [D:/Applications/tools/QT/Tools/mingw1120_64/x86_64-w64-mingw32/lib]
+        collapse library dir [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../lib] ==> [D:/Applications/tools/QT/Tools/mingw1120_64/lib]
+        collapse library dir [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/lib] ==> [D:/Applications/tools/QT/Tools/mingw1120_64/x86_64-w64-mingw32/lib]
+        collapse library dir [D:/Applications/tools/QT/Tools/mingw1120_64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../..] ==> [D:/Applications/tools/QT/Tools/mingw1120_64/lib]
+        implicit libs: [mingw32;gcc;moldname;mingwex;kernel32;pthread;advapi32;shell32;user32;kernel32;iconv;mingw32;gcc;moldname;mingwex;kernel32]
+        implicit objs: [D:/Applications/tools/QT/Tools/mingw1120_64/x86_64-w64-mingw32/lib/crt2.o;D:/Applications/tools/QT/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/crtbegin.o;D:/Applications/tools/QT/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/crtend.o]
+        implicit dirs: [D:/Applications/tools/QT/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0;D:/Applications/tools/QT/Tools/mingw1120_64/lib/gcc;D:/Applications/tools/QT/Tools/mingw1120_64/x86_64-w64-mingw32/lib;D:/Applications/tools/QT/Tools/mingw1120_64/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CMakeDetermineCompilerABI.cmake:255 (cmake_determine_linker_id)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:6 (project)"
+    message: |
+      Running the C compiler's linker: "../src/gcc-11.2.0/configure --host=x86_64-w64-mingw32 --build=x86_64-w64-mingw32 --target=x86_64-w64-mingw32 --prefix=/mingw64 --with-sysroot=/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64 --enable-host-shared --disable-multilib --enable-languages=c,c++,fortran,lto --enable-libstdcxx-time=yes --enable-threads=posix --enable-libgomp --enable-libatomic --enable-lto --enable-graphite --enable-checking=release --enable-fully-dynamic-string --enable-version-specific-runtime-libs --enable-libstdcxx-filesystem-ts=yes --disable-libstdcxx-pch --disable-libstdcxx-debug --enable-bootstrap --disable-rpath --disable-win32-registry --disable-nls --disable-werror --disable-symvers --with-gnu-as --with-gnu-ld --with-arch=nocona --with-tune=core2 --with-libiconv --with-system-zlib --with-gmp=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-mpfr=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-mpc=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-isl=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-pkgversion='x86_64-posix-seh-rev3, Built by MinGW-W64 project' --with-bugurl=https:/sourceforge.net/projects/mingw-w64 CFLAGS='-O2 -pipe -fno-ident -I/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/include' CXXFLAGS='-O2 -pipe -fno-ident -I/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/include' CPPFLAGS=' -I/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/include' LDFLAGS='-pipe -fno-ident -L/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/lib -L/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/lib -L/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/lib ' LD_FOR_TARGET=/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/bin/ld.exe" "-v"
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CMakeDetermineCompilerABI.cmake:255 (cmake_determine_linker_id)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:6 (project)"
+    message: |
+      Running the C compiler's linker: "../src/gcc-11.2.0/configure --host=x86_64-w64-mingw32 --build=x86_64-w64-mingw32 --target=x86_64-w64-mingw32 --prefix=/mingw64 --with-sysroot=/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64 --enable-host-shared --disable-multilib --enable-languages=c,c++,fortran,lto --enable-libstdcxx-time=yes --enable-threads=posix --enable-libgomp --enable-libatomic --enable-lto --enable-graphite --enable-checking=release --enable-fully-dynamic-string --enable-version-specific-runtime-libs --enable-libstdcxx-filesystem-ts=yes --disable-libstdcxx-pch --disable-libstdcxx-debug --enable-bootstrap --disable-rpath --disable-win32-registry --disable-nls --disable-werror --disable-symvers --with-gnu-as --with-gnu-ld --with-arch=nocona --with-tune=core2 --with-libiconv --with-system-zlib --with-gmp=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-mpfr=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-mpc=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-isl=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-pkgversion='x86_64-posix-seh-rev3, Built by MinGW-W64 project' --with-bugurl=https:/sourceforge.net/projects/mingw-w64 CFLAGS='-O2 -pipe -fno-ident -I/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/include' CXXFLAGS='-O2 -pipe -fno-ident -I/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/include' CPPFLAGS=' -I/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/include' LDFLAGS='-pipe -fno-ident -L/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/lib -L/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/lib -L/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/lib ' LD_FOR_TARGET=/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/bin/ld.exe" "-V"
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CMakeDetermineCompilerABI.cmake:255 (cmake_determine_linker_id)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:6 (project)"
+    message: |
+      Running the C compiler's linker: "../src/gcc-11.2.0/configure --host=x86_64-w64-mingw32 --build=x86_64-w64-mingw32 --target=x86_64-w64-mingw32 --prefix=/mingw64 --with-sysroot=/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64 --enable-host-shared --disable-multilib --enable-languages=c,c++,fortran,lto --enable-libstdcxx-time=yes --enable-threads=posix --enable-libgomp --enable-libatomic --enable-lto --enable-graphite --enable-checking=release --enable-fully-dynamic-string --enable-version-specific-runtime-libs --enable-libstdcxx-filesystem-ts=yes --disable-libstdcxx-pch --disable-libstdcxx-debug --enable-bootstrap --disable-rpath --disable-win32-registry --disable-nls --disable-werror --disable-symvers --with-gnu-as --with-gnu-ld --with-arch=nocona --with-tune=core2 --with-libiconv --with-system-zlib --with-gmp=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-mpfr=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-mpc=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-isl=/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static --with-pkgversion='x86_64-posix-seh-rev3, Built by MinGW-W64 project' --with-bugurl=https:/sourceforge.net/projects/mingw-w64 CFLAGS='-O2 -pipe -fno-ident -I/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/include' CXXFLAGS='-O2 -pipe -fno-ident -I/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/include' CPPFLAGS=' -I/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/include -I/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/include' LDFLAGS='-pipe -fno-ident -L/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/opt/lib -L/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-zlib-static/lib -L/d/a/mingw-builds/mingw-builds/buildroot/prerequisites/x86_64-w64-mingw32-static/lib ' LD_FOR_TARGET=/d/a/mingw-builds/mingw-builds/buildroot/x86_64-1120-posix-seh-rt_v9-rev3/mingw64/bin/ld.exe" "--version"
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "cmake/TryAppendCFlags.cmake:11 (check_c_compiler_flag)"
+      - "CMakeLists.txt:254 (try_append_c_flags)"
+    checks:
+      - "Performing Test FLAG__pedantic"
+    directories:
+      source: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-cofwhu"
+      binary: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-cofwhu"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/cmake"
+    buildResult:
+      variable: "FLAG__pedantic"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-cofwhu'
+        
+        Run Build Command(s): D:/Applications/tools/QT/Tools/CMake_64/bin/cmake.exe -E env VERBOSE=1 D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\mingw32-make.exe -f Makefile cmTC_913a5/fast
+        D:/Applications/tools/QT/Tools/mingw1120_64/bin/mingw32-make  -f CMakeFiles\\cmTC_913a5.dir\\build.make CMakeFiles/cmTC_913a5.dir/build
+        mingw32-make[1]: Entering directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-cofwhu'
+        Building C object CMakeFiles/cmTC_913a5.dir/src.c.obj
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe -DFLAG__pedantic  -std=c90    -pedantic -o CMakeFiles\\cmTC_913a5.dir\\src.c.obj -c D:\\WorkStation\\pythoncode\\experiment-reproduction\\windows\\pirex-main\\secp256k1\\build\\CMakeFiles\\CMakeScratch\\TryCompile-cofwhu\\src.c
+        Linking C executable cmTC_913a5.exe
+        D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_913a5.dir\\link.txt --verbose=1
+        D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_913a5.dir/objects.a
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\ar.exe qc CMakeFiles\\cmTC_913a5.dir/objects.a @CMakeFiles\\cmTC_913a5.dir\\objects1.rsp
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe -Wl,--whole-archive CMakeFiles\\cmTC_913a5.dir/objects.a -Wl,--no-whole-archive -o cmTC_913a5.exe -Wl,--out-implib,libcmTC_913a5.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_913a5.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-cofwhu'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "cmake/TryAppendCFlags.cmake:11 (check_c_compiler_flag)"
+      - "CMakeLists.txt:255 (try_append_c_flags)"
+    checks:
+      - "Performing Test FLAG__Wall"
+    directories:
+      source: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-hnmzff"
+      binary: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-hnmzff"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -pedantic"
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/cmake"
+    buildResult:
+      variable: "FLAG__Wall"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-hnmzff'
+        
+        Run Build Command(s): D:/Applications/tools/QT/Tools/CMake_64/bin/cmake.exe -E env VERBOSE=1 D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\mingw32-make.exe -f Makefile cmTC_8ed7e/fast
+        D:/Applications/tools/QT/Tools/mingw1120_64/bin/mingw32-make  -f CMakeFiles\\cmTC_8ed7e.dir\\build.make CMakeFiles/cmTC_8ed7e.dir/build
+        mingw32-make[1]: Entering directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-hnmzff'
+        Building C object CMakeFiles/cmTC_8ed7e.dir/src.c.obj
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe -DFLAG__Wall  -pedantic  -std=c90    -pedantic -Wall -o CMakeFiles\\cmTC_8ed7e.dir\\src.c.obj -c D:\\WorkStation\\pythoncode\\experiment-reproduction\\windows\\pirex-main\\secp256k1\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hnmzff\\src.c
+        Linking C executable cmTC_8ed7e.exe
+        D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_8ed7e.dir\\link.txt --verbose=1
+        D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_8ed7e.dir/objects.a
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\ar.exe qc CMakeFiles\\cmTC_8ed7e.dir/objects.a @CMakeFiles\\cmTC_8ed7e.dir\\objects1.rsp
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe  -pedantic  -Wl,--whole-archive CMakeFiles\\cmTC_8ed7e.dir/objects.a -Wl,--no-whole-archive -o cmTC_8ed7e.exe -Wl,--out-implib,libcmTC_8ed7e.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_8ed7e.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-hnmzff'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "cmake/TryAppendCFlags.cmake:11 (check_c_compiler_flag)"
+      - "CMakeLists.txt:256 (try_append_c_flags)"
+    checks:
+      - "Performing Test FLAG__Wcast_align"
+    directories:
+      source: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-c88df4"
+      binary: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-c88df4"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -pedantic -Wall"
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/cmake"
+    buildResult:
+      variable: "FLAG__Wcast_align"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-c88df4'
+        
+        Run Build Command(s): D:/Applications/tools/QT/Tools/CMake_64/bin/cmake.exe -E env VERBOSE=1 D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\mingw32-make.exe -f Makefile cmTC_77140/fast
+        D:/Applications/tools/QT/Tools/mingw1120_64/bin/mingw32-make  -f CMakeFiles\\cmTC_77140.dir\\build.make CMakeFiles/cmTC_77140.dir/build
+        mingw32-make[1]: Entering directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-c88df4'
+        Building C object CMakeFiles/cmTC_77140.dir/src.c.obj
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe -DFLAG__Wcast_align  -pedantic -Wall  -std=c90    -pedantic -Wall -Wcast-align -o CMakeFiles\\cmTC_77140.dir\\src.c.obj -c D:\\WorkStation\\pythoncode\\experiment-reproduction\\windows\\pirex-main\\secp256k1\\build\\CMakeFiles\\CMakeScratch\\TryCompile-c88df4\\src.c
+        Linking C executable cmTC_77140.exe
+        D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_77140.dir\\link.txt --verbose=1
+        D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_77140.dir/objects.a
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\ar.exe qc CMakeFiles\\cmTC_77140.dir/objects.a @CMakeFiles\\cmTC_77140.dir\\objects1.rsp
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe  -pedantic -Wall  -Wl,--whole-archive CMakeFiles\\cmTC_77140.dir/objects.a -Wl,--no-whole-archive -o cmTC_77140.exe -Wl,--out-implib,libcmTC_77140.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_77140.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-c88df4'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "cmake/TryAppendCFlags.cmake:11 (check_c_compiler_flag)"
+      - "CMakeLists.txt:257 (try_append_c_flags)"
+    checks:
+      - "Performing Test FLAG__Wcast_align_strict"
+    directories:
+      source: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-jsdy7j"
+      binary: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-jsdy7j"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -pedantic -Wall -Wcast-align"
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/cmake"
+    buildResult:
+      variable: "FLAG__Wcast_align_strict"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-jsdy7j'
+        
+        Run Build Command(s): D:/Applications/tools/QT/Tools/CMake_64/bin/cmake.exe -E env VERBOSE=1 D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\mingw32-make.exe -f Makefile cmTC_a0b45/fast
+        D:/Applications/tools/QT/Tools/mingw1120_64/bin/mingw32-make  -f CMakeFiles\\cmTC_a0b45.dir\\build.make CMakeFiles/cmTC_a0b45.dir/build
+        mingw32-make[1]: Entering directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-jsdy7j'
+        Building C object CMakeFiles/cmTC_a0b45.dir/src.c.obj
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe -DFLAG__Wcast_align_strict  -pedantic -Wall -Wcast-align  -std=c90    -pedantic -Wall -Wcast-align -Wcast-align=strict -o CMakeFiles\\cmTC_a0b45.dir\\src.c.obj -c D:\\WorkStation\\pythoncode\\experiment-reproduction\\windows\\pirex-main\\secp256k1\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jsdy7j\\src.c
+        Linking C executable cmTC_a0b45.exe
+        D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_a0b45.dir\\link.txt --verbose=1
+        D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_a0b45.dir/objects.a
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\ar.exe qc CMakeFiles\\cmTC_a0b45.dir/objects.a @CMakeFiles\\cmTC_a0b45.dir\\objects1.rsp
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe  -pedantic -Wall -Wcast-align  -Wl,--whole-archive CMakeFiles\\cmTC_a0b45.dir/objects.a -Wl,--no-whole-archive -o cmTC_a0b45.exe -Wl,--out-implib,libcmTC_a0b45.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_a0b45.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-jsdy7j'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "cmake/TryAppendCFlags.cmake:11 (check_c_compiler_flag)"
+      - "CMakeLists.txt:258 (try_append_c_flags)"
+    checks:
+      - "Performing Test FLAG__Wconditional_uninitialized"
+    directories:
+      source: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-kh7rg2"
+      binary: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-kh7rg2"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -pedantic -Wall -Wcast-align -Wcast-align=strict"
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/cmake"
+    buildResult:
+      variable: "FLAG__Wconditional_uninitialized"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-kh7rg2'
+        
+        Run Build Command(s): D:/Applications/tools/QT/Tools/CMake_64/bin/cmake.exe -E env VERBOSE=1 D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\mingw32-make.exe -f Makefile cmTC_fe32f/fast
+        D:/Applications/tools/QT/Tools/mingw1120_64/bin/mingw32-make  -f CMakeFiles\\cmTC_fe32f.dir\\build.make CMakeFiles/cmTC_fe32f.dir/build
+        mingw32-make[1]: Entering directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-kh7rg2'
+        Building C object CMakeFiles/cmTC_fe32f.dir/src.c.obj
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe -DFLAG__Wconditional_uninitialized  -pedantic -Wall -Wcast-align -Wcast-align=strict  -std=c90    -pedantic -Wall -Wcast-align -Wcast-align=strict -Wconditional-uninitialized -o CMakeFiles\\cmTC_fe32f.dir\\src.c.obj -c D:\\WorkStation\\pythoncode\\experiment-reproduction\\windows\\pirex-main\\secp256k1\\build\\CMakeFiles\\CMakeScratch\\TryCompile-kh7rg2\\src.c
+        gcc.exe: error: unrecognized command-line option '-Wconditional-uninitialized'; did you mean '-Wno-uninitialized'?
+        mingw32-make[1]: *** [CMakeFiles\\cmTC_fe32f.dir\\build.make:77: CMakeFiles/cmTC_fe32f.dir/src.c.obj] Error 1
+        mingw32-make[1]: Leaving directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-kh7rg2'
+        mingw32-make: *** [Makefile:126: cmTC_fe32f/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "cmake/TryAppendCFlags.cmake:11 (check_c_compiler_flag)"
+      - "CMakeLists.txt:259 (try_append_c_flags)"
+    checks:
+      - "Performing Test FLAG__Wextra"
+    directories:
+      source: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-8j1let"
+      binary: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-8j1let"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -pedantic -Wall -Wcast-align -Wcast-align=strict"
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/cmake"
+    buildResult:
+      variable: "FLAG__Wextra"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-8j1let'
+        
+        Run Build Command(s): D:/Applications/tools/QT/Tools/CMake_64/bin/cmake.exe -E env VERBOSE=1 D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\mingw32-make.exe -f Makefile cmTC_b1c61/fast
+        D:/Applications/tools/QT/Tools/mingw1120_64/bin/mingw32-make  -f CMakeFiles\\cmTC_b1c61.dir\\build.make CMakeFiles/cmTC_b1c61.dir/build
+        mingw32-make[1]: Entering directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-8j1let'
+        Building C object CMakeFiles/cmTC_b1c61.dir/src.c.obj
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe -DFLAG__Wextra  -pedantic -Wall -Wcast-align -Wcast-align=strict  -std=c90    -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -o CMakeFiles\\cmTC_b1c61.dir\\src.c.obj -c D:\\WorkStation\\pythoncode\\experiment-reproduction\\windows\\pirex-main\\secp256k1\\build\\CMakeFiles\\CMakeScratch\\TryCompile-8j1let\\src.c
+        Linking C executable cmTC_b1c61.exe
+        D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_b1c61.dir\\link.txt --verbose=1
+        D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_b1c61.dir/objects.a
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\ar.exe qc CMakeFiles\\cmTC_b1c61.dir/objects.a @CMakeFiles\\cmTC_b1c61.dir\\objects1.rsp
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe  -pedantic -Wall -Wcast-align -Wcast-align=strict  -Wl,--whole-archive CMakeFiles\\cmTC_b1c61.dir/objects.a -Wl,--no-whole-archive -o cmTC_b1c61.exe -Wl,--out-implib,libcmTC_b1c61.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_b1c61.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-8j1let'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "cmake/TryAppendCFlags.cmake:11 (check_c_compiler_flag)"
+      - "CMakeLists.txt:260 (try_append_c_flags)"
+    checks:
+      - "Performing Test FLAG__Wnested_externs"
+    directories:
+      source: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-fmusfb"
+      binary: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-fmusfb"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra"
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/cmake"
+    buildResult:
+      variable: "FLAG__Wnested_externs"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-fmusfb'
+        
+        Run Build Command(s): D:/Applications/tools/QT/Tools/CMake_64/bin/cmake.exe -E env VERBOSE=1 D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\mingw32-make.exe -f Makefile cmTC_da1ab/fast
+        D:/Applications/tools/QT/Tools/mingw1120_64/bin/mingw32-make  -f CMakeFiles\\cmTC_da1ab.dir\\build.make CMakeFiles/cmTC_da1ab.dir/build
+        mingw32-make[1]: Entering directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-fmusfb'
+        Building C object CMakeFiles/cmTC_da1ab.dir/src.c.obj
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe -DFLAG__Wnested_externs  -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra  -std=c90    -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs -o CMakeFiles\\cmTC_da1ab.dir\\src.c.obj -c D:\\WorkStation\\pythoncode\\experiment-reproduction\\windows\\pirex-main\\secp256k1\\build\\CMakeFiles\\CMakeScratch\\TryCompile-fmusfb\\src.c
+        Linking C executable cmTC_da1ab.exe
+        D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_da1ab.dir\\link.txt --verbose=1
+        D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_da1ab.dir/objects.a
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\ar.exe qc CMakeFiles\\cmTC_da1ab.dir/objects.a @CMakeFiles\\cmTC_da1ab.dir\\objects1.rsp
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe  -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra  -Wl,--whole-archive CMakeFiles\\cmTC_da1ab.dir/objects.a -Wl,--no-whole-archive -o cmTC_da1ab.exe -Wl,--out-implib,libcmTC_da1ab.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_da1ab.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-fmusfb'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "cmake/TryAppendCFlags.cmake:11 (check_c_compiler_flag)"
+      - "CMakeLists.txt:261 (try_append_c_flags)"
+    checks:
+      - "Performing Test FLAG__Wno_long_long"
+    directories:
+      source: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-0qm6fe"
+      binary: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-0qm6fe"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs"
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/cmake"
+    buildResult:
+      variable: "FLAG__Wno_long_long"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-0qm6fe'
+        
+        Run Build Command(s): D:/Applications/tools/QT/Tools/CMake_64/bin/cmake.exe -E env VERBOSE=1 D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\mingw32-make.exe -f Makefile cmTC_8da23/fast
+        D:/Applications/tools/QT/Tools/mingw1120_64/bin/mingw32-make  -f CMakeFiles\\cmTC_8da23.dir\\build.make CMakeFiles/cmTC_8da23.dir/build
+        mingw32-make[1]: Entering directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-0qm6fe'
+        Building C object CMakeFiles/cmTC_8da23.dir/src.c.obj
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe -DFLAG__Wno_long_long  -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs  -std=c90    -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs -Wno-long-long -o CMakeFiles\\cmTC_8da23.dir\\src.c.obj -c D:\\WorkStation\\pythoncode\\experiment-reproduction\\windows\\pirex-main\\secp256k1\\build\\CMakeFiles\\CMakeScratch\\TryCompile-0qm6fe\\src.c
+        Linking C executable cmTC_8da23.exe
+        D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_8da23.dir\\link.txt --verbose=1
+        D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_8da23.dir/objects.a
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\ar.exe qc CMakeFiles\\cmTC_8da23.dir/objects.a @CMakeFiles\\cmTC_8da23.dir\\objects1.rsp
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe  -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs  -Wl,--whole-archive CMakeFiles\\cmTC_8da23.dir/objects.a -Wl,--no-whole-archive -o cmTC_8da23.exe -Wl,--out-implib,libcmTC_8da23.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_8da23.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-0qm6fe'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "cmake/TryAppendCFlags.cmake:11 (check_c_compiler_flag)"
+      - "CMakeLists.txt:262 (try_append_c_flags)"
+    checks:
+      - "Performing Test FLAG__Wno_overlength_strings"
+    directories:
+      source: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-ztnv0z"
+      binary: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-ztnv0z"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs -Wno-long-long"
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/cmake"
+    buildResult:
+      variable: "FLAG__Wno_overlength_strings"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-ztnv0z'
+        
+        Run Build Command(s): D:/Applications/tools/QT/Tools/CMake_64/bin/cmake.exe -E env VERBOSE=1 D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\mingw32-make.exe -f Makefile cmTC_7c7eb/fast
+        D:/Applications/tools/QT/Tools/mingw1120_64/bin/mingw32-make  -f CMakeFiles\\cmTC_7c7eb.dir\\build.make CMakeFiles/cmTC_7c7eb.dir/build
+        mingw32-make[1]: Entering directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-ztnv0z'
+        Building C object CMakeFiles/cmTC_7c7eb.dir/src.c.obj
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe -DFLAG__Wno_overlength_strings  -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs -Wno-long-long  -std=c90    -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs -Wno-long-long -Wno-overlength-strings -o CMakeFiles\\cmTC_7c7eb.dir\\src.c.obj -c D:\\WorkStation\\pythoncode\\experiment-reproduction\\windows\\pirex-main\\secp256k1\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ztnv0z\\src.c
+        Linking C executable cmTC_7c7eb.exe
+        D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_7c7eb.dir\\link.txt --verbose=1
+        D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_7c7eb.dir/objects.a
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\ar.exe qc CMakeFiles\\cmTC_7c7eb.dir/objects.a @CMakeFiles\\cmTC_7c7eb.dir\\objects1.rsp
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe  -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs -Wno-long-long  -Wl,--whole-archive CMakeFiles\\cmTC_7c7eb.dir/objects.a -Wl,--no-whole-archive -o cmTC_7c7eb.exe -Wl,--out-implib,libcmTC_7c7eb.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_7c7eb.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-ztnv0z'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "cmake/TryAppendCFlags.cmake:11 (check_c_compiler_flag)"
+      - "CMakeLists.txt:263 (try_append_c_flags)"
+    checks:
+      - "Performing Test FLAG__Wno_unused_function"
+    directories:
+      source: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-3733k0"
+      binary: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-3733k0"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs -Wno-long-long -Wno-overlength-strings"
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/cmake"
+    buildResult:
+      variable: "FLAG__Wno_unused_function"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-3733k0'
+        
+        Run Build Command(s): D:/Applications/tools/QT/Tools/CMake_64/bin/cmake.exe -E env VERBOSE=1 D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\mingw32-make.exe -f Makefile cmTC_80346/fast
+        D:/Applications/tools/QT/Tools/mingw1120_64/bin/mingw32-make  -f CMakeFiles\\cmTC_80346.dir\\build.make CMakeFiles/cmTC_80346.dir/build
+        mingw32-make[1]: Entering directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-3733k0'
+        Building C object CMakeFiles/cmTC_80346.dir/src.c.obj
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe -DFLAG__Wno_unused_function  -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs -Wno-long-long -Wno-overlength-strings  -std=c90    -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs -Wno-long-long -Wno-overlength-strings -Wno-unused-function -o CMakeFiles\\cmTC_80346.dir\\src.c.obj -c D:\\WorkStation\\pythoncode\\experiment-reproduction\\windows\\pirex-main\\secp256k1\\build\\CMakeFiles\\CMakeScratch\\TryCompile-3733k0\\src.c
+        Linking C executable cmTC_80346.exe
+        D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_80346.dir\\link.txt --verbose=1
+        D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_80346.dir/objects.a
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\ar.exe qc CMakeFiles\\cmTC_80346.dir/objects.a @CMakeFiles\\cmTC_80346.dir\\objects1.rsp
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe  -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs -Wno-long-long -Wno-overlength-strings  -Wl,--whole-archive CMakeFiles\\cmTC_80346.dir/objects.a -Wl,--no-whole-archive -o cmTC_80346.exe -Wl,--out-implib,libcmTC_80346.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_80346.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-3733k0'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "cmake/TryAppendCFlags.cmake:11 (check_c_compiler_flag)"
+      - "CMakeLists.txt:264 (try_append_c_flags)"
+    checks:
+      - "Performing Test FLAG__Wreserved_identifier"
+    directories:
+      source: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-qlwul3"
+      binary: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-qlwul3"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs -Wno-long-long -Wno-overlength-strings -Wno-unused-function"
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/cmake"
+    buildResult:
+      variable: "FLAG__Wreserved_identifier"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-qlwul3'
+        
+        Run Build Command(s): D:/Applications/tools/QT/Tools/CMake_64/bin/cmake.exe -E env VERBOSE=1 D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\mingw32-make.exe -f Makefile cmTC_1fdb6/fast
+        D:/Applications/tools/QT/Tools/mingw1120_64/bin/mingw32-make  -f CMakeFiles\\cmTC_1fdb6.dir\\build.make CMakeFiles/cmTC_1fdb6.dir/build
+        mingw32-make[1]: Entering directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-qlwul3'
+        Building C object CMakeFiles/cmTC_1fdb6.dir/src.c.obj
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe -DFLAG__Wreserved_identifier  -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs -Wno-long-long -Wno-overlength-strings -Wno-unused-function  -std=c90    -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs -Wno-long-long -Wno-overlength-strings -Wno-unused-function -Wreserved-identifier -o CMakeFiles\\cmTC_1fdb6.dir\\src.c.obj -c D:\\WorkStation\\pythoncode\\experiment-reproduction\\windows\\pirex-main\\secp256k1\\build\\CMakeFiles\\CMakeScratch\\TryCompile-qlwul3\\src.c
+        gcc.exe: error: unrecognized command-line option '-Wreserved-identifier'; did you mean '-fextended-identifiers'?
+        mingw32-make[1]: *** [CMakeFiles\\cmTC_1fdb6.dir\\build.make:77: CMakeFiles/cmTC_1fdb6.dir/src.c.obj] Error 1
+        mingw32-make[1]: Leaving directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-qlwul3'
+        mingw32-make: *** [Makefile:126: cmTC_1fdb6/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "cmake/TryAppendCFlags.cmake:11 (check_c_compiler_flag)"
+      - "CMakeLists.txt:265 (try_append_c_flags)"
+    checks:
+      - "Performing Test FLAG__Wshadow"
+    directories:
+      source: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-2n2l3f"
+      binary: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-2n2l3f"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs -Wno-long-long -Wno-overlength-strings -Wno-unused-function"
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/cmake"
+    buildResult:
+      variable: "FLAG__Wshadow"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-2n2l3f'
+        
+        Run Build Command(s): D:/Applications/tools/QT/Tools/CMake_64/bin/cmake.exe -E env VERBOSE=1 D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\mingw32-make.exe -f Makefile cmTC_9d03e/fast
+        D:/Applications/tools/QT/Tools/mingw1120_64/bin/mingw32-make  -f CMakeFiles\\cmTC_9d03e.dir\\build.make CMakeFiles/cmTC_9d03e.dir/build
+        mingw32-make[1]: Entering directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-2n2l3f'
+        Building C object CMakeFiles/cmTC_9d03e.dir/src.c.obj
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe -DFLAG__Wshadow  -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs -Wno-long-long -Wno-overlength-strings -Wno-unused-function  -std=c90    -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs -Wno-long-long -Wno-overlength-strings -Wno-unused-function -Wshadow -o CMakeFiles\\cmTC_9d03e.dir\\src.c.obj -c D:\\WorkStation\\pythoncode\\experiment-reproduction\\windows\\pirex-main\\secp256k1\\build\\CMakeFiles\\CMakeScratch\\TryCompile-2n2l3f\\src.c
+        Linking C executable cmTC_9d03e.exe
+        D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_9d03e.dir\\link.txt --verbose=1
+        D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_9d03e.dir/objects.a
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\ar.exe qc CMakeFiles\\cmTC_9d03e.dir/objects.a @CMakeFiles\\cmTC_9d03e.dir\\objects1.rsp
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe  -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs -Wno-long-long -Wno-overlength-strings -Wno-unused-function  -Wl,--whole-archive CMakeFiles\\cmTC_9d03e.dir/objects.a -Wl,--no-whole-archive -o cmTC_9d03e.exe -Wl,--out-implib,libcmTC_9d03e.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_9d03e.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-2n2l3f'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "cmake/TryAppendCFlags.cmake:11 (check_c_compiler_flag)"
+      - "CMakeLists.txt:266 (try_append_c_flags)"
+    checks:
+      - "Performing Test FLAG__Wstrict_prototypes"
+    directories:
+      source: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-wvnin6"
+      binary: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-wvnin6"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs -Wno-long-long -Wno-overlength-strings -Wno-unused-function -Wshadow"
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/cmake"
+    buildResult:
+      variable: "FLAG__Wstrict_prototypes"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-wvnin6'
+        
+        Run Build Command(s): D:/Applications/tools/QT/Tools/CMake_64/bin/cmake.exe -E env VERBOSE=1 D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\mingw32-make.exe -f Makefile cmTC_d1e52/fast
+        D:/Applications/tools/QT/Tools/mingw1120_64/bin/mingw32-make  -f CMakeFiles\\cmTC_d1e52.dir\\build.make CMakeFiles/cmTC_d1e52.dir/build
+        mingw32-make[1]: Entering directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-wvnin6'
+        Building C object CMakeFiles/cmTC_d1e52.dir/src.c.obj
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe -DFLAG__Wstrict_prototypes  -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs -Wno-long-long -Wno-overlength-strings -Wno-unused-function -Wshadow  -std=c90    -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs -Wno-long-long -Wno-overlength-strings -Wno-unused-function -Wshadow -Wstrict-prototypes -o CMakeFiles\\cmTC_d1e52.dir\\src.c.obj -c D:\\WorkStation\\pythoncode\\experiment-reproduction\\windows\\pirex-main\\secp256k1\\build\\CMakeFiles\\CMakeScratch\\TryCompile-wvnin6\\src.c
+        Linking C executable cmTC_d1e52.exe
+        D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_d1e52.dir\\link.txt --verbose=1
+        D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_d1e52.dir/objects.a
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\ar.exe qc CMakeFiles\\cmTC_d1e52.dir/objects.a @CMakeFiles\\cmTC_d1e52.dir\\objects1.rsp
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe  -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs -Wno-long-long -Wno-overlength-strings -Wno-unused-function -Wshadow  -Wl,--whole-archive CMakeFiles\\cmTC_d1e52.dir/objects.a -Wl,--no-whole-archive -o cmTC_d1e52.exe -Wl,--out-implib,libcmTC_d1e52.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_d1e52.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-wvnin6'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "D:/Applications/tools/QT/Tools/CMake_64/share/cmake-3.30/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "cmake/TryAppendCFlags.cmake:11 (check_c_compiler_flag)"
+      - "CMakeLists.txt:267 (try_append_c_flags)"
+    checks:
+      - "Performing Test FLAG__Wundef"
+    directories:
+      source: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-d1akyz"
+      binary: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-d1akyz"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs -Wno-long-long -Wno-overlength-strings -Wno-unused-function -Wshadow -Wstrict-prototypes"
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/cmake"
+    buildResult:
+      variable: "FLAG__Wundef"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-d1akyz'
+        
+        Run Build Command(s): D:/Applications/tools/QT/Tools/CMake_64/bin/cmake.exe -E env VERBOSE=1 D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\mingw32-make.exe -f Makefile cmTC_68c74/fast
+        D:/Applications/tools/QT/Tools/mingw1120_64/bin/mingw32-make  -f CMakeFiles\\cmTC_68c74.dir\\build.make CMakeFiles/cmTC_68c74.dir/build
+        mingw32-make[1]: Entering directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-d1akyz'
+        Building C object CMakeFiles/cmTC_68c74.dir/src.c.obj
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe -DFLAG__Wundef  -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs -Wno-long-long -Wno-overlength-strings -Wno-unused-function -Wshadow -Wstrict-prototypes  -std=c90    -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs -Wno-long-long -Wno-overlength-strings -Wno-unused-function -Wshadow -Wstrict-prototypes -Wundef -o CMakeFiles\\cmTC_68c74.dir\\src.c.obj -c D:\\WorkStation\\pythoncode\\experiment-reproduction\\windows\\pirex-main\\secp256k1\\build\\CMakeFiles\\CMakeScratch\\TryCompile-d1akyz\\src.c
+        Linking C executable cmTC_68c74.exe
+        D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_68c74.dir\\link.txt --verbose=1
+        D:\\Applications\\tools\\QT\\Tools\\CMake_64\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_68c74.dir/objects.a
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\ar.exe qc CMakeFiles\\cmTC_68c74.dir/objects.a @CMakeFiles\\cmTC_68c74.dir\\objects1.rsp
+        D:\\Applications\\tools\\QT\\Tools\\mingw1120_64\\bin\\gcc.exe  -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs -Wno-long-long -Wno-overlength-strings -Wno-unused-function -Wshadow -Wstrict-prototypes  -Wl,--whole-archive CMakeFiles\\cmTC_68c74.dir/objects.a -Wl,--no-whole-archive -o cmTC_68c74.exe -Wl,--out-implib,libcmTC_68c74.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_68c74.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/WorkStation/pythoncode/experiment-reproduction/windows/pirex-main/secp256k1/build/CMakeFiles/CMakeScratch/TryCompile-d1akyz'
+        
+      exitCode: 0
+...

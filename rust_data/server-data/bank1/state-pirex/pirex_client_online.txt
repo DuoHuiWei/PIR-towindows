@@ -1,0 +1,6 @@
+
+===== PIREX - Test DB: 2^8 entries 256 KB 
+client computation elapse 170µs 
+client request elapse 96.1µs (real measure) 
+total bandwidth nbytes 1048662 
+total bandwidth elapse 209ms (in 40 Mbps) 

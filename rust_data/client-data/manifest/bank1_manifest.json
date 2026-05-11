@@ -1,0 +1,51 @@
+{
+  "db_name": "bank1",
+  "format_version": 1,
+  "generator": "file_ops/pirexx_dataset_packer.py",
+  "created_at_utc": "2026-05-11T14:13:01.064100+00:00",
+  "input_root": "E:\\pir-worktrees\\new-work-v1\\rust_data\\server-data\\bank1\\data",
+  "snapshot_data_path": "E:\\pir-worktrees\\new-work-v1\\rust_data\\server-data\\bank1\\snapshot\\data.bin",
+  "block_size": 262144,
+  "block_count": 256,
+  "data_size_bytes": 67108864,
+  "used_blocks": 3,
+  "padding_policy": "zero-fill-tail-and-unused-blocks",
+  "files": [
+    {
+      "file_id": "\u63d0\u6848.docx",
+      "file_name": "\u63d0\u6848.docx",
+      "extension": ".docx",
+      "file_type": "docx",
+      "size_bytes": 15469,
+      "sha256": "17abf754abc64520386d8ba9b752101d8b67df427e5456f12a5195e7ea14a0be",
+      "start_block": 0,
+      "block_count": 1,
+      "end_block_exclusive": 1,
+      "tail_valid_bytes": 15469
+    },
+    {
+      "file_id": "\u96445.docx",
+      "file_name": "\u96445.docx",
+      "extension": ".docx",
+      "file_type": "docx",
+      "size_bytes": 66226,
+      "sha256": "0fe508fd4b280dbe5b5d963930276a508464bfd932157b09167f13c1dba5f8a1",
+      "start_block": 1,
+      "block_count": 1,
+      "end_block_exclusive": 2,
+      "tail_valid_bytes": 66226
+    },
+    {
+      "file_id": "\u96447.docx",
+      "file_name": "\u96447.docx",
+      "extension": ".docx",
+      "file_type": "docx",
+      "size_bytes": 65563,
+      "sha256": "a9c4142102f13178f0bd443ecff205fbf6d20b30cf058deaa964f12fd2f7d7e0",
+      "start_block": 2,
+      "block_count": 1,
+      "end_block_exclusive": 3,
+      "tail_valid_bytes": 65563
+    }
+  ]
+}

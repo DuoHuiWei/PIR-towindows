@@ -1,0 +1,2 @@
+D:\Applications\tools\QT\Tools\mingw1120_64\bin\ar.exe qc ..\lib\libsecp256k1.a CMakeFiles/secp256k1.dir/secp256k1.c.obj CMakeFiles/secp256k1_precomputed.dir/precomputed_ecmult.c.obj CMakeFiles/secp256k1_precomputed.dir/precomputed_ecmult_gen.c.obj
+D:\Applications\tools\QT\Tools\mingw1120_64\bin\ranlib.exe ..\lib\libsecp256k1.a

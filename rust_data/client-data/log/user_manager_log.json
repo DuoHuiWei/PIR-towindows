@@ -1,0 +1,100 @@
+[
+  {
+    "admin_username": "admin",
+    "admin_action": "添加",
+    "target_username": "user001",
+    "target_nickname": "张一",
+    "action_time_utc": "2026-05-11T08:10:11+00:00"
+  },
+  {
+    "admin_username": "admin",
+    "admin_action": "重置",
+    "target_username": "user002",
+    "target_nickname": "李二",
+    "action_time_utc": "2026-05-11T08:22:34+00:00"
+  },
+  {
+    "admin_username": "root_admin",
+    "admin_action": "删除",
+    "target_username": "user003",
+    "target_nickname": "王三",
+    "action_time_utc": "2026-05-11T08:35:02+00:00"
+  },
+  {
+    "admin_username": "admin",
+    "admin_action": "添加",
+    "target_username": "user004",
+    "target_nickname": "赵四",
+    "action_time_utc": "2026-05-11T08:49:15+00:00"
+  },
+  {
+    "admin_username": "audit01",
+    "admin_action": "重置",
+    "target_username": "user005",
+    "target_nickname": "周五",
+    "action_time_utc": "2026-05-11T09:03:48+00:00"
+  },
+  {
+    "admin_username": "admin",
+    "admin_action": "删除",
+    "target_username": "user006",
+    "target_nickname": "吴六",
+    "action_time_utc": "2026-05-11T09:15:26+00:00"
+  },
+  {
+    "admin_username": "root_admin",
+    "admin_action": "添加",
+    "target_username": "user007",
+    "target_nickname": "郑七",
+    "action_time_utc": "2026-05-11T09:28:09+00:00"
+  },
+  {
+    "admin_username": "admin",
+    "admin_action": "重置",
+    "target_username": "user008",
+    "target_nickname": "钱八",
+    "action_time_utc": "2026-05-11T09:40:57+00:00"
+  },
+  {
+    "admin_username": "audit01",
+    "admin_action": "删除",
+    "target_username": "user009",
+    "target_nickname": "孙九",
+    "action_time_utc": "2026-05-11T09:55:13+00:00"
+  },
+  {
+    "admin_username": "admin",
+    "admin_action": "添加",
+    "target_username": "user010",
+    "target_nickname": "冯十",
+    "action_time_utc": "2026-05-11T10:06:42+00:00"
+  },
+  {
+    "admin_username": "root_admin",
+    "admin_action": "重置",
+    "target_username": "user011",
+    "target_nickname": "陈十一",
+    "action_time_utc": "2026-05-11T10:20:19+00:00"
+  },
+  {
+    "admin_username": "admin",
+    "admin_action": "删除",
+    "target_username": "user012",
+    "target_nickname": "褚十二",
+    "action_time_utc": "2026-05-11T10:34:51+00:00"
+  },
+  {
+    "admin_username": "admin",
+    "admin_action": "重置",
+    "target_username": "user1",
+    "target_nickname": "user1",
+    "action_time_utc": "2026-05-11T06:18:31.768404+00:00"
+  },
+  {
+    "admin_username": "admin",
+    "admin_action": "重置",
+    "target_username": "user1",
+    "target_nickname": "user1",
+    "action_time_utc": "2026-05-11T06:18:47.672776+00:00"
+  }
+]

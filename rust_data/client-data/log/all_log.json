@@ -1,0 +1,50 @@
+[
+  {
+    "query_user": "admin",
+    "db_name": "bank2604",
+    "query_time_utc": "2026-05-11T05:43:45.681746+00:00",
+    "time_ms": 18.1661
+  },
+  {
+    "query_user": "admin",
+    "db_name": "bank2604",
+    "query_time_utc": "2026-05-11T05:43:51.655170+00:00",
+    "time_ms": 1.9156
+  },
+  {
+    "query_user": "admin",
+    "db_name": "bank2604",
+    "query_time_utc": "2026-05-11T05:44:00.282857+00:00",
+    "time_ms": 19.8665
+  },
+  {
+    "query_user": "admin",
+    "db_name": "bank1",
+    "query_time_utc": "2026-05-11T14:35:33.386292+00:00",
+    "time_ms": 2.5394
+  },
+  {
+    "query_user": "admin",
+    "db_name": "bank1",
+    "query_time_utc": "2026-05-11T14:40:31.732952+00:00",
+    "time_ms": 2.9929
+  },
+  {
+    "query_user": "admin",
+    "db_name": "bank1",
+    "query_time_utc": "2026-05-11T14:40:43.459475+00:00",
+    "time_ms": 2.8182
+  },
+  {
+    "query_user": "admin",
+    "db_name": "bank1",
+    "query_time_utc": "2026-05-11T14:41:46.538717+00:00",
+    "time_ms": 2.179
+  },
+  {
+    "query_user": "admin",
+    "db_name": "bank1",
+    "query_time_utc": "2026-05-11T14:41:50.731357+00:00",
+    "time_ms": 17.3107
+  }
+]
