@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+
+recover-file/*
+!recover-file/.gitkeep
+
+rust_data/server-data/*/snapshot/data.bin
+
