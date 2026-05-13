@@ -6,7 +6,14 @@ import time
 from client_ops.preprocessing_log import write_preprocessing_log
 from client_ops.server_bridge import call_json, download_manifest_to_client
 from config import PIREX_UPREP_EXE, pirex_dataset_capacity_bytes
-from database_registry import CLIENT_DB_PATH, get_entry, merge_prep_status, remove_prep_status, replace_entry_stats, update_entry_prep_status
+from database_registry import (
+    CLIENT_DB_PATH,
+    get_entry,
+    merge_prep_status,
+    remove_prep_status,
+    replace_entry_stats,
+    update_entry_prep_status,
+)
 from utils.rust_ctrl import spawn_process, stop_process
 
 
@@ -34,6 +41,11 @@ def _wait_abortable(process, cancel_event: threading.Event, poll_interval_s: flo
         time.sleep(poll_interval_s)
     stdout, stderr = process.communicate(timeout=1)
     return int(process.returncode or 0), stdout, stderr
+
+
+def _raise_if_cancelled(cancel_event: threading.Event) -> None:
+    if cancel_event.is_set():
+        raise RuntimeError("preprocessing cancelled by user")
 
 
 def run_client_pirex_uprep(db_name: str, cancel_event: threading.Event | None = None) -> dict[str, object]:
@@ -75,7 +87,9 @@ def run_client_pirex_uprep(db_name: str, cancel_event: threading.Event | None = 
         if return_code != 0:
             raise RuntimeError(f"pirex_uprep failed for {db_name}\nstdout:\n{stdout}\nstderr:\n{stderr}")
 
+        _raise_if_cancelled(task_cancel_event)
         manifest_local_path = download_manifest_to_client(db_name)
+        _raise_if_cancelled(task_cancel_event)
         finalize_payload = call_json("POST", "/pirex/preprocess/finalize", {"db_name": db_name, "success": True})
         finalized = True
 

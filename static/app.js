@@ -3,6 +3,8 @@ const state = {
   databases: [],
   activeView: "query-view",
   activeDbTab: "db-overview-tab",
+  activeMetricsTab: "metrics-load-tab",
+  activePerfGeometryTab: "perf-geometry-4k",
   activeLogTab: "query-log-tab",
   activeDatabase: "",
   activeServerAddr: "",
@@ -49,10 +51,10 @@ function showModal(title, text) {
   const textEl = qs("#app-modal-text");
   const bodyEl = qs("#app-modal-body");
   if (!modal || !titleEl || !textEl) {
-    window.alert(text || title || "提示");
+    window.alert(text || title || "\u63d0\u793a");
     return;
   }
-  titleEl.textContent = title || "提示";
+  titleEl.textContent = title || "\u63d0\u793a";
   textEl.textContent = text || "";
   if (bodyEl) {
     bodyEl.innerHTML = "";
@@ -78,11 +80,11 @@ function setModalBody(html) {
 function setTmpFileCount(count) {
   const inlineEl = qs("#tmp-file-count-inline");
   if (!inlineEl) return;
-  inlineEl.textContent = count > 0 ? `已选 ${count} 个文件` : "未选择任何文件";
+  inlineEl.textContent = count > 0 ? `\u5df2\u9009 ${count} \u4e2a\u6587\u4ef6` : "\u672a\u9009\u62e9\u4efb\u4f55\u6587\u4ef6";
 }
 
 function formatBytesForHint(bytes) {
-  if (!bytes || bytes <= 0) return "未配置";
+  if (!bytes || bytes <= 0) return "\u672a\u914d\u7f6e";
   const mb = bytes / (1024 * 1024);
   return Number.isInteger(mb) ? `${mb} MB` : `${mb.toFixed(2)} MB`;
 }
@@ -96,7 +98,7 @@ function updateUploadLimitHint() {
     return;
   }
   hint.style.display = "";
-  hint.textContent = `当前数据库总打包上限 ${formatBytesForHint(state.uploadLimits.datasetCapacityBytes)}。`;
+  hint.textContent = `\u5f53\u524d\u6570\u636e\u5e93\u603b\u6253\u5305\u4e0a\u9650 ${formatBytesForHint(state.uploadLimits.datasetCapacityBytes)}\u3002`;
 }
 
 function resetCreateDbInputVisual() {
@@ -151,6 +153,26 @@ function switchDbTab(tabId) {
   });
 }
 
+function switchMetricsTab(tabId) {
+  state.activeMetricsTab = tabId;
+  qsa("[data-metrics-tab]").forEach((button) => {
+    button.classList.toggle("active", button.dataset.metricsTab === tabId);
+  });
+  qsa("#metrics-view .metrics-tab").forEach((tab) => {
+    tab.classList.toggle("active", tab.id === tabId);
+  });
+}
+
+function switchPerfGeometryTab(tabId) {
+  state.activePerfGeometryTab = tabId;
+  qsa("[data-perf-geometry-tab]").forEach((button) => {
+    button.classList.toggle("active", button.dataset.perfGeometryTab === tabId);
+  });
+  qsa("#metrics-data-tab .perf-geometry-tab").forEach((tab) => {
+    tab.classList.toggle("active", tab.id === tabId);
+  });
+}
+
 function switchLogTab(tabId) {
   state.activeLogTab = tabId;
   qsa("[data-log-tab]").forEach((button) => {
@@ -172,7 +194,7 @@ function renderDatabaseOptions() {
     if (state.databases.length === 0) {
       const option = document.createElement("option");
       option.value = "";
-      option.textContent = "暂无数据库";
+      option.textContent = "\u6682\u65e0\u6570\u636e\u5e93";
       select.appendChild(option);
       return;
     }
@@ -200,7 +222,7 @@ function renderDatabaseListPanel() {
 
   if (state.databases.length === 0) {
     panel.className = "result-list empty-state scroll-box medium-scroll";
-    panel.innerHTML = "<p>当前没有数据库，请先创建。</p>";
+    panel.innerHTML = "<p>\u5f53\u524d\u6ca1\u6709\u6570\u636e\u5e93\uff0c\u8bf7\u5148\u521b\u5efa\u3002</p>";
     return;
   }
 
@@ -211,9 +233,9 @@ function renderDatabaseListPanel() {
         <strong>${db.db_name}</strong>
       </div>
       <div class="db-item-side">
-        <span class="db-file-count">${db.file_count ?? 0} 个文件</span>
-        <span class="db-prep-status">${db.prep_status === "未完成" ? "未处理" : (db.prep_status || "未处理")}</span>
-        <button class="btn btn-ghost btn-small btn-select-db" data-use-db="${db.db_name}">查询选中</button>
+        <span class="db-file-count">${db.file_count ?? 0} \u4e2a\u6587\u4ef6</span>
+        <span class="db-prep-status">${db.prep_status === "\u672a\u5b8c\u6210" ? "\u672a\u5904\u7406" : (db.prep_status || "\u672a\u5904\u7406")}</span>
+        <button class="btn btn-ghost btn-small btn-select-db" data-use-db="${db.db_name}">\u67e5\u8be2\u9009\u4e2d</button>
       </div>
     </div>
   `).join("");
@@ -224,7 +246,7 @@ function renderDatabaseListPanel() {
       qs("#query-db-select").value = dbName;
       setOverviewSelectedDatabase(dbName);
       switchView("query-view");
-      setMessage("query-message", `已选择数据库 ${dbName}，点击“确认”切换在线读服务。`);
+      setMessage("query-message", `\u5df2\u9009\u62e9\u6570\u636e\u5e93 ${dbName}\uff0c\u70b9\u51fb\u201c\u786e\u8ba4\u201d\u5207\u6362\u5728\u7ebf\u8bfb\u53d6\u670d\u52a1\u3002`);
     });
   });
 }
@@ -235,7 +257,7 @@ function renderOverviewDatabaseListPanel() {
 
   if (state.databases.length === 0) {
     panel.className = "result-list empty-state scroll-box medium-scroll";
-    panel.innerHTML = "<p>?????????????</p>";
+    panel.innerHTML = "<p>\u6682\u65e0\u6570\u636e\u5e93\u53ef\u5c55\u793a</p>";
     return;
   }
 
@@ -246,11 +268,10 @@ function renderOverviewDatabaseListPanel() {
         <strong>${db.db_name}</strong>
       </div>
       <div class="db-item-side">
-        <span>${db.file_count ?? 0} 文件</span>
-        ${db.prep_status === "未完成" ? '<span>未处理</span>' : ""}
-        <button class="btn btn-pirex btn-small" data-preprocess-pirex="${db.db_name}">pirex处理</button>
-        <button class="btn btn-primary btn-small" data-preprocess-pirexx="${db.db_name}">pirex+处理</button>
-        <button class="btn btn-secondary btn-small btn-delete-db" data-select-overview-db="${db.db_name}">选中</button>
+        <span>${db.prep_status === "\u672a\u5b8c\u6210" ? "\u672a\u5904\u7406" : (db.prep_status || "\u672a\u5904\u7406")}</span>
+        <button class="btn btn-pirex btn-small" data-preprocess-pirex="${db.db_name}">pirex\u5904\u7406</button>
+        <button class="btn btn-primary btn-small" data-preprocess-pirexx="${db.db_name}">pirex+\u5904\u7406</button>
+        <button class="btn btn-secondary btn-small btn-delete-db" data-select-overview-db="${db.db_name}">\u9009\u4e2d</button>
       </div>
     </div>
   `).join("");
@@ -277,15 +298,15 @@ function renderQueryResults(files) {
   const countPill = qs("#query-count-pill");
   const currentDbName = state.activeDatabase || qs("#query-db-select")?.value || "";
   const currentDbEntry = state.databases.find((item) => item.db_name === currentDbName);
-  const prepStatus = currentDbEntry?.prep_status || "未处理";
-  const pirexReady = prepStatus === "pirex" || prepStatus === "pirex+pirexx";
-  const pirexxReady = prepStatus === "pirexx" || prepStatus === "pirex+pirexx";
+  const prepStatus = currentDbEntry?.prep_status || "\u672a\u5904\u7406";
+  const pirexReady = prepStatus === "pirex" || prepStatus === "pirex+pirex";
+  const pirexxReady = prepStatus === "pirexx" || prepStatus === "pirex+pirex";
 
-  countPill.textContent = `${files.length} 项`;
+  countPill.textContent = `${files.length} \u9879`;
 
   if (!files || files.length === 0) {
     container.className = "result-list empty-state scroll-box medium-scroll";
-    container.innerHTML = "<p>未找到匹配文件。</p>";
+    container.innerHTML = "<p>\u672a\u627e\u5230\u5339\u914d\u6587\u4ef6</p>";
     return;
   }
 
@@ -297,9 +318,9 @@ function renderQueryResults(files) {
       </div>
       <div class="inline-row compact-row">
         <span class="result-item-size">${Math.max(1, Math.round(file.size_bytes / 1024))} KB</span>
-        <button class="btn btn-ghost btn-small" data-direct="${file.file_name}">直接恢复</button>
-        <button class="btn btn-primary btn-small ${pirexxReady ? "" : "btn-disabled"}" data-pirexx="${file.file_name}" ${pirexxReady ? "" : "disabled"}>pirex+恢复</button>
-        <button class="btn btn-pirex btn-small ${pirexReady ? "" : "btn-disabled"}" data-pirex="${file.file_name}" ${pirexReady ? "" : "disabled"}>pirex恢复</button>
+        <button class="btn btn-ghost btn-small" data-direct="${file.file_name}">\u76f4\u63a5\u6062\u590d</button>
+        <button class="btn btn-primary btn-small ${pirexxReady ? "" : "btn-disabled"}" data-pirexx="${file.file_name}" ${pirexxReady ? "" : "disabled"}>pirex+\u6062\u590d</button>
+        <button class="btn btn-pirex btn-small ${pirexReady ? "" : "btn-disabled"}" data-pirex="${file.file_name}" ${pirexReady ? "" : "disabled"}>pirex\u6062\u590d</button>
       </div>
     </div>
   `).join("");
@@ -314,7 +335,7 @@ function renderQueryResults(files) {
   qsa("[data-pirexx]").forEach((button) => {
     button.addEventListener("click", () => {
       if (!pirexxReady) {
-        showModal("提示", "还未进行 pirex+ 预处理");
+        showModal("\u63d0\u793a", "\u8fd8\u672a\u8fdb\u884c pirex+ \u9884\u5904\u7406");
         return;
       }
       restoreFile(state.activeDatabase, button.dataset.pirexx, "pirexx");
@@ -324,7 +345,7 @@ function renderQueryResults(files) {
   qsa("[data-pirex]").forEach((button) => {
     button.addEventListener("click", () => {
       if (!pirexReady) {
-        showModal("提示", "还未进行 pirex 预处理");
+        showModal("\u63d0\u793a", "\u8fd8\u672a\u8fdb\u884c pirex \u9884\u5904\u7406");
         return;
       }
       restoreFile(state.activeDatabase, button.dataset.pirex, "pirex");
@@ -339,7 +360,7 @@ function renderTmpFiles(files) {
 
   if (!files || files.length === 0) {
     container.className = "tmp-upload-list empty-state scroll-box medium-scroll";
-    container.innerHTML = "<p>待上传文件列表为空。</p>";
+    container.innerHTML = "<p>\u5f85\u4e0a\u4f20\u6587\u4ef6\u5217\u8868\u4e3a\u7a7a</p>";
     return;
   }
 
@@ -350,7 +371,7 @@ function renderTmpFiles(files) {
         <strong title="${file.file_name}">${file.file_name}</strong>
         <span>${Math.max(1, Math.round(file.size_bytes / 1024))} KB</span>
       </div>
-      <button class="tmp-delete-button" data-delete-tmp="${file.file_name}">删除</button>
+      <button class="tmp-delete-button" data-delete-tmp="${file.file_name}">\u5220\u9664</button>
     </div>
   `).join("");
 
@@ -364,7 +385,7 @@ function renderTmpFiles(files) {
         });
         await loadTmpFiles();
       } catch (error) {
-        setMessage("create-db-message", `删除失败：${error.message}`, true);
+        setMessage("create-db-message", `\u5220\u9664\u5931\u8d25\uff1a${error.message}`, true);
       }
     });
   });
@@ -377,18 +398,18 @@ function renderUsers(users) {
   if (!grid) return;
 
   if (!users || users.length === 0) {
-    grid.innerHTML = "<p>没有匹配用户。</p>";
+    grid.innerHTML = "<p>\u6ca1\u6709\u5339\u914d\u7528\u6237\u3002</p>";
     return;
   }
 
   grid.innerHTML = users.map((user) => `
     <div class="user-card" data-user-keywords="${user.nickname} ${user.username}">
       <strong>${user.nickname}</strong>
-      <span>账号：${user.username}</span>
-      <span class="user-role-tag">角色：${user.role}</span>
+      <span>\u8d26\u53f7\uff1a${user.username}</span>
+      <span class="user-role-tag">\u89d2\u8272\uff1a${user.role}</span>
       <div class="inline-row">
-        <button class="btn btn-danger" data-delete-user="${user.username}">删除</button>
-        <button class="btn btn-secondary" data-reset-user="${user.username}">重置密码</button>
+        <button class="btn btn-danger" data-delete-user="${user.username}">\u5220\u9664</button>
+        <button class="btn btn-secondary" data-reset-user="${user.username}">\u91cd\u7f6e\u5bc6\u7801</button>
       </div>
     </div>
   `).join("");
@@ -426,7 +447,7 @@ function renderUserManagerLogRows(items) {
   if (!container) return;
 
   if (!items || items.length === 0) {
-    container.innerHTML = '<div class="user-log-empty">???????</div>';
+    container.innerHTML = '<div class="user-log-empty">\u6682\u65e0\u7528\u6237\u7ba1\u7406\u65e5\u5fd7</div>';
     return;
   }
 
@@ -490,7 +511,7 @@ function renderDatabaseLogRows(items) {
   if (!container) return;
 
   if (!items || items.length === 0) {
-    container.innerHTML = '<div class="user-log-empty">???????</div>';
+    container.innerHTML = '<div class="user-log-empty">\u6682\u65e0\u6570\u636e\u5e93\u65e5\u5fd7</div>';
     return;
   }
 
@@ -537,6 +558,54 @@ function renderDatabaseLogPagination(page, totalPages) {
   });
 }
 
+function setTextIfPresent(selector, value) {
+  const node = qs(selector);
+  if (node) {
+    node.textContent = value;
+  }
+}
+
+function formatMetricNumber(value) {
+  return Number(value || 0).toLocaleString("zh-CN");
+}
+
+function formatMetricMb(value) {
+  return `${Number(value || 0).toFixed(2)} MB`;
+}
+
+function syncLoadPanelGeometryText() {
+  const firstCard = qsa("#metrics-load-tab .metrics-load-card")[0];
+  if (!firstCard) return;
+
+  const title = firstCard.querySelector(".metrics-load-card-head h3");
+  const subtitle = firstCard.querySelector(".metrics-load-card-head span");
+  const lines = firstCard.querySelectorAll(".metrics-load-lines p");
+
+  if (title) title.textContent = "当前数据几何";
+  if (subtitle) subtitle.textContent = "顶部摘要";
+  if (lines[0]) lines[0].innerHTML = '<span class="metrics-load-label">当前数据几何大小：</span><span class="metrics-load-value">4KB / 每条</span>';
+  if (lines[1]) lines[1].innerHTML = '<span class="metrics-load-label">数据规模：</span><span class="metrics-load-value">2^18 / 条</span>';
+  if (lines[2]) lines[2].innerHTML = '<span class="metrics-load-label">单库容量：</span><span class="metrics-load-value">1GiB</span>';
+}
+
+async function loadMainMetricsLoadPanel() {
+  const payload = await apiJson("/metrics/load-prototype");
+  const totalDatabases = Number(payload.total_databases || 0);
+  const pirexReadyCount = Number(payload.pirex_ready_count || 0);
+  const pirexxReadyCount = Number(payload.pirexx_ready_count || 0);
+  const pirexStorageMb = pirexReadyCount * 36.1;
+  const pirexxStorageMb = pirexxReadyCount * 0.6;
+
+  syncLoadPanelGeometryText();
+  setTextIfPresent("#main-load-state-file-size", String(payload.state_file_size_text || "0 B"));
+  setTextIfPresent("#main-load-auxiliary-file-size", String(payload.auxiliary_file_size_text || "0 B"));
+  setTextIfPresent("#main-load-total-databases", formatMetricNumber(totalDatabases));
+  setTextIfPresent("#main-load-pirex-ready", formatMetricNumber(pirexReadyCount));
+  setTextIfPresent("#main-load-pirexx-ready", formatMetricNumber(pirexxReadyCount));
+  setTextIfPresent("#main-load-pirex-storage", formatMetricMb(pirexStorageMb));
+  setTextIfPresent("#main-load-pirexx-storage", formatMetricMb(pirexxStorageMb));
+}
+
 async function loadDatabaseLogs(page = 1) {
   const payload = await apiJson(`/logs/database?page=${page}&page_size=${state.databaseLogPageSize}`);
   state.databaseLogPage = Number(payload.page || 1);
@@ -551,7 +620,7 @@ function renderQueryLogRows(items) {
   if (!container) return;
 
   if (!items || items.length === 0) {
-    container.innerHTML = '<div class="user-log-empty">暂无查询日志</div>';
+    container.innerHTML = '<div class="user-log-empty">\u6682\u65e0\u67e5\u8be2\u65e5\u5fd7</div>';
     return;
   }
 
@@ -647,6 +716,7 @@ async function refreshDatabases() {
   renderDatabaseListPanel();
   renderOverviewDatabaseListPanel();
   await fillOverviewFiles();
+  await loadMainMetricsLoadPanel().catch(() => {});
   return state.databases;
 }
 
@@ -656,7 +726,7 @@ async function loadTmpFiles() {
     renderTmpFiles(data.files || []);
     return data.files || [];
   } catch (error) {
-    setMessage("create-db-message", `读取待上传文件失败：${error.message}`, true);
+    setMessage("create-db-message", `\u8bfb\u53d6\u5f85\u4e0a\u4f20\u6587\u4ef6\u5931\u8d25\uff1a${error.message}`, true);
     setTmpFileCount(0);
     renderTmpFiles([]);
     return [];
@@ -671,7 +741,7 @@ async function loadUploadLimits() {
   } catch (error) {
     state.uploadLimits.datasetCapacityBytes = 0;
     state.uploadLimits.showHint = false;
-    setMessage("create-db-message", `读取上传上限失败：${error.message}`, true);
+    setMessage("create-db-message", `\u8bfb\u53d6\u4e0a\u4f20\u4e0a\u9650\u5931\u8d25\uff1a${error.message}`, true);
   }
   updateUploadLimitHint();
 }
@@ -709,7 +779,7 @@ async function confirmDatabaseSelection() {
 async function queryFiles(showAll = false) {
   const dbName = state.activeDatabase || qs("#query-db-select").value;
   if (!dbName) {
-    setMessage("query-message", "请先选择数据库并点击确认。", true);
+    setMessage("query-message", "\u8bf7\u5148\u9009\u62e9\u6570\u636e\u5e93\u5e76\u70b9\u51fb\u786e\u8ba4\u3002", true);
     return;
   }
 
@@ -720,7 +790,7 @@ async function queryFiles(showAll = false) {
     ? files
     : files.filter((item) => item.file_name.toLowerCase().includes(keyword));
   renderQueryResults(filtered);
-  setMessage("query-message", `数据库 ${dbName} 共返回 ${filtered.length} 项。`);
+  setMessage("query-message", `\u6570\u636e\u5e93 ${dbName} \u5171\u8fd4\u56de ${filtered.length} \u9879\u3002`);
 }
 
 async function restoreFile(dbName, fileId, mode) {
@@ -800,7 +870,7 @@ async function createDatabase() {
   if (!dbName) {
     resetCreateDbInputVisual();
     setDbInlineStatus("");
-    setMessage("create-db-message", "请输入数据库名称。", true);
+    setMessage("create-db-message", "\u8bf7\u8f93\u5165\u6570\u636e\u5e93\u540d\u79f0\u3002", true);
     return;
   }
 
@@ -818,7 +888,7 @@ async function createDatabase() {
     setDbInlineStatus("");
     setMessage("create-db-message", "");
     input.value = dbName;
-    showModal("提示", `数据库 ${dbName} 已创建。`);
+    showModal("\u63d0\u793a", `\u6570\u636e\u5e93 ${dbName} \u6dfb\u52a0\u6210\u529f`);
     await loadTmpFiles();
     await refreshDatabaseLogPanel().catch(() => {});
   } catch (error) {
@@ -827,12 +897,12 @@ async function createDatabase() {
       setCreateDbInputState("error");
       setDbInlineStatus("");
       setMessage("create-db-message", "");
-      showModal("提示", `数据库 ${dbName} 已存在，请更换名称。`);
+      showModal("\u63d0\u793a", `\u6570\u636e\u5e93 ${dbName} \u5df2\u5b58\u5728\uff0c\u8bf7\u66f4\u6362\u540d\u79f0`);
       return;
     }
     resetCreateDbInputVisual();
     setDbInlineStatus("");
-    setMessage("create-db-message", `创建失败：${message}`, true);
+    setMessage("create-db-message", `\u521b\u5efa\u5931\u8d25\uff1a${message}`, true);
   }
 }
 
@@ -848,11 +918,11 @@ async function stageFilesToTmp() {
   const dbName = getCreateDbName();
   const input = qs("#upload-files-input");
   if (!dbName) {
-    setMessage("create-db-message", "请先输入创建页数据库名称。", true);
+    setMessage("create-db-message", "\u8bf7\u5148\u8f93\u5165\u521b\u5efa\u9875\u6570\u636e\u5e93\u540d\u79f0\u3002", true);
     return;
   }
   if (!input.files || input.files.length === 0) {
-    setMessage("create-db-message", "请先选择要加入的文件。", true);
+    setMessage("create-db-message", "\u8bf7\u5148\u9009\u62e9\u8981\u52a0\u5165\u7684\u6587\u4ef6\u3002", true);
     return;
   }
 
@@ -872,17 +942,17 @@ async function stageFilesToTmp() {
     const currentFiles = await loadTmpFiles();
     input.value = "";
     const skipped = data.skipped_files || [];
-    const skippedText = skipped.length ? `，已剔除同名文件 ${skipped.join("、")}` : "";
-    setMessage("create-db-message", `待上传列表当前共 ${currentFiles.length} 个文件${skippedText}。`);
+    const skippedText = skipped.length ? `\uff0c\u5df2\u5254\u9664\u540c\u540d\u6587\u4ef6 ${skipped.join("\u3001")}` : "";
+    setMessage("create-db-message", `\u5f85\u4e0a\u4f20\u5217\u8868\u5f53\u524d\u5171 ${currentFiles.length} \u4e2a\u6587\u4ef6${skippedText}\u3002`);
   } catch (error) {
-    setMessage("create-db-message", `加入失败：${error.message}`, true);
+    setMessage("create-db-message", `\u52a0\u5165\u5931\u8d25\uff1a${error.message}`, true);
   }
 }
 
 async function uploadStagedFiles() {
   const dbName = getCreateDbName();
   if (!dbName) {
-    setMessage("create-db-message", "???????????????????????", true);
+    setMessage("create-db-message", "\u8bf7\u5148\u8f93\u5165\u521b\u5efa\u9875\u6570\u636e\u5e93\u540d\u79f0\u3002", true);
     return;
   }
 
@@ -893,9 +963,9 @@ async function uploadStagedFiles() {
     await loadTmpFiles();
     await refreshDatabases();
     await refreshDatabaseLogPanel().catch(() => {});
-    setMessage("create-db-message", result.message || "??????");
+    setMessage("create-db-message", result.message || "\u4e0a\u4f20\u6210\u529f");
   } catch (error) {
-    setMessage("create-db-message", `????????{error.message}`, true);
+    setMessage("create-db-message", `\u4e0a\u4f20\u5931\u8d25\uff1a${error.message}`, true);
   }
 }
 
@@ -929,11 +999,11 @@ function renderPreprocessRunningModal(session) {
 function renderPreprocessCancelConfirm(session) {
   session.modalMode = "confirm-cancel";
   const schemeLabel = session.scheme === "pirexx" ? "pirex+" : "pirex";
-  showModal("确认终止", `你确定终止 ${session.dbName} 数据库的 ${schemeLabel} 预处理吗？`);
+  showModal("\u786e\u8ba4\u7ec8\u6b62", `\u4f60\u786e\u5b9a\u7ec8\u6b62 ${session.dbName} \u6570\u636e\u5e93\u7684 ${schemeLabel} \u9884\u5904\u7406\u5417\uff1f`);
   setModalBody(`
     <div class="app-modal-actions">
-      <button id="confirm-preprocess-cancel-button" class="btn btn-danger" type="button">确定</button>
-      <button id="back-preprocess-cancel-button" class="btn btn-ghost" type="button">返回</button>
+      <button id="confirm-preprocess-cancel-button" class="btn btn-danger" type="button">\u786e\u5b9a</button>
+      <button id="back-preprocess-cancel-button" class="btn btn-ghost" type="button">\u8fd4\u56de</button>
     </div>
   `);
   qs("#confirm-preprocess-cancel-button")?.addEventListener("click", () => requestPreprocessCancel(session));
@@ -960,13 +1030,13 @@ async function requestPreprocessCancel(session) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ db_name: session.dbName, scheme: session.scheme }),
     });
-    showModal("终止中", `正在终止 ${session.dbName} 数据库的 ${session.scheme === "pirexx" ? "pirex+" : "pirex"} 预处理`);
+    showModal("\u7ec8\u6b62\u4e2d", `\u6b63\u5728\u7ec8\u6b62 ${session.dbName} \u6570\u636e\u5e93\u7684 ${session.scheme === "pirexx" ? "pirex+" : "pirex"} \u9884\u5904\u7406`);
     setModalBody("");
   } catch (error) {
-    showModal("终止失败", error.message);
+    showModal("\u7ec8\u6b62\u5931\u8d25", error.message);
     setModalBody(`
       <div class="app-modal-actions">
-        <button id="back-preprocess-cancel-button" class="btn btn-ghost" type="button">返回</button>
+        <button id="back-preprocess-cancel-button" class="btn btn-ghost" type="button">\u8fd4\u56de</button>
       </div>
     `);
     qs("#back-preprocess-cancel-button")?.addEventListener("click", () => renderPreprocessRunningModal(session));
@@ -987,29 +1057,29 @@ async function pollPreprocessSession(session) {
   const schemeLabel = session.scheme === "pirexx" ? "pirex+" : "pirex";
   const elapsedText = formatPreprocessElapsed(Number(payload.elapsed_ms || 0));
   if (payload.status === "completed") {
-    showModal("预处理完成", `${session.dbName} 数据库 ${schemeLabel}预处理完成\n用时 ${elapsedText}`);
+    showModal("\u9884\u5904\u7406\u5b8c\u6210", `${session.dbName} \u6570\u636e\u5e93 ${schemeLabel}\u9884\u5904\u7406\u5b8c\u6210\n\u7528\u65f6 ${elapsedText}`);
     setModalBody("");
-    setMessage("create-db-message", `${session.dbName} 已完成 ${schemeLabel} 预处理。`);
+    setMessage("create-db-message", `${session.dbName} \u5df2\u5b8c\u6210 ${schemeLabel} \u9884\u5904\u7406\u3002`);
     return;
   }
 
-  showModal("预处理失败", `${session.dbName} 数据库 ${schemeLabel} 预处理失败\n用时 ${elapsedText}`);
+  showModal("\u9884\u5904\u7406\u5931\u8d25", `${session.dbName} \u6570\u636e\u5e93 ${schemeLabel} \u9884\u5904\u7406\u5931\u8d25\n\u7528\u65f6 ${elapsedText}`);
   setModalBody("");
   setMessage(
     "create-db-message",
-    payload.status === "cancelled" ? `${schemeLabel} 预处理已终止` : `${schemeLabel} 预处理失败：${payload.error || ""}`,
+    payload.status === "cancelled" ? `${schemeLabel} \u9884\u5904\u7406\u5df2\u7ec8\u6b62` : `${schemeLabel} \u9884\u5904\u7406\u5931\u8d25\uff1a${payload.error || ""}`,
     true
   );
 }
 
 async function runDatabasePreprocessWithModal(dbName, scheme) {
   if (!dbName) {
-    showModal("提示", "请先输入或选择数据库名称。");
+    showModal("\u63d0\u793a", "\u8bf7\u5148\u8f93\u5165\u6216\u9009\u62e9\u6570\u636e\u5e93\u540d\u79f0\u3002");
     return;
   }
 
   if (state.activePreprocessSession) {
-    showModal("提示", "当前已有预处理任务正在执行，请先等待结束或终止。");
+    showModal("\u63d0\u793a", "\u5f53\u524d\u5df2\u6709\u9884\u5904\u7406\u4efb\u52a1\u6b63\u5728\u6267\u884c\uff0c\u8bf7\u5148\u7b49\u5f85\u7ed3\u675f\u6216\u7ec8\u6b62\u3002");
     return;
   }
 
@@ -1028,7 +1098,7 @@ async function runDatabasePreprocessWithModal(dbName, scheme) {
       body: JSON.stringify({ db_name: dbName, scheme }),
     });
   } catch (error) {
-    showModal("预处理失败", error.message);
+    showModal("\u9884\u5904\u7406\u5931\u8d25", error.message);
     throw error;
   }
 
@@ -1043,7 +1113,7 @@ async function runDatabasePreprocessWithModal(dbName, scheme) {
     pollPreprocessSession(session).catch((error) => {
       clearActivePreprocessSession();
       state.modalLocked = false;
-      showModal("预处理失败", error.message);
+      showModal("\u9884\u5904\u7406\u5931\u8d25", error.message);
       setModalBody("");
     });
   }, 1000);
@@ -1053,7 +1123,7 @@ async function runDatabasePreprocessWithModal(dbName, scheme) {
 async function startExistingDatabasePreprocess(dbName, scheme) {
   try {
     await runDatabasePreprocessWithModal(dbName, scheme);
-    setMessage("create-db-message", `${dbName} 已启动 ${scheme === "pirexx" ? "pirex+" : "pirex"} 预处理。`);
+    setMessage("create-db-message", `${dbName} \u5df2\u542f\u52a8 ${scheme === "pirexx" ? "pirex+" : "pirex"} \u9884\u5904\u7406\u3002`);
   } catch (error) {
     return;
   }
@@ -1062,51 +1132,51 @@ async function startExistingDatabasePreprocess(dbName, scheme) {
 async function startPirexxPreprocess() {
   const dbName = getCreateDbName();
   if (!dbName) {
-    setMessage("create-db-message", "请先输入创建页数据库名称。", true);
+    setMessage("create-db-message", "\u8bf7\u5148\u8f93\u5165\u521b\u5efa\u9875\u6570\u636e\u5e93\u540d\u79f0\u3002", true);
     return;
   }
 
   try {
     await runDatabasePreprocessWithModal(dbName, "pirexx");
-    setMessage("create-db-message", `${dbName} 已启动 pirex+ 预处理。`);
+    setMessage("create-db-message", `${dbName} \u5df2\u542f\u52a8 pirex+ \u9884\u5904\u7406\u3002`);
   } catch (error) {
     const message = String(error.message || "");
-    if (message.includes("数据未上传")) {
-      setMessage("create-db-message", "数据未上传", true);
+    if (message.includes("\u6570\u636e\u672a\u4e0a\u4f20")) {
+      setMessage("create-db-message", "\u6570\u636e\u672a\u4e0a\u4f20", true);
       return;
     }
-    setMessage("create-db-message", `pirex+ 预处理失败：${message}`, true);
+    setMessage("create-db-message", `pirex+ \u9884\u5904\u7406\u5931\u8d25\uff1a${message}`, true);
   }
 }
 
 async function startPirexPreprocess() {
   const dbName = getCreateDbName();
   if (!dbName) {
-    setMessage("create-db-message", "请先输入创建页数据库名称。", true);
+    setMessage("create-db-message", "\u8bf7\u5148\u8f93\u5165\u521b\u5efa\u9875\u6570\u636e\u5e93\u540d\u79f0\u3002", true);
     return;
   }
 
   try {
     await runDatabasePreprocessWithModal(dbName, "pirex");
-    setMessage("create-db-message", `${dbName} 已启动 pirex 预处理。`);
+    setMessage("create-db-message", `${dbName} \u5df2\u542f\u52a8 pirex \u9884\u5904\u7406\u3002`);
   } catch (error) {
     const message = String(error.message || "");
-    if (message.includes("数据未上传")) {
-      setMessage("create-db-message", "数据未上传", true);
+    if (message.includes("\u6570\u636e\u672a\u4e0a\u4f20")) {
+      setMessage("create-db-message", "\u6570\u636e\u672a\u4e0a\u4f20", true);
       return;
     }
-    setMessage("create-db-message", `pirex 预处理失败：${message}`, true);
+    setMessage("create-db-message", `pirex \u9884\u5904\u7406\u5931\u8d25\uff1a${message}`, true);
   }
 }
 
 async function unfinishedClearDatabase() {
   const dbName = getCreateDbName();
   if (!dbName) {
-    setMessage("create-db-message", "请先输入要清空创建的数据库名称。", true);
+    setMessage("create-db-message", "\u8bf7\u5148\u8f93\u5165\u8981\u6e05\u7a7a\u521b\u5efa\u7684\u6570\u636e\u5e93\u540d\u79f0\u3002", true);
     return;
   }
 
-  const confirmed = window.confirm(`确认清空并删除未完成数据库 ${dbName} 吗？`);
+  const confirmed = window.confirm(`\u786e\u8ba4\u6e05\u7a7a\u5e76\u5220\u9664\u672a\u5b8c\u6210\u6570\u636e\u5e93 ${dbName} \u5417\uff1f`);
   if (!confirmed) {
     return;
   }
@@ -1121,16 +1191,16 @@ async function unfinishedClearDatabase() {
     if (qs("#create-db-name")) {
       qs("#create-db-name").value = "";
     }
-    setMessage("create-db-message", `未完成数据库 ${dbName} 已清空并删除。`);
+    setMessage("create-db-message", `\u672a\u5b8c\u6210\u6570\u636e\u5e93 ${dbName} \u5df2\u6e05\u7a7a\u5e76\u5220\u9664\u3002`);
   } catch (error) {
-    setMessage("create-db-message", `清空创建失败：${error.message}`, true);
+    setMessage("create-db-message", `\u6e05\u7a7a\u521b\u5efa\u5931\u8d25\uff1a${error.message}`, true);
   }
 }
 
 async function fillOverviewFiles() {
   const dbName = getOverviewSelectedDatabase();
   if (!dbName) {
-    qs("#overview-files-text").value = "暂无数据库。";
+    qs("#overview-files-text").value = "\u6682\u65e0\u6570\u636e\u5e93\u3002";
     return;
   }
 
@@ -1139,9 +1209,9 @@ async function fillOverviewFiles() {
     const files = payload.files || [];
     qs("#overview-files-text").value = files.length
       ? files.map((item) => `${item.file_name} (${item.size_bytes} bytes)`).join("\n")
-      : "当前数据库没有文件。";
+      : "\u5f53\u524d\u6570\u636e\u5e93\u6ca1\u6709\u6587\u4ef6\u3002";
   } catch (error) {
-    qs("#overview-files-text").value = `读取失败：${error.message}`;
+    qs("#overview-files-text").value = `\u8bfb\u53d6\u5931\u8d25\uff1a${error.message}`;
   }
 }
 
@@ -1155,13 +1225,13 @@ function applyRole() {
 function filterUsers() {
   const keyword = (qs("#user-search-input")?.value || "").trim();
   loadUsers(keyword).catch((error) => {
-    showModal("提示", `查询用户失败：${error.message}`);
+    showModal("\u63d0\u793a", `\u67e5\u8be2\u7528\u6237\u5931\u8d25\uff1a${error.message}`);
   });
 }
 
 async function deleteAccount(username) {
   if (!username) return;
-  const confirmed = window.confirm(`确认删除用户 ${username} 吗？`);
+  const confirmed = window.confirm(`\u786e\u8ba4\u5220\u9664\u7528\u6237 ${username} \u5417\uff1f`);
   if (!confirmed) return;
 
   try {
@@ -1175,9 +1245,9 @@ async function deleteAccount(username) {
     });
     await loadUsers(qs("#user-search-input")?.value || "");
     await refreshUserManagerLogPanel().catch(() => {});
-    showModal("提示", `用户 ${username} 已删除。`);
+    showModal("\u63d0\u793a", `\u7528\u6237 ${username} \u5df2\u5220\u9664\u3002`);
   } catch (error) {
-    showModal("提示", `删除用户 ${username} 失败：${error.message}`);
+    showModal("\u63d0\u793a", `\u5220\u9664\u7528\u6237 ${username} \u5931\u8d25\uff1a${error.message}`);
   }
 }
 
@@ -1210,24 +1280,24 @@ function openAddUserModal() {
       <input type="text" name="fake-username" autocomplete="username" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;opacity:0;">
       <input type="password" name="fake-password" autocomplete="new-password" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;opacity:0;">
       <label class="app-modal-field">
-        <span>昵称</span>
-        <input id="add-user-nickname" name="add-user-nickname-field" type="text" inputmode="text" placeholder="请输入昵称" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" data-form-type="other">
+        <span>\u6635\u79f0</span>
+        <input id="add-user-nickname" name="add-user-nickname-field" type="text" inputmode="text" placeholder="\u8bf7\u8f93\u5165\u6635\u79f0" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" data-form-type="other">
       </label>
       <label class="app-modal-field">
-        <span>账号</span>
-        <input id="add-user-username" name="add-user-username-field" type="text" inputmode="text" placeholder="请输入账号" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" data-form-type="other">
+        <span>\u8d26\u53f7</span>
+        <input id="add-user-username" name="add-user-username-field" type="text" inputmode="text" placeholder="\u8bf7\u8f93\u5165\u8d26\u53f7" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" data-form-type="other">
       </label>
       <label class="app-modal-field">
-        <span>密码</span>
-        <input id="add-user-password" name="add-user-password-field" type="password" placeholder="至少 6 位" autocomplete="new-password" autocorrect="off" autocapitalize="none" spellcheck="false" data-form-type="other">
+        <span>\u5bc6\u7801</span>
+        <input id="add-user-password" name="add-user-password-field" type="password" placeholder="\u81f3\u5c11 6 \u4f4d" autocomplete="new-password" autocorrect="off" autocapitalize="none" spellcheck="false" data-form-type="other">
       </label>
       <p id="add-user-error" class="app-modal-error"></p>
       <div class="app-modal-actions">
-        <button id="add-user-submit" class="btn btn-primary" type="button">添加</button>
+        <button id="add-user-submit" class="btn btn-primary" type="button">\u6dfb\u52a0</button>
       </div>
     </form>
   `;
-  showModal("添加用户", "");
+  showModal("\u6dfb\u52a0\u7528\u6237", "");
   setModalBody(html);
   const submitButton = qs("#add-user-submit");
   if (submitButton) {
@@ -1265,25 +1335,25 @@ async function submitAddUser() {
     const user = result.user || {};
     const successBody = `
       <div class="app-modal-result">
-        <div>昵称：${user.nickname || ""}</div>
-        <div>账号：${user.username || ""}</div>
-        <div>密码：${password}</div>
+        <div>\u6635\u79f0\uff1a${user.nickname || ""}</div>
+        <div>\u8d26\u53f7\uff1a${user.username || ""}</div>
+        <div>\u5bc6\u7801\uff1a${password}</div>
       </div>
     `;
-    showModal("创建成功", "");
+    showModal("\u521b\u5efa\u6210\u529f", "");
     setModalBody(successBody);
   } catch (error) {
     const message = String(error.message || "");
     if (message.includes("nickname already exists")) {
-      showAddUserError("昵称重复");
+      showAddUserError("\u6635\u79f0\u91cd\u590d");
       return;
     }
     if (message.includes("username already exists")) {
-      showAddUserError("账号重复");
+      showAddUserError("\u8d26\u53f7\u91cd\u590d");
       return;
     }
     if (message.includes("password must be at least 6 characters")) {
-      showAddUserError("密码不得小于六位");
+      showAddUserError("\u5bc6\u7801\u4e0d\u5f97\u5c0f\u4e8e\u516d\u4f4d");
       return;
     }
     showAddUserError(message);
@@ -1306,7 +1376,7 @@ async function handleLogin(event) {
   event.preventDefault();
   const username = qs("#login-username").value.trim();
   const password = qs("#login-password").value;
-  setMessage("login-message", "正在登录...");
+  setMessage("login-message", "\u6b63\u5728\u767b\u5f55...");
 
   try {
     const payload = await apiJson("/auth/login", {
@@ -1328,9 +1398,9 @@ async function handleLogin(event) {
     await loadDatabaseLogs();
     await loadQueryLogs();
     switchView("query-view");
-    setMessage("query-message", "登录成功，先选数据库，再点击确认。");
+    setMessage("query-message", "\u767b\u5f55\u6210\u529f\uff0c\u5148\u9009\u6570\u636e\u5e93\uff0c\u518d\u70b9\u51fb\u786e\u8ba4\u3002");
   } catch (error) {
-    setMessage("login-message", `登录失败：${error.message}`, true);
+    setMessage("login-message", `\u767b\u5f55\u5931\u8d25\uff1a${error.message}`, true);
   }
 }
 
@@ -1344,11 +1414,11 @@ function bindEvents() {
   qs("#overview-delete-button").addEventListener("click", async () => {
     const dbName = getOverviewSelectedDatabase();
     if (!dbName) {
-      qs("#overview-files-text").value = "请先在右侧列表中选中数据库。";
+      qs("#overview-files-text").value = "\u8bf7\u5148\u5728\u53f3\u4fa7\u5217\u8868\u4e2d\u9009\u4e2d\u6570\u636e\u5e93\u3002";
       return;
     }
 
-    const confirmed = window.confirm(`确认删除数据库 ${dbName} 吗？`);
+    const confirmed = window.confirm(`\u786e\u8ba4\u5220\u9664\u6570\u636e\u5e93 ${dbName} \u5417\uff1f`);
     if (!confirmed) {
       return;
     }
@@ -1367,9 +1437,9 @@ function bindEvents() {
       await refreshDatabases();
       await refreshDatabaseLogPanel().catch(() => {});
       qs("#overview-files-text").value = "";
-      showModal("提示", `数据库 ${dbName} 已删除`);
+      showModal("\u63d0\u793a", `\u6570\u636e\u5e93 ${dbName} \u5df2\u5220\u9664`);
     } catch (error) {
-      showModal("提示", `删除数据库 ${dbName} 失败：${error.message}`);
+      showModal("\u63d0\u793a", `\u5220\u9664\u6570\u636e\u5e93 ${dbName} \u5931\u8d25\uff1a${error.message}`);
     }
   });
   qs("#create-db-button").addEventListener("click", createDatabase);
@@ -1394,6 +1464,12 @@ function bindEvents() {
   });
   qsa("[data-db-tab]").forEach((button) => {
     button.addEventListener("click", () => switchDbTab(button.dataset.dbTab));
+  });
+  qsa("[data-metrics-tab]").forEach((button) => {
+    button.addEventListener("click", () => switchMetricsTab(button.dataset.metricsTab));
+  });
+  qsa("[data-perf-geometry-tab]").forEach((button) => {
+    button.addEventListener("click", () => switchPerfGeometryTab(button.dataset.perfGeometryTab));
   });
   qsa("[data-log-tab]").forEach((button) => {
     button.addEventListener("click", () => switchLogTab(button.dataset.logTab));
@@ -1441,6 +1517,7 @@ function init() {
   bindEvents();
   loadUploadLimits();
   loadTmpFiles();
+  loadMainMetricsLoadPanel().catch(() => {});
   loadUsers().catch(() => {});
   loadUserManagerLogs().catch(() => {});
   loadDatabaseLogs().catch(() => {});

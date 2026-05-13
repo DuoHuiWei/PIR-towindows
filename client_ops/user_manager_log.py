@@ -30,7 +30,7 @@ class UserManagerLogEntry:
 def _load_existing_entries(path: Path) -> list[dict[str, Any]]:
     if not path.is_file():
         return []
-    content = path.read_text(encoding="utf-8").strip()
+    content = path.read_text(encoding="utf-8-sig").strip()
     if not content:
         return []
     payload = json.loads(content)

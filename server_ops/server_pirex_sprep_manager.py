@@ -100,16 +100,18 @@ def finalize_pirex_sprep(
         stop_pirex_sprep(current_state)
         stopped = True
 
-    manifest_deleted = delete_server_pirex_manifest(db_name)
+    current_entry = get_entry(SERVER_DB_PATH, db_name)
+    current_status = current_entry["prep_status"] if current_entry else "未完成"
+
+    manifest_deleted = False
     if preprocess_succeeded:
-        current_entry = get_entry(SERVER_DB_PATH, db_name)
-        current_status = current_entry["prep_status"] if current_entry else "未完成"
         prep_status = merge_prep_status(current_status, "pirex")
     else:
         clear_server_pirex_state(db_name)
-        current_entry = get_entry(SERVER_DB_PATH, db_name)
-        current_status = current_entry["prep_status"] if current_entry else "未完成"
         prep_status = remove_prep_status(current_status, "pirex")
+        if prep_status == "未完成":
+            manifest_deleted = delete_server_pirex_manifest(db_name)
+
     update_entry_prep_status(SERVER_DB_PATH, db_name, prep_status)
     return {
         "db_name": db_name,

@@ -22,16 +22,16 @@ use bitvec::prelude::*;
 
 pub const SERVER_ADDRESS: &str = "127.0.0.1:8111";
 
-pub const BUNIT: usize = 4096; // one block has __ chunks
+pub const BUNIT: usize = 64; // one block has __ chunks
 pub const USIZE: usize = 64; // one chunk has 64 bytes
 pub const BSIZE: usize = BUNIT * USIZE; // block size
 
-pub const NSIZE: usize = 256; // dbase size
-pub const LSIZE: usize = 4; // logarithm sqrt
+pub const NSIZE: usize = 65536; // dbase size
+pub const LSIZE: usize = 8; // logarithm sqrt
 pub const SSIZE: usize = NSIZE >> LSIZE; // sqrt
-pub const HSIZE: usize = SSIZE * 8; // hint size
+pub const HSIZE: usize = SSIZE * 16; // hint size
 
-pub const FRONT: u8 = 0b1111;
+pub const FRONT: u8 = 0b11111111;
 pub const BFLAG: INDX = (SSIZE - 1) as INDX;
 
 pub const KSIZE: usize = 0016; // one keyset has __ bytes
@@ -616,7 +616,7 @@ impl StoragePlus {
         for (i, chunk) in block.chunks_exact(MSIZE).enumerate()
         {
             let chunk : [u8; MSIZE] = chunk.try_into().unwrap();
-            self.mod_regis[i] += PINT::from_be_bytes(chunk);
+            self.mod_regis[i] = self.mod_regis[i].wrapping_add(PINT::from_be_bytes(chunk));
         }
 
         let finis = Instant::now();

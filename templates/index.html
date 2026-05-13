@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PIREXX 双端文件检索原型</title>
+  <title>PIREXX 隐私文件检索</title>
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
         <div class="login-brand">
           <span class="brand-pill">PIR FILE</span>
           <h1>PIREX PIREX+<br>隐私文件检索原型</h1>
-          <p>Rust 核心协议 + Python FastAPI + 本地 Web 控制台</p>
+          <p>Rust 协议 + Python FastAPI + 浏览器 Web 控制台</p>
         </div>
         <form id="login-form" class="login-form">
           <label>
@@ -33,7 +33,7 @@
     <section id="dashboard" class="dashboard hidden">
       <header class="topbar">
         <div class="topbar-title">
-          <h1>PIREXX 文件检索控制台</h1>
+          <h1>PIREX PIREX+ 控制台</h1>
           <p>客户端 API 统一入口</p>
         </div>
         <div class="topbar-user">
@@ -46,18 +46,13 @@
       </header>
 
       <div class="nav-strip">
-        <span class="nav-badge">客户端 Web</span>
-        <span>数据库控制</span>
-        <span>PIREXX 恢复</span>
-        <span>日志</span>
-        <span>用户管理</span>
       </div>
 
       <main class="main-layout">
         <aside class="sidebar">
-          <button class="side-link active" data-view="query-view">数据查询</button>
+          <button class="side-link active" data-view="query-view">文件查询</button>
           <button class="side-link" data-view="metrics-view">性能展示</button>
-          <button class="side-link" data-view="database-view">数据库总览</button>
+          <button class="side-link" data-view="database-view">数据库管理</button>
           <button class="side-link admin-only" data-view="logs-view">日志</button>
           <button class="side-link admin-only" data-view="users-view">用户管理</button>
         </aside>
@@ -67,12 +62,12 @@
             <div class="hero-grid">
               <section class="panel soft-blue">
                 <div class="panel-head">
-                  <h2>查询设置</h2>
-                  <span>文件名检索 / 恢复入口</span>
+                  <h2>查询控制</h2>
+                  <span>数据库选中 / 在线恢复</span>
                 </div>
                 <div class="stack">
                   <label class="field">
-                    <span>目标数据库</span>
+                    <span>当前数据库</span>
                     <div class="inline-row">
                       <select id="query-db-select"></select>
                       <button id="refresh-databases-button" class="btn btn-ghost btn-confirm">确认</button>
@@ -83,7 +78,7 @@
                     <input id="query-keyword" type="text" placeholder="输入文件名关键字">
                   </label>
                   <div class="inline-row">
-                    <button id="query-search-button" class="btn btn-primary">查找</button>
+                    <button id="query-search-button" class="btn btn-primary">查询</button>
                     <button id="query-all-button" class="btn btn-secondary">全部文件</button>
                   </div>
                   <p id="query-message" class="form-message"></p>
@@ -92,16 +87,16 @@
 
               <section class="panel">
                 <div class="panel-head">
-                  <h2>查询结果</h2>
-                  <span>基于 manifest 的文件条目列表</span>
+                  <h2>文件列表</h2>
+                  <span>从 manifest 读取当前数据库文件</span>
                 </div>
                 <div class="result-shell">
                   <div class="result-toolbar">
-                    <span>当前数据库文件列表</span>
+                    <span>待恢复文件</span>
                     <span id="query-count-pill" class="pill">0 项</span>
                   </div>
                   <div id="query-results" class="result-list empty-state scroll-box medium-scroll">
-                    <p>请选择数据库并执行查找。</p>
+                    <p>请先确认数据库后再查看文件</p>
                   </div>
                 </div>
               </section>
@@ -109,79 +104,364 @@
           </div>
 
           <div id="metrics-view" class="view-panel">
-            <section class="panel">
-              <div class="panel-head">
-                <h2>性能展示</h2>
-                <span>下一阶段再接真实协议指标</span>
-              </div>
-              <div class="table-card scroll-box tall-scroll">
-                <table class="compare-table">
-                  <thead>
-                    <tr>
-                      <th>度规</th>
-                      <th>PIREX（基础版）</th>
-                      <th>PIREX+（升级版）</th>
-                      <th>效益</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>客户端存储</td>
-                      <td>294930.0 KB</td>
-                      <td>32.0 KB</td>
-                      <td class="benefit">9217x 简化</td>
-                    </tr>
-                    <tr>
-                      <td>计算时间</td>
-                      <td>38.08 ms</td>
-                      <td>15.43 ms</td>
-                      <td>-22.7 ms</td>
-                    </tr>
-                    <tr>
-                      <td>带宽</td>
-                      <td>256.3 KB</td>
-                      <td>128.0 KB</td>
-                      <td class="benefit">节省 50%</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </section>
+            <div class="section-tabs">
+              <button class="tab-link active" data-metrics-tab="metrics-load-tab">荷载</button>
+              <button class="tab-link" data-metrics-tab="metrics-data-tab">性能数据1</button>
+              <button class="tab-link" data-metrics-tab="metrics-data2-tab">性能数据2</button>
+            </div>
+
+            <div id="metrics-load-tab" class="metrics-tab active">
+              <section class="panel">
+                <div class="panel-head">
+                  <h2>荷载</h2>
+                  <span>来源于本机测试数据</span>
+                </div>
+                <div class="metrics-load-grid">
+                  <article class="metrics-load-card">
+                    <div class="metrics-load-card-head">
+                      <h3>当前数据几何</h3>
+                      <span>顶部摘要</span>
+                    </div>
+                    <div class="metrics-load-lines">
+                      <p><span class="metrics-load-label">当前数据几何大小：</span><span class="metrics-load-value">256KB / 每条</span></p>
+                      <p><span class="metrics-load-label">数据规模：</span><span class="metrics-load-value">2^12 / 条</span></p>
+                      <p><span class="metrics-load-label">单库容量：</span><span class="metrics-load-value">1GiB</span></p>
+                    </div>
+                  </article>
+
+                  <article class="metrics-load-card">
+                    <div class="metrics-load-card-head">
+                      <h3>客户端总存储负载</h3>
+                      <span>实时统计</span>
+                    </div>
+                    <div class="metrics-load-lines">
+                      <p>
+                        <span class="metrics-load-label">状态文件：</span>
+                        <span id="main-load-state-file-size" class="metrics-load-value">计算中...</span>
+                      </p>
+                      <p>
+                        <span class="metrics-load-label">辅助文件：</span>
+                        <span id="main-load-auxiliary-file-size" class="metrics-load-value">计算中...</span>
+                      </p>
+                      <p>
+                        <span class="metrics-load-label">统计来源：</span>
+                        <span class="metrics-load-value">预处理状态 + 客户端产物</span>
+                      </p>
+                    </div>
+                  </article>
+
+                  <article class="metrics-load-card metrics-load-card-wide">
+                    <div class="metrics-load-card-head">
+                      <h3>负载明细</h3>
+                      <span>数据库数量与客户端存储</span>
+                    </div>
+                    <div class="metrics-load-table-shell">
+                      <table class="metrics-load-table">
+                        <thead>
+                          <tr>
+                            <th>项目</th>
+                            <th>总原始数据库数</th>
+                            <th>pirex 处理库</th>
+                            <th>pirex+ 处理库</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>数据库数量</td>
+                            <td id="main-load-total-databases">0</td>
+                            <td id="main-load-pirex-ready">0</td>
+                            <td id="main-load-pirexx-ready">0</td>
+                          </tr>
+                          <tr>
+                            <td>客户端存储</td>
+                            <td>--</td>
+                            <td id="main-load-pirex-storage">0.00 MB</td>
+                            <td id="main-load-pirexx-storage">0.00 MB</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </article>
+
+                  <article class="metrics-load-card metrics-load-card-wide">
+                    <div class="metrics-load-card-head">
+                      <h3>每库客户端存储开销对比</h3>
+                      <span>来源于本机测试数据</span>
+                    </div>
+
+                    <section class="metrics-chart-block">
+                      <div class="metrics-chart-title-row">
+                        <h4>256KB / 每条 / 4096 条（单库 1GiB）</h4>
+                      </div>
+                      <div class="metrics-chart-shell">
+                        <div class="metrics-chart-axis">
+                          <span>客户端预处理存储开销（MB）</span>
+                        </div>
+                        <div class="metrics-chart-list">
+                          <div class="metrics-chart-item">
+                            <div class="metrics-chart-label">PIREX+</div>
+                            <div class="metrics-chart-bar-track"><div class="metrics-chart-bar pirexx-bar" style="width: 1%;"></div></div>
+                            <div class="metrics-chart-value">1.85 MB</div>
+                          </div>
+                          <div class="metrics-chart-item">
+                            <div class="metrics-chart-label">PIREX</div>
+                            <div class="metrics-chart-bar-track"><div class="metrics-chart-bar pirex-bar" style="width: 7%;"></div></div>
+                            <div class="metrics-chart-value">192.1 MB</div>
+                          </div>
+                          <div class="metrics-chart-item">
+                            <div class="metrics-chart-label">TREEPIR</div>
+                            <div class="metrics-chart-bar-track"><div class="metrics-chart-bar treepir-bar" style="width: 48%;"></div></div>
+                            <div class="metrics-chart-value">1.3 GB</div>
+                          </div>
+                          <div class="metrics-chart-item">
+                            <div class="metrics-chart-label">CK20</div>
+                            <div class="metrics-chart-bar-track"><div class="metrics-chart-bar ck-bar" style="width: 100%;"></div></div>
+                            <div class="metrics-chart-value">2.7 GB</div>
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+
+                    <section class="metrics-chart-block">
+                      <div class="metrics-chart-title-row">
+                        <h4>4KB / 每条 / 2^18 / 条（单库 1GiB）</h4>
+                      </div>
+                      <div class="metrics-chart-shell">
+                        <div class="metrics-chart-axis">
+                          <span>客户端预处理存储开销（MB）</span>
+                        </div>
+                        <div class="metrics-chart-list">
+                          <div class="metrics-chart-item">
+                            <div class="metrics-chart-label">PIREX+</div>
+                            <div class="metrics-chart-bar-track"><div class="metrics-chart-bar pirexx-bar" style="width: 1%;"></div></div>
+                            <div class="metrics-chart-value">680.0 KB</div>
+                          </div>
+                          <div class="metrics-chart-item">
+                            <div class="metrics-chart-label">PIREX</div>
+                            <div class="metrics-chart-bar-track"><div class="metrics-chart-bar pirex-bar" style="width: 4%;"></div></div>
+                            <div class="metrics-chart-value">36.1 MB</div>
+                          </div>
+                          <div class="metrics-chart-item">
+                            <div class="metrics-chart-label">TREEPIR</div>
+                            <div class="metrics-chart-bar-track"><div class="metrics-chart-bar treepir-bar" style="width: 20%;"></div></div>
+                            <div class="metrics-chart-value">172.3 MB</div>
+                          </div>
+                          <div class="metrics-chart-item">
+                            <div class="metrics-chart-label">CK20</div>
+                            <div class="metrics-chart-bar-track"><div class="metrics-chart-bar ck-bar" style="width: 100%;"></div></div>
+                            <div class="metrics-chart-value">848.8 MB</div>
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+                  </article>
+                </div>
+              </section>
+            </div>
+
+            <div id="metrics-data-tab" class="metrics-tab">
+              <section class="panel">
+                <div class="panel-head">
+                  <h2>性能数据1</h2>
+                  <span>完整表格对比</span>
+                </div>
+                <div class="perf-data-shell">
+                  <div class="section-tabs perf-geometry-tabs">
+                    <button class="tab-link active" data-perf-geometry-tab="perf-geometry-4k">4KB × 2^18 = 1GiB</button>
+                    <button class="tab-link" data-perf-geometry-tab="perf-geometry-256k">256KB × 4096 = 1GiB</button>
+                  </div>
+
+                  <div id="perf-geometry-4k" class="perf-geometry-tab active">
+                    <div class="perf-env-card">
+                      <p>实验环境：CPU Intel(R) Core(TM) i7-10510U CPU @ 1.80GHz，Logical Processors 8，Memory 15.6 GB，OS Windows 10 Home China (Build 19045)，Machine LENOVO 81VK，Storage TOSHIBA HDWL110 / SAMSUNG MZALQ512HALU-000L2。</p>
+                    </div>
+                    <div class="perf-geometry-head">数据几何：4KB × 2^18 = 1GiB</div>
+
+                    <div class="perf-table-card">
+                      <div class="perf-table-title">离线预处理</div>
+                      <table class="perf-compare-table">
+                        <thead>
+                          <tr>
+                            <th>指标</th>
+                            <th>TREEPIR</th>
+                            <th>CK20</th>
+                            <th>PIREX</th>
+                            <th>PIREX+</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr><td>Client Storage</td><td>172.3 MB</td><td>848.8 MB</td><td>36.1 MB</td><td>680.0 KB</td></tr>
+                          <tr><td>Preprocess Total Time</td><td>9.2 s</td><td>58.2 s</td><td>9.8 s</td><td>311.5 s</td></tr>
+                          <tr><td>Offline Bandwidth</td><td>172.0 MB</td><td>853.5 MB</td><td>36.0 MB</td><td>36.0 MB</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="perf-table-card">
+                      <div class="perf-table-title">在线单次查找：客户端视角</div>
+                      <table class="perf-compare-table">
+                        <thead>
+                          <tr>
+                            <th>指标</th>
+                            <th>TREEPIR</th>
+                            <th>CK20</th>
+                            <th>PIREX</th>
+                            <th>PIREX+</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr><td>Query Upload Bytes</td><td>291 bytes</td><td>3.1 KB</td><td>4.0 KB</td><td>83.1 KB</td></tr>
+                          <tr><td>Query Download Bytes</td><td>3.9 MB</td><td>49.6 MB</td><td>16.0 KB</td><td>164.0 KB</td></tr>
+                          <tr><td>总通信量</td><td>3.9 MB</td><td>49.6 MB</td><td>20.0 KB</td><td>247.1 KB</td></tr>
+                          <tr><td>Client Computation Time</td><td>0.0 ms</td><td>58.0 ms</td><td>238.6 µs</td><td>333.5 ms</td></tr>
+                          <tr><td>Observed Access Wall Time</td><td>8.9 ms</td><td>520.0 ms</td><td>56.1 ms</td><td>12.0 s</td></tr>
+                          <tr><td>End-to-End Latency @40Mbps</td><td>840.8 ms</td><td>12.8 s</td><td>60.1 ms</td><td>12.0 s</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="perf-table-card">
+                      <div class="perf-table-title">在线单次查找：服务端视角</div>
+                      <table class="perf-compare-table">
+                        <thead>
+                          <tr>
+                            <th>指标</th>
+                            <th>TREEPIR</th>
+                            <th>CK20</th>
+                            <th>PIREX</th>
+                            <th>PIREX+</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr><td>Server Computation Time</td><td>5.6 ms</td><td>340.0 ms</td><td>2.9 ms</td><td>1.8 s</td></tr>
+                          <tr><td>Server Query Handling Time</td><td>5.6 ms</td><td>340.0 ms</td><td>9.4 ms</td><td>11.6 s</td></tr>
+                          <tr><td>Rewrite Handling Time</td><td>0.0 ms</td><td>0.0 ms</td><td>0.0 ms</td><td>40.9 ms</td></tr>
+                          <tr><td>End-to-End Latency @40Mbps (server-side)</td><td>837.5 ms</td><td>12.7 s</td><td>7.0 ms</td><td>1.8 s</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div id="perf-geometry-256k" class="perf-geometry-tab">
+                    <div class="perf-env-card">
+                      <p>实验环境：CPU Intel(R) Core(TM) i7-10510U CPU @ 1.80GHz，Logical Processors 8，Memory 15.6 GB，OS Windows 10 Home China (Build 19045)，Machine LENOVO 81VK，Storage TOSHIBA HDWL110 / SAMSUNG MZALQ512HALU-000L2。</p>
+                    </div>
+                    <div class="perf-geometry-head">数据几何：256KB × 4096 = 1GiB</div>
+
+                    <div class="perf-table-card">
+                      <div class="perf-table-title">离线预处理</div>
+                      <table class="perf-compare-table">
+                        <thead>
+                          <tr>
+                            <th>指标</th>
+                            <th>TREEPIR</th>
+                            <th>CK20</th>
+                            <th>PIREX</th>
+                            <th>PIREX+</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr><td>Client Storage</td><td>1.3 GB</td><td>2.7 GB</td><td>192.1 MB</td><td>1.85 MB</td></tr>
+                          <tr><td>Preprocess Total Time</td><td>9.4 s</td><td>52.8 s</td><td>25.7 s</td><td>13min</td></tr>
+                          <tr><td>Offline Bandwidth</td><td>1.3 GB</td><td>2.7 GB</td><td>192.0 MB</td><td>192.0 MB</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="perf-table-card">
+                      <div class="perf-table-title">在线单次查找：客户端视角</div>
+                      <table class="perf-compare-table">
+                        <thead>
+                          <tr>
+                            <th>指标</th>
+                            <th>TREEPIR</th>
+                            <th>CK20</th>
+                            <th>PIREX</th>
+                            <th>PIREX+</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr><td>Query Upload Bytes</td><td>189 bytes</td><td>1.8 KB</td><td>302 bytes</td><td>4.1 MB</td></tr>
+                          <tr><td>Query Download Bytes</td><td>31.7 MB</td><td>205.0 MB</td><td>1.0 MB</td><td>10.3 MB</td></tr>
+                          <tr><td>总通信量</td><td>31.7 MB</td><td>205.0 MB</td><td>1.0 MB</td><td>14.4 MB</td></tr>
+                          <tr><td>Client Computation Time</td><td>9.1 ms</td><td>95.0 ms</td><td>3.6 ms</td><td>21.5 s</td></tr>
+                          <tr><td>Observed Access Wall Time</td><td>386.7 ms</td><td>2.2 s</td><td>158.8 ms</td><td>65.6 s</td></tr>
+                          <tr><td>End-to-End Latency @40Mbps</td><td>7.1 s</td><td>51.2 s</td><td>368.6 ms</td><td>68.6 s</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="perf-table-card">
+                      <div class="perf-table-title">在线单次查找：服务端视角</div>
+                      <table class="perf-compare-table">
+                        <thead>
+                          <tr>
+                            <th>指标</th>
+                            <th>TREEPIR</th>
+                            <th>CK20</th>
+                            <th>PIREX</th>
+                            <th>PIREX+</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr><td>Server Computation Time</td><td>132.5 ms</td><td>920.0 ms</td><td>44.6 ms</td><td>8.3 s</td></tr>
+                          <tr><td>Server Query Handling Time</td><td>132.5 ms</td><td>920.0 ms</td><td>123.0 ms</td><td>44.0 s</td></tr>
+                          <tr><td>Rewrite Handling Time</td><td>0.0 ms</td><td>0.0 ms</td><td>0.0 ms</td><td>3.5 s</td></tr>
+                          <tr><td>End-to-End Latency @40Mbps (server-side)</td><td>6.8 s</td><td>50.8 s</td><td>254.3 ms</td><td>11.3 s</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+
+            <div id="metrics-data2-tab" class="metrics-tab">
+              <section class="panel">
+                <div class="panel-head">
+                  <h2>性能数据2</h2>
+                  <span>预留给第二组性能监测数据展示</span>
+                </div>
+                <div class="result-list empty-state scroll-box medium-scroll">
+                  <p>当前还没有性能数据2</p>
+                </div>
+              </section>
+            </div>
           </div>
 
           <div id="database-view" class="view-panel">
             <div class="section-tabs">
               <button class="tab-link active" data-db-tab="db-overview-tab">总览</button>
-              <button class="tab-link" data-db-tab="db-create-tab">数据库添加</button>
+              <button class="tab-link" data-db-tab="db-create-tab">创建数据库</button>
             </div>
 
             <div id="db-overview-tab" class="db-tab active">
               <div class="split-grid">
                 <section class="panel">
                   <div class="panel-head">
-                    <h2>数据库总览</h2>
-                    <span>查看现有数据库和文件条目</span>
+                    <h2>数据库文件</h2>
+                    <span>查看当前选中数据库的文件</span>
                   </div>
                   <div class="stack">
                     <label class="field">
                       <span>数据库</span>
-                      <input id="overview-db-display" type="text" readonly placeholder="点击右侧数据库列表中的选中按钮">
+                      <input id="overview-db-display" type="text" readonly placeholder="请在右侧列表中选中数据库">
                     </label>
                     <div class="inline-row">
                       <button id="overview-files-button" class="btn btn-primary">文件刷新</button>
                       <button id="overview-delete-button" class="btn btn-danger">删除数据库</button>
                     </div>
-                    <textarea id="overview-files-text" class="text-console scroll-box medium-scroll" readonly placeholder="这里显示数据库文件列表"></textarea>
+                    <textarea id="overview-files-text" class="text-console scroll-box medium-scroll" readonly placeholder="这里显示当前数据库的文件"></textarea>
                   </div>
                 </section>
 
                 <section class="panel accent-panel">
                   <div class="panel-head">
                     <h2>数据库列表</h2>
-                    <span>数据库条目、文件数和删除操作</span>
+                    <span>读取客户端保存的数据库信息</span>
                   </div>
                   <div id="overview-database-list-panel" class="result-list scroll-box medium-scroll">
-                    <p>等待加载数据库列表。</p>
+                    <p>正在读取数据库列表</p>
                   </div>
                 </section>
               </div>
@@ -191,8 +471,8 @@
               <div class="split-grid">
                 <section class="panel">
                   <div class="panel-head">
-                    <h2>数据库添加</h2>
-                    <span>创建新数据库并准备待上传文件</span>
+                    <h2>创建数据库</h2>
+                    <span>新增数据库并上传原始文件</span>
                   </div>
                   <div class="stack">
                     <label class="field">
@@ -209,10 +489,10 @@
                         <span id="tmp-file-count-inline" class="file-input-status">未选择任何文件</span>
                       </div>
                     </label>
-                    <p id="upload-limit-hint" class="field-hint">当前数据库总打包上限加载中...</p>
+                    <p id="upload-limit-hint" class="field-hint">当前数据库总打包上限将在这里显示...</p>
 
                     <div id="tmp-file-list" class="tmp-upload-list empty-state scroll-box medium-scroll">
-                      <p>待上传文件列表为空。</p>
+                      <p>待上传文件列表为空</p>
                     </div>
 
                     <div class="inline-row">
@@ -227,16 +507,15 @@
 
                 <section class="panel panel-stretch">
                   <div class="panel-head">
-                    <h2>已有数据库</h2>
-                    <span>由客户端 API 从服务端同步列表</span>
+                    <h2>数据库列表</h2>
+                    <span>客户端 API 统一入口</span>
                   </div>
                   <div id="database-list-panel" class="result-list empty-state scroll-box medium-scroll">
-                    <p>等待加载数据库列表。</p>
+                    <p>正在读取数据库列表</p>
                   </div>
                 </section>
               </div>
             </div>
-
           </div>
 
           <div id="logs-view" class="view-panel">
@@ -249,15 +528,15 @@
               <section class="panel">
                 <div class="panel-head">
                   <h2>查询日志</h2>
-                  <span>查看查询者、数据库、文件和下载结果</span>
+                  <span>记录直接恢复、pirex、pirex+ 的下载动作</span>
                 </div>
                 <div class="log-table-shell">
                   <div class="user-log-table-head query-log-table-head">
                     <span>查询者账号</span>
                     <span>数据库</span>
                     <span>文件名</span>
-                    <span>下载方式</span>
-                    <span>查询时间</span>
+                    <span>下载操作</span>
+                    <span>下载时间</span>
                     <span>下载结果</span>
                   </div>
                   <div id="query-log-list" class="user-log-table-body">
@@ -275,12 +554,12 @@
               <section class="panel">
                 <div class="panel-head">
                   <h2>数据库日志</h2>
-                  <span>查看数据库名称、操作类型、操作时间和操作结果</span>
+                  <span>记录数据库创建、删除、上传、预处理等动作</span>
                 </div>
                 <div class="log-table-shell">
                   <div class="user-log-table-head db-log-table-head">
                     <span>数据库名称</span>
-                    <span>操作类型</span>
+                    <span>数据库操作</span>
                     <span>操作时间</span>
                     <span>操作结果</span>
                   </div>
@@ -299,14 +578,14 @@
               <section class="panel">
                 <div class="panel-head">
                   <h2>用户管理日志</h2>
-                  <span>查看管理员账号、操作类型、目标用户和操作时间</span>
+                  <span>记录管理员对用户的添加、删除、重置密码动作</span>
                 </div>
                 <div class="log-table-shell">
                   <div class="user-log-table-head">
                     <span>管理员账号</span>
                     <span>操作类型</span>
                     <span>用户昵称</span>
-                    <span>用户账号</span>
+                    <span>用户账户</span>
                     <span>操作时间</span>
                   </div>
                   <div id="user-manager-log-list" class="user-log-table-body">
@@ -322,12 +601,11 @@
             </div>
           </div>
 
-
           <div id="users-view" class="view-panel">
             <section class="panel">
               <div class="panel-head">
                 <h2>用户管理</h2>
-                <span>管理员区域骨架</span>
+                <span>查询并维护用户账号</span>
               </div>
               <div class="user-management-grid">
                 <div class="user-main-column">
@@ -337,7 +615,7 @@
                   </div>
                   <div id="user-list-panel" class="user-list-panel scroll-box">
                     <div class="user-card-grid">
-                      <p>等待加载用户列表。</p>
+                      <p>正在读取用户列表</p>
                     </div>
                   </div>
                 </div>

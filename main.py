@@ -21,7 +21,6 @@ from client_ops.client_manifest_files import list_client_manifest_files
 from client_ops.client_pirex_uprep_manager import run_client_pirex_uprep
 from client_ops.client_pirexx_uprep_manager import run_client_pirexx_uprep
 from client_ops.new_folder_client import new_folder_client
-from client_ops.all_log import write_all_log
 from client_ops.qurey_log import compute_avg_block_query_delay_ms, list_query_logs, write_query_log
 from client_ops.server_bridge import call_json, download_manifest_to_client, upload_files
 from client_ops.tmpdata_manager import (
@@ -33,15 +32,27 @@ from client_ops.tmpdata_manager import (
 )
 from client_ops.unfinished_clear import unfinished_clear
 from client_ops.database_log import list_database_logs, write_database_log
+from client_ops.preprocess_prepare import prepare_client_preprocess
 from client_ops.preprocessing_log import write_preprocessing_log
 from client_ops.user_manager_log import list_user_manager_logs, write_user_manager_log
-from config import SERVER_API_BASE_URL, SHOW_UPLOAD_LIMIT_HINT, pirexx_dataset_capacity_bytes
+from config import (
+    PIREX_READY_STATE_BYTES,
+    PIREXX_READY_STATE_BYTES,
+    SERVER_API_BASE_URL,
+    SHOW_UPLOAD_LIMIT_HINT,
+    client_log_dir,
+    client_manifest_dir,
+    pirexx_dataset_capacity_bytes,
+    recover_root,
+)
 from database_registry import (
     CLIENT_DB_PATH,
     SERVER_DB_PATH,
     get_entry,
     list_entries,
+    remove_prep_status,
     replace_entry_stats,
+    update_entry_prep_status,
 )
 from file_ops.direct_restore import direct_restore
 from file_ops.pirex_dataset_restore import restore_pirex_file
@@ -71,6 +82,7 @@ from server_ops.server_pirexx_sprep_manager import (
     finalize_pirexx_sprep,
 )
 from server_ops.server_upload import server_upload
+from server_ops.preprocess_prepare import prepare_server_preprocess
 from server_ops.pirexx_sread_manager import PirexxSreadState, ensure_pirexx_sread, stop_pirexx_sread
 from utils.logger import log_event
 
@@ -157,6 +169,78 @@ _selected_pirex_db_name = ""
 _selected_pirex_server_addr = ""
 _preprocess_job_lock = threading.Lock()
 _preprocess_jobs: dict[str, dict[str, Any]] = {}
+
+
+def build_database_summary_metrics() -> dict[str, int]:
+    total_databases = 0
+    pirex_ready_count = 0
+    pirexx_ready_count = 0
+    dual_ready_count = 0
+
+    for entry in list_entries(CLIENT_DB_PATH):
+        total_databases += 1
+        prep_status = str(entry.get("prep_status", "")).strip()
+
+        if prep_status in {"pirex", "pirex+pirex"}:
+            pirex_ready_count += 1
+        if prep_status in {"pirexx", "pirex+pirex"}:
+            pirexx_ready_count += 1
+        if prep_status == "pirex+pirex":
+            dual_ready_count += 1
+
+    return {
+        "total_databases": total_databases,
+        "pirex_ready_count": pirex_ready_count,
+        "pirexx_ready_count": pirexx_ready_count,
+        "dual_ready_count": dual_ready_count,
+    }
+
+
+def _sum_file_sizes(path: Path) -> int:
+    if not path.exists():
+        return 0
+    total = 0
+    for item in path.rglob("*"):
+        if item.is_file():
+            total += item.stat().st_size
+    return total
+
+
+def _format_bytes(num_bytes: int) -> str:
+    size = float(max(0, int(num_bytes)))
+    units = ["B", "KB", "MB", "GB", "TB"]
+    unit_index = 0
+    while size >= 1024.0 and unit_index < len(units) - 1:
+        size /= 1024.0
+        unit_index += 1
+    if unit_index == 0:
+        return f"{int(size)} {units[unit_index]}"
+    return f"{size:.2f} {units[unit_index]}"
+
+
+def build_load_metrics_payload() -> dict[str, Any]:
+    summary = build_database_summary_metrics()
+    pirex_ready_count = int(summary["pirex_ready_count"])
+    pirexx_ready_count = int(summary["pirexx_ready_count"])
+
+    pirex_state_file_bytes = pirex_ready_count * PIREX_READY_STATE_BYTES
+    pirexx_state_file_bytes = pirexx_ready_count * PIREXX_READY_STATE_BYTES
+    state_file_bytes = pirex_state_file_bytes + pirexx_state_file_bytes
+    auxiliary_file_bytes = (
+        _sum_file_sizes(client_manifest_dir())
+        + _sum_file_sizes(client_log_dir())
+        + _sum_file_sizes(recover_root())
+    )
+
+    return {
+        **summary,
+        "pirex_state_file_bytes": pirex_state_file_bytes,
+        "pirexx_state_file_bytes": pirexx_state_file_bytes,
+        "state_file_bytes": state_file_bytes,
+        "state_file_size_text": _format_bytes(state_file_bytes),
+        "auxiliary_file_bytes": auxiliary_file_bytes,
+        "auxiliary_file_size_text": _format_bytes(auxiliary_file_bytes),
+    }
 
 
 def ensure_server_pirexx_sread(db_name: str) -> str:
@@ -274,6 +358,7 @@ def _serialize_preprocess_job(job: dict[str, Any] | None) -> dict[str, Any]:
     }
 
 
+
 def _write_preprocess_failure_updates(db_name: str, scheme: str, status: str, elapsed_ms: float) -> None:
     result_label = "cancelled" if status == "cancelled" else "failed"
     write_preprocessing_log(
@@ -282,10 +367,10 @@ def _write_preprocess_failure_updates(db_name: str, scheme: str, status: str, el
         preprocessing_elapsed_ms=elapsed_ms,
         preprocessing_result=result_label,
     )
-    write_database_log(db_name, f"预处理({scheme})", "中止" if status == "cancelled" else "失败")
+    write_database_log(db_name, f"\u9884\u5904\u7406({scheme})", "\u4e2d\u6b62" if status == "cancelled" else "\u5931\u8d25")
 
 
-def _run_preprocess_job(scheme: str, db_name: str, cancel_event: threading.Event) -> None:
+def _run_preprocess_job(scheme: str, db_name: str, cancel_event: threading.Event, job_id: str) -> None:
     started_at = time.time()
     try:
         if scheme == "pirex":
@@ -295,6 +380,8 @@ def _run_preprocess_job(scheme: str, db_name: str, cancel_event: threading.Event
 
         with _preprocess_job_lock:
             job = _preprocess_jobs.get(scheme, {})
+            if job.get("job_id") != job_id:
+                return
             job.update(
                 {
                     "status": "completed",
@@ -306,14 +393,15 @@ def _run_preprocess_job(scheme: str, db_name: str, cancel_event: threading.Event
             )
             _preprocess_jobs[scheme] = job
 
-        write_database_log(db_name, f"预处理({scheme})", "成功")
+        write_database_log(db_name, f"\u9884\u5904\u7406({scheme})", "\u6210\u529f")
     except Exception as exc:
         ended_at = time.time()
         elapsed_ms = (ended_at - started_at) * 1000.0
         status = "cancelled" if cancel_event.is_set() else "failed"
-        _write_preprocess_failure_updates(db_name, scheme, status, elapsed_ms)
         with _preprocess_job_lock:
             job = _preprocess_jobs.get(scheme, {})
+            if job.get("job_id") != job_id:
+                return
             job.update(
                 {
                     "status": status,
@@ -324,17 +412,67 @@ def _run_preprocess_job(scheme: str, db_name: str, cancel_event: threading.Event
                 }
             )
             _preprocess_jobs[scheme] = job
+        _write_preprocess_failure_updates(db_name, scheme, status, elapsed_ms)
+
+
+def _force_cancel_preprocess_job_locked(job: dict[str, Any], reason: str) -> dict[str, Any]:
+    ended_at = time.time()
+    started_at = float(job.get("started_at", ended_at))
+    elapsed_ms = (ended_at - started_at) * 1000.0
+    db_name = str(job.get("db_name", ""))
+    scheme = str(job.get("scheme", ""))
+
+    if not bool(job.get("forced_cancel_logged")) and db_name and scheme:
+        current_entry = get_entry(CLIENT_DB_PATH, db_name)
+        current_status = current_entry["prep_status"] if current_entry else "\u672a\u5b8c\u6210"
+        update_entry_prep_status(CLIENT_DB_PATH, db_name, remove_prep_status(current_status, scheme))
+        _write_preprocess_failure_updates(db_name, scheme, "cancelled", elapsed_ms)
+        job["forced_cancel_logged"] = True
+
+    job.update(
+        {
+            "status": "cancelled",
+            "ended_at": ended_at,
+            "result": None,
+            "error": reason,
+            "cancel_requested": False,
+            "job_id": f"cancelled-{time.time_ns()}",
+        }
+    )
+    return job
+
+
+def _reconcile_preprocess_job_locked(scheme: str) -> dict[str, Any] | None:
+    job = _preprocess_jobs.get(scheme)
+    if not job:
+        return None
+
+    if job.get("status") != "running":
+        return job
+
+    thread = job.get("thread")
+    if isinstance(thread, threading.Thread) and not thread.is_alive():
+        return _force_cancel_preprocess_job_locked(job, "preprocess thread exited without final state")
+
+    cancel_requested = bool(job.get("cancel_requested", False))
+    cancel_requested_at = float(job.get("cancel_requested_at", 0.0) or 0.0)
+    if cancel_requested and cancel_requested_at > 0 and (time.time() - cancel_requested_at) >= 8.0:
+        return _force_cancel_preprocess_job_locked(job, "preprocess cancel timed out")
+
+    return job
 
 
 def _start_preprocess_job(db_name: str, scheme: str) -> dict[str, Any]:
     normalized_scheme = _normalize_preprocess_scheme(scheme)
     with _preprocess_job_lock:
-        existing = _preprocess_jobs.get(normalized_scheme)
+        existing = _reconcile_preprocess_job_locked(normalized_scheme)
         if existing and existing.get("status") == "running":
             raise RuntimeError(f"{normalized_scheme} preprocess is already running")
 
         cancel_event = threading.Event()
+        job_id = f"{normalized_scheme}-{db_name}-{time.time_ns()}"
         job = {
+            "job_id": job_id,
             "scheme": normalized_scheme,
             "db_name": db_name,
             "status": "running",
@@ -343,11 +481,13 @@ def _start_preprocess_job(db_name: str, scheme: str) -> dict[str, Any]:
             "error": "",
             "result": None,
             "cancel_requested": False,
+            "cancel_requested_at": 0.0,
+            "forced_cancel_logged": False,
             "cancel_event": cancel_event,
         }
         thread = threading.Thread(
             target=_run_preprocess_job,
-            args=(normalized_scheme, db_name, cancel_event),
+            args=(normalized_scheme, db_name, cancel_event, job_id),
             daemon=True,
         )
         job["thread"] = thread
@@ -359,7 +499,7 @@ def _start_preprocess_job(db_name: str, scheme: str) -> dict[str, Any]:
 def _cancel_preprocess_job(db_name: str, scheme: str) -> dict[str, Any]:
     normalized_scheme = _normalize_preprocess_scheme(scheme)
     with _preprocess_job_lock:
-        job = _preprocess_jobs.get(normalized_scheme)
+        job = _reconcile_preprocess_job_locked(normalized_scheme)
         if not job or job.get("status") != "running":
             raise RuntimeError(f"no running {normalized_scheme} preprocess job")
         if job.get("db_name") != db_name:
@@ -367,12 +507,13 @@ def _cancel_preprocess_job(db_name: str, scheme: str) -> dict[str, Any]:
         cancel_event = job["cancel_event"]
         cancel_event.set()
         job["cancel_requested"] = True
+        job["cancel_requested_at"] = time.time()
         return _serialize_preprocess_job(job)
 
 
 def _stop_client_preprocess_jobs_for_db(db_name: str, join_timeout_s: float = 5.0) -> list[str]:
     stopped_schemes: list[str] = []
-    threads_to_join: list[threading.Thread] = []
+    threads_to_join: list[tuple[str, threading.Thread]] = []
 
     with _preprocess_job_lock:
         for scheme, job in _preprocess_jobs.items():
@@ -384,13 +525,19 @@ def _stop_client_preprocess_jobs_for_db(db_name: str, join_timeout_s: float = 5.
             if cancel_event is not None:
                 cancel_event.set()
             job["cancel_requested"] = True
+            job["cancel_requested_at"] = time.time()
             stopped_schemes.append(scheme)
             thread = job.get("thread")
             if isinstance(thread, threading.Thread):
-                threads_to_join.append(thread)
+                threads_to_join.append((scheme, thread))
 
-    for thread in threads_to_join:
+    for scheme, thread in threads_to_join:
         thread.join(timeout=join_timeout_s)
+        if thread.is_alive():
+            with _preprocess_job_lock:
+                job = _preprocess_jobs.get(scheme)
+                if job and job.get("status") == "running" and job.get("db_name") == db_name:
+                    _force_cancel_preprocess_job_locked(job, "local preprocess cleanup timed out")
 
     return stopped_schemes
 
@@ -461,7 +608,6 @@ def client_upload_limits() -> dict[str, Any]:
 @client_app.get("/")
 def client_index() -> FileResponse:
     return FileResponse(INDEX_HTML_PATH)
-
 
 @client_app.get("/recover-file/{file_name}")
 def client_download_recovered_file(file_name: str) -> FileResponse:
@@ -761,6 +907,16 @@ def client_list_databases() -> dict[str, Any]:
     return {"ok": True, "databases": items}
 
 
+@client_app.get("/metrics/database-summary")
+def client_database_summary_metrics() -> dict[str, Any]:
+    return {"ok": True, **build_database_summary_metrics()}
+
+
+@client_app.get("/metrics/load-prototype")
+def client_load_metrics_prototype() -> dict[str, Any]:
+    return {"ok": True, **build_load_metrics_payload()}
+
+
 @client_app.post("/databases/select")
 def client_select_database(payload: DatabaseCreateRequest) -> dict[str, Any]:
     try:
@@ -772,7 +928,7 @@ def client_select_database(payload: DatabaseCreateRequest) -> dict[str, Any]:
         server_addr = ""
         selected_scheme = "none"
 
-        if prep_status in {"pirexx", "pirex+pirexx"}:
+        if prep_status in {"pirexx", "pirex+pirex"}:
             server_addr = request_server_pirexx_sread(payload.db_name)
             set_selected_pirexx_database(payload.db_name, server_addr)
             selected_scheme = "pirexx"
@@ -803,7 +959,10 @@ def client_create_database(payload: DatabaseCreateRequest) -> dict[str, Any]:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
     log_event("client_database_create", f"db={payload.db_name}")
-    write_database_log(payload.db_name, "创建", "成功")
+    try:
+        write_database_log(payload.db_name, "创建", "成功")
+    except Exception as exc:
+        log_event("client_database_create_log_error", f"db={payload.db_name} error={exc}")
     return {
         "ok": True,
         "db_name": result["db_name"],
@@ -831,7 +990,10 @@ def client_delete_database(db_name: str) -> dict[str, Any]:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
     log_event("client_database_delete", f"db={db_name} stopped_jobs={stopped_jobs}")
-    write_database_log(db_name, "删除", "成功")
+    try:
+        write_database_log(db_name, "删除", "成功")
+    except Exception as exc:
+        log_event("client_database_delete_log_error", f"db={db_name} error={exc}")
     return {"ok": True, **result, "stopped_preprocess_jobs": stopped_jobs}
 
 
@@ -968,10 +1130,15 @@ def client_pirex_preprocess(payload: DatabaseCreateRequest) -> dict[str, Any]:
 @client_app.post("/preprocess/jobs/start")
 def client_start_preprocess_job(payload: PreprocessJobRequest) -> dict[str, Any]:
     try:
+        prepare_result = prepare_client_preprocess(
+            payload.db_name,
+            payload.scheme,
+            stop_local_jobs=_stop_client_preprocess_jobs_for_db,
+        )
         job = _start_preprocess_job(payload.db_name, payload.scheme)
     except Exception as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
-    return {"ok": True, **job}
+    return {"ok": True, "prepare_result": prepare_result, **job}
 
 
 @client_app.get("/preprocess/jobs/status")
@@ -982,7 +1149,7 @@ def client_preprocess_job_status(scheme: str = Query(...)) -> dict[str, Any]:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
     with _preprocess_job_lock:
-        job = _serialize_preprocess_job(_preprocess_jobs.get(normalized_scheme))
+        job = _serialize_preprocess_job(_reconcile_preprocess_job_locked(normalized_scheme))
     return {"ok": True, **job}
 
 
@@ -990,9 +1157,14 @@ def client_preprocess_job_status(scheme: str = Query(...)) -> dict[str, Any]:
 def client_cancel_preprocess_job(payload: PreprocessJobRequest) -> dict[str, Any]:
     try:
         job = _cancel_preprocess_job(payload.db_name, payload.scheme)
+        prepare_result = prepare_client_preprocess(
+            payload.db_name,
+            payload.scheme,
+            stop_local_jobs=lambda _db_name: [],
+        )
     except Exception as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
-    return {"ok": True, **job}
+    return {"ok": True, "prepare_result": prepare_result, **job}
 
 
 @client_app.post("/databases/{db_name}/unfinished-clear")
@@ -1004,6 +1176,32 @@ def client_unfinished_clear_database(db_name: str) -> dict[str, Any]:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
     log_event("client_unfinished_clear", f"db={db_name}")
+    return {"ok": True, **result}
+
+
+
+@server_app.post("/preprocess/prepare")
+def server_prepare_preprocess(payload: PreprocessJobRequest) -> dict[str, Any]:
+    global _pirexx_sread_state, _pirex_sread_state, _pirexx_sprep_state, _pirex_sprep_state
+    try:
+        with _sread_lock:
+            with _pirex_sread_lock:
+                with _pirexx_sprep_lock:
+                    with _pirex_sprep_lock:
+                        result = prepare_server_preprocess(
+                            payload.db_name,
+                            payload.scheme,
+                            pirexx_sread_state=_pirexx_sread_state,
+                            pirex_sread_state=_pirex_sread_state,
+                            pirexx_sprep_state=_pirexx_sprep_state,
+                            pirex_sprep_state=_pirex_sprep_state,
+                        )
+                        _pirexx_sread_state = result["next_pirexx_sread_state"]
+                        _pirex_sread_state = result["next_pirex_sread_state"]
+                        _pirexx_sprep_state = result["next_pirexx_sprep_state"]
+                        _pirex_sprep_state = result["next_pirex_sprep_state"]
+    except Exception as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
     return {"ok": True, **result}
 
 
@@ -1024,11 +1222,6 @@ def client_direct_restore(payload: RestoreRequest) -> dict[str, Any]:
             download_action="direct",
             download_result="success",
             avg_block_query_time_ms=None,
-        )
-        write_all_log(
-            query_user=payload.query_user,
-            db_name=payload.db_name,
-            time_ms=elapsed_ms,
         )
     except Exception as exc:  # pragma: no cover - thin API wrapper
         write_query_log(
@@ -1243,11 +1436,6 @@ def client_pirex_restore(payload: RestoreRequest) -> dict[str, Any]:
             download_result="success",
             avg_block_query_time_ms=pirex_avg_block_query_delay_ms,
         )
-        write_all_log(
-            query_user=payload.query_user,
-            db_name=payload.db_name,
-            time_ms=pirex_avg_block_query_delay_ms,
-        )
     except Exception as exc:  # pragma: no cover - thin API wrapper
         write_query_log(
             query_username=payload.query_user,
@@ -1297,11 +1485,6 @@ def client_pirexx_restore(payload: RestoreRequest) -> dict[str, Any]:
             download_action="pirex+",
             download_result="success",
             avg_block_query_time_ms=pirexx_avg_block_query_delay_ms,
-        )
-        write_all_log(
-            query_user=payload.query_user,
-            db_name=payload.db_name,
-            time_ms=pirexx_avg_block_query_delay_ms,
         )
     except Exception as exc:  # pragma: no cover - thin API wrapper
         write_query_log(

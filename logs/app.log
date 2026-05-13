@@ -548,3 +548,90 @@ None
 2026-05-11T22:41:50 [restore_pirex] db=bank1 file=提案.docx server=127.0.0.1:56450
 2026-05-11T22:43:37 [login] user=admin role=admin
 2026-05-11T23:02:59 [login] user=admin role=admin
+2026-05-12T01:29:35 [login] user=admin role=admin
+2026-05-12T01:31:07 [pirex_sread_start] db=bank1 addr=127.0.0.1:62181
+2026-05-12T01:31:07 [client_database_select] db=bank1 scheme=pirex server=127.0.0.1:62181
+2026-05-12T01:31:10 [restore_pirex] db=bank1 file=提案.docx server=127.0.0.1:62181
+2026-05-12T01:31:27 [restore_pirex] db=bank1 file=提案.docx server=127.0.0.1:62181
+2026-05-12T01:31:35 [restore_pirex] db=bank1 file=提案.docx server=127.0.0.1:62181
+2026-05-12T01:47:23 [login] user=admin role=admin
+2026-05-12T11:07:01 [login] user=admin role=admin
+2026-05-12T15:25:26 [login] user=admin role=admin
+2026-05-12T22:06:53 [login] user=admin role=admin
+2026-05-12T22:06:59 [pirex_sread_start] db=bank1 addr=127.0.0.1:65200
+2026-05-12T22:06:59 [client_database_select] db=bank1 scheme=pirex server=127.0.0.1:65200
+2026-05-12T22:08:49 [pirexx_preprocess_start_error] db=bank1 error=[Errno 22] Invalid argument: 'E:\\pir-worktrees\\new-work-v1\\rust_data\\server-data\\bank1\\snapshot\\data.bin'
+2026-05-12T22:20:52 [login] user=admin role=admin
+2026-05-13T03:15:15 [login] user=admin role=admin
+2026-05-13T03:20:29 [login] user=admin role=admin
+2026-05-13T03:25:50 [login] user=admin role=admin
+2026-05-13T03:28:52 [login] user=admin role=admin
+2026-05-13T03:33:20 [login] user=admin role=admin
+2026-05-13T03:33:39 [pirex_sread_start] db=bank1 addr=127.0.0.1:52613
+2026-05-13T03:33:39 [client_database_select] db=bank1 scheme=pirex server=127.0.0.1:52613
+2026-05-13T03:36:05 [login] user=admin role=admin
+2026-05-13T04:03:06 [login] user=admin role=admin
+2026-05-13T04:03:35 [database_delete] db=bank1 stopped={'pirexx_sread': False, 'pirex_sread': False, 'pirexx_sprep': False, 'pirex_sprep': False}
+2026-05-13T04:03:35 [client_database_delete] db=bank1 stopped_jobs=[]
+2026-05-13T04:03:43 [database_delete_error] db=bank1 error=database not found: bank1
+2026-05-13T04:03:43 [client_database_delete_error] db=bank1 error=server API returned HTTP 400: {"detail":"database not found: bank1"}
+2026-05-13T04:03:55 [login] user=admin role=admin
+2026-05-13T04:09:19 [login] user=admin role=admin
+2026-05-13T04:09:32 [database_create] db=teat1
+2026-05-13T04:09:32 [client_database_create] db=teat1
+2026-05-13T04:09:35 [client_database_create_error] db=teat1 error=database already exists: teat1
+2026-05-13T04:09:41 [login] user=admin role=admin
+2026-05-13T04:09:43 [client_database_select] db=teat1 scheme=none server=
+2026-05-13T04:09:56 [database_create] db=bank2
+2026-05-13T04:09:56 [client_database_create] db=bank2
+2026-05-13T04:27:02 [login] user=admin role=admin
+2026-05-13T04:27:12 [login] user=admin role=admin
+2026-05-13T04:27:26 [database_create] db=test2
+2026-05-13T04:27:26 [client_database_create] db=test2
+2026-05-13T04:27:31 [client_tmpdata_stage] db=test2 files=3
+2026-05-13T04:27:32 [database_upload] db=test2 files=3
+2026-05-13T04:27:32 [client_database_upload] db=test2 files=3
+2026-05-13T04:28:13 [database_delete] db=test2 stopped={'pirexx_sread': False, 'pirex_sread': False, 'pirexx_sprep': False, 'pirex_sprep': False}
+2026-05-13T04:28:13 [client_unfinished_clear] db=test2
+2026-05-13T04:28:18 [database_create] db=test2
+2026-05-13T04:28:18 [client_database_create] db=test2
+2026-05-13T04:28:23 [client_tmpdata_stage] db=test2 files=3
+2026-05-13T04:28:24 [database_upload] db=test2 files=3
+2026-05-13T04:28:24 [client_database_upload] db=test2 files=3
+2026-05-13T04:28:26 [pirex_preprocess_start] db=test2 addr=127.0.0.1:57360
+2026-05-13T04:28:26 [pirex_preprocess_finalize] db=test2 success=True manifest_deleted=False
+2026-05-13T04:28:39 [database_delete] db=test2 stopped={'pirexx_sread': False, 'pirex_sread': False, 'pirexx_sprep': False, 'pirex_sprep': False}
+2026-05-13T04:28:39 [client_database_delete] db=test2 stopped_jobs=[]
+2026-05-13T04:28:53 [database_create] db=test2
+2026-05-13T04:28:53 [client_database_create] db=test2
+2026-05-13T04:28:57 [client_tmpdata_stage] db=test2 files=3
+2026-05-13T04:29:08 [database_upload] db=test2 files=3
+2026-05-13T04:29:08 [client_database_upload] db=test2 files=3
+2026-05-13T04:29:12 [pirex_preprocess_start] db=test2 addr=127.0.0.1:57443
+2026-05-13T04:29:12 [pirex_preprocess_finalize] db=test2 success=True manifest_deleted=False
+2026-05-13T04:29:18 [pirex_sread_start] db=test2 addr=127.0.0.1:57454
+2026-05-13T04:29:18 [client_database_select] db=test2 scheme=pirex server=127.0.0.1:57454
+2026-05-13T04:29:21 [restore_pirex] db=test2 file=提案.docx server=127.0.0.1:57454
+2026-05-13T04:31:05 [login] user=admin role=admin
+2026-05-13T04:34:44 [pirexx_preprocess_start] db=test2 addr=127.0.0.1:57943
+2026-05-13T04:34:55 [pirexx_preprocess_finalize] db=test2 success=False manifest_deleted=False
+2026-05-13T04:35:44 [database_delete] db=teat1 stopped={'pirexx_sread': False, 'pirex_sread': False, 'pirexx_sprep': False, 'pirex_sprep': False}
+2026-05-13T04:35:44 [client_database_delete] db=teat1 stopped_jobs=[]
+2026-05-13T04:35:53 [database_delete] db=bank2 stopped={'pirexx_sread': False, 'pirex_sread': False, 'pirexx_sprep': False, 'pirex_sprep': False}
+2026-05-13T04:35:53 [client_database_delete] db=bank2 stopped_jobs=[]
+2026-05-13T04:36:01 [database_create] db=bank02
+2026-05-13T04:36:01 [client_database_create] db=bank02
+2026-05-13T04:36:06 [client_tmpdata_stage] db=bank02 files=3
+2026-05-13T04:36:07 [database_upload] db=bank02 files=3
+2026-05-13T04:36:07 [client_database_upload] db=bank02 files=3
+2026-05-13T04:36:18 [pirex_preprocess_start] db=bank02 addr=127.0.0.1:58162
+2026-05-13T04:36:18 [pirex_preprocess_finalize] db=bank02 success=True manifest_deleted=False
+2026-05-13T04:36:25 [pirex_preprocess_start] db=bank02 addr=127.0.0.1:58178
+2026-05-13T04:36:25 [pirex_preprocess_finalize] db=bank02 success=True manifest_deleted=False
+2026-05-13T04:37:31 [pirexx_preprocess_start] db=bank02 addr=127.0.0.1:58262
+2026-05-13T04:46:38 [pirexx_preprocess_finalize] db=bank02 success=False manifest_deleted=False
+2026-05-13T10:35:05 [login] user=admin role=admin
+2026-05-13T10:54:05 [database_delete] db=bank02 stopped={'pirexx_sread': False, 'pirex_sread': False, 'pirexx_sprep': False, 'pirex_sprep': False}
+2026-05-13T10:54:05 [client_database_delete] db=bank02 stopped_jobs=[]
+2026-05-13T10:54:09 [database_delete] db=test2 stopped={'pirexx_sread': False, 'pirex_sread': False, 'pirexx_sprep': False, 'pirex_sprep': False}
+2026-05-13T10:54:09 [client_database_delete] db=test2 stopped_jobs=[]

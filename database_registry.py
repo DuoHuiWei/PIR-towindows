@@ -11,7 +11,7 @@ from config import WORKSPACE_ROOT
 
 CLIENT_DB_PATH = WORKSPACE_ROOT / "client_db.json"
 SERVER_DB_PATH = WORKSPACE_ROOT / "sever_db.json"
-VALID_PREP_STATUS = {"未完成", "pirex", "pirexx", "pirex+pirexx"}
+VALID_PREP_STATUS = {"未完成", "pirex", "pirexx", "pirex+pirex"}
 
 _REGISTRY_LOCK = Lock()
 
@@ -53,9 +53,9 @@ def merge_prep_status(current_status: str, scheme: str) -> str:
     if current == target:
         return current
     if {current, target} == {"pirex", "pirexx"}:
-        return "pirex+pirexx"
-    if current == "pirex+pirexx" or target == "pirex+pirexx":
-        return "pirex+pirexx"
+        return "pirex+pirex"
+    if current == "pirex+pirex" or target == "pirex+pirex":
+        return "pirex+pirex"
     return target
 
 
@@ -69,7 +69,7 @@ def remove_prep_status(current_status: str, scheme: str) -> str:
         return current
     if current == target:
         return "未完成"
-    if current == "pirex+pirexx":
+    if current == "pirex+pirex":
         if target == "pirex":
             return "pirexx"
         if target == "pirexx":

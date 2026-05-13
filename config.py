@@ -20,11 +20,13 @@ CLIENT_TMPDATA_DIR = Path(r"tmpdata")
 # Final restored file output root
 RECOVER_ROOT = Path("recover-file")
 
-# Current PIREXX geometry
-PIREXX_BLOCK_SIZE = 256 * 1024
-PIREXX_BLOCK_COUNT = 256
-PIREX_BLOCK_SIZE = PIREXX_BLOCK_SIZE
-PIREX_BLOCK_COUNT = PIREXX_BLOCK_COUNT
+# Current PIR geometry: 4KB * 2^18 = 1GiB
+PIREXX_BLOCK_SIZE = 4 * 1024
+PIREXX_BLOCK_COUNT = 1 << 18
+PIREX_BLOCK_SIZE = 4 * 1024
+PIREX_BLOCK_COUNT = 1 << 18
+PIREX_READY_STATE_BYTES = int(round(36.1 * 1024 * 1024))
+PIREXX_READY_STATE_BYTES = int(round(0.6 * 1024 * 1024))
 SHOW_UPLOAD_LIMIT_HINT = False
 
 # Rust invocation defaults
@@ -124,10 +126,6 @@ def client_user_manager_log_path() -> Path:
 
 def client_database_log_path() -> Path:
     return client_log_dir() / "database_log.json"
-
-
-def client_all_log_path() -> Path:
-    return client_log_dir() / "all_log.json"
 
 
 def client_preprocessing_log_path() -> Path:

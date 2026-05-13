@@ -556,7 +556,7 @@ impl Client
                 let temp = PINT::from_be_bytes(chunk);
 
                 let start = Instant::now();
-                regis[j] += temp;
+                regis[j] = regis[j].wrapping_add(temp);
                 t_comp += Instant::now() - start;
             }
         }
@@ -569,7 +569,7 @@ impl Client
                 let temp = PINT::from_be_bytes(chunk);
 
                 let start = Instant::now();
-                regis[j] -= temp;
+                regis[j] = regis[j].wrapping_sub(temp);
                 t_comp += Instant::now() - start;
             }
         }
@@ -599,7 +599,7 @@ impl Client
                 let temp = PINT::from_be_bytes(chunk);
 
                 let start = Instant::now();
-                regis[j] += temp;
+                regis[j] = regis[j].wrapping_add(temp);
                 t_comp += Instant::now() - start;
             }
         }
@@ -612,7 +612,7 @@ impl Client
                 let temp = PINT::from_be_bytes(chunk);
 
                 let start = Instant::now();
-                regis[j] -= temp;
+                regis[j] = regis[j].wrapping_sub(temp);
                 t_comp += Instant::now() - start;
             }
         }

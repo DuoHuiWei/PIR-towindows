@@ -37,8 +37,6 @@ def new_folder_server(db_name: str) -> dict[str, object]:
         snapshot_dir(name),
         root / "state-pirexx",
         root / "state-pirex",
-        root / "output-direct",
-        root / "output-pir",
     ):
         path.mkdir(parents=True, exist_ok=False)
         created.append(path)
