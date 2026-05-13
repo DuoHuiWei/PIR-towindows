@@ -12,7 +12,7 @@ def list_client_manifest_files(db_name: str) -> list[dict[str, object]]:
     if not path.is_file():
         return []
 
-    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload = json.loads(path.read_text(encoding="utf-8-sig"))
     files: list[dict[str, object]] = []
     for item in payload.get("files", []):
         files.append(

@@ -24,7 +24,7 @@ def ensure_database_exists(db_name: str) -> Path:
 def _manifest_files(path: Path) -> list[dict[str, object]]:
     if not path.is_file():
         return []
-    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload = json.loads(path.read_text(encoding="utf-8-sig"))
     files: list[dict[str, object]] = []
     for item in payload.get("files", []):
         files.append(

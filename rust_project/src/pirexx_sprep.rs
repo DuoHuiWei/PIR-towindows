@@ -129,12 +129,19 @@ fn handle_client(mut stream: TcpStream)
 
     println!("sprep: waiting for encrypted parity, total {} bytes (initial half {})", len_buffer, recv_len);
     read_exact_with_progress(&mut stream, &mut ehint[.. recv_len], "sprep encrypted parity");
+    println!("sprep: encrypted parity payload fully received");
     ehint[recv_len ..].fill(0);
 
+    println!("sprep: flushing ehint mmap");
     mount.flush().expect("flush ehint mmap fail");
+    println!("sprep: ehint mmap flush complete");
+    println!("sprep: flushing ehint file handle");
     pfile.flush().expect("flush fail");
+    println!("sprep: ehint file flush complete");
+    println!("sprep: sending encrypted parity ack");
     stream.write_all(&acknown).expect("encrypted parity ack fail");
     stream.flush().expect("encrypted parity ack flush fail");
+    println!("sprep: encrypted parity ack sent");
     println!("sprep: encrypted parity persisted to ehint (second half zero-initialized)");
 
     // ----- FINISH RECEIVING ENCRYPTED PARITY -----

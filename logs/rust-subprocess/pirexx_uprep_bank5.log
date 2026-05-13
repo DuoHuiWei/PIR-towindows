@@ -1,0 +1,112 @@
+[2026-05-14T00:26:31] command: E:\pir-worktrees\new-work-v1\rust_project\target\x86_64-pc-windows-gnu\release\pirexx_uprep.exe bank5 127.0.0.1:61745
+uprep: connecting to 127.0.0.1:61745
+uprep: connected, creating local files
+uprep: generated random kset (2048 bytes)
+uprep: sent kset, waiting for hint (33554432 bytes)
+uprep hint: 33554432/33554432 bytes
+uprep: received hint, starting encryption
+uprep: hint nonzero block count 6
+uprep: first nonzero hint block 10 words [1347093252, 167772160, 34638, 3795845120, 0, 0, 2304, 25711]
+uprep: first zero hint block 0
+load_table: opening utils/dlp.bin
+load_table: allocated HashMap (2738041616 bytes)
+load_table: created secp256k1 context
+load_table: loaded secp256k1 discrete log precompute
+load_table: HASHMAP_SIZE=147639491, BABY_RANGE=134217728
+load_table: buckets 5000000/147639491, nodes 4687556, elapsed 1s
+load_table: buckets 10000000/147639491, nodes 9376243, elapsed 2s
+load_table: buckets 15000000/147639491, nodes 14014470, elapsed 2s
+load_table: buckets 20000000/147639491, nodes 18544184, elapsed 3s
+load_table: buckets 25000000/147639491, nodes 23074044, elapsed 4s
+load_table: buckets 30000000/147639491, nodes 27604467, elapsed 5s
+load_table: buckets 35000000/147639491, nodes 32136781, elapsed 6s
+load_table: buckets 40000000/147639491, nodes 36668489, elapsed 7s
+load_table: buckets 45000000/147639491, nodes 41201418, elapsed 7s
+load_table: buckets 50000000/147639491, nodes 45733774, elapsed 9s
+load_table: buckets 55000000/147639491, nodes 50265759, elapsed 10s
+load_table: buckets 60000000/147639491, nodes 54798129, elapsed 10s
+load_table: buckets 65000000/147639491, nodes 59328700, elapsed 11s
+load_table: buckets 70000000/147639491, nodes 63860203, elapsed 12s
+load_table: buckets 75000000/147639491, nodes 68391740, elapsed 13s
+load_table: buckets 80000000/147639491, nodes 72922282, elapsed 14s
+load_table: buckets 85000000/147639491, nodes 77451468, elapsed 15s
+load_table: buckets 90000000/147639491, nodes 81982146, elapsed 16s
+load_table: buckets 95000000/147639491, nodes 86514946, elapsed 17s
+load_table: buckets 100000000/147639491, nodes 91047594, elapsed 18s
+load_table: buckets 105000000/147639491, nodes 95579135, elapsed 19s
+load_table: buckets 110000000/147639491, nodes 100108343, elapsed 20s
+load_table: buckets 115000000/147639491, nodes 104637329, elapsed 21s
+load_table: buckets 120000000/147639491, nodes 109168210, elapsed 22s
+load_table: buckets 125000000/147639491, nodes 113698365, elapsed 23s
+load_table: buckets 130000000/147639491, nodes 118233456, elapsed 24s
+load_table: buckets 135000000/147639491, nodes 122763785, elapsed 25s
+load_table: buckets 140000000/147639491, nodes 127293678, elapsed 26s
+load_table: buckets 145000000/147639491, nodes 131828481, elapsed 27s
+load_table: buckets 147639491/147639491, nodes 134217728, elapsed 27s
+load_table: completed, total nodes=134217728, elapsed=27988ms
+uprep: running local roundtrip self-check for nonzero hint block 10
+reverse debug before: counter=0 bytes=4,3,75,80
+reverse debug after: counter=0 bytes=80,75,3,4
+reverse debug before: counter=1 bytes=0,0,0,10
+reverse debug after: counter=1 bytes=10,0,0,0
+reverse debug before: counter=2 bytes=78,135,0,0
+reverse debug after: counter=2 bytes=0,0,135,78
+reverse debug before: counter=3 bytes=0,0,64,226
+reverse debug after: counter=3 bytes=226,64,0,0
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+reverse debug before: counter=4 bytes=0,0,0,0
+reverse debug after: counter=4 bytes=0,0,0,0
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+reverse debug before: counter=5 bytes=0,0,0,0
+reverse debug after: counter=5 bytes=0,0,0,0
+reverse debug before: counter=6 bytes=0,9,0,0
+reverse debug after: counter=6 bytes=0,0,9,0
+reverse debug before: counter=7 bytes=111,100,0,0
+reverse debug after: counter=7 bytes=0,0,100,111
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+zero-path debug: initial_infinity=1 early_return_zero range=134217728
+uprep: self-check nonzero plain words [1347093252, 167772160, 34638, 3795845120, 0, 0, 2304, 25711]
+uprep: self-check nonzero dec words [1347093252, 167772160, 34638, 3795845120, 0, 0, 2304, 25711]
+uprep: self-check nonzero dec words_delta_from_baby_range [1212875524, 33554432, -134183090, 3661627392, -134217728, -134217728, -134215424, -134192017]
+uprep: running local roundtrip self-check for zero hint block 0
+uprep: self-check zero plain words [0, 0, 0, 0, 0, 0, 0, 0]
+uprep: self-check zero dec words [0, 0, 0, 0, 0, 0, 0, 0]
+uprep: self-check zero dec words_delta_from_baby_range [-134217728, -134217728, -134217728, -134217728, -134217728, -134217728, -134217728, -134217728]
+uprep: encrypted and sent 128/128 hint blocks
+uprep: finished sending encrypted parity
+uprep: server acknowledged encrypted parity
+uprep: persisted kset
+uprep: persisted ppos
+uprep: persisted detw
+uprep: self-check remote ehint[10] matches local enc true
+uprep: self-check local enc first_bytes [3, 10, 246, 16, 99, 131, 249, 30, 84, 131, 202, 164, 131, 19, 199, 55]
+uprep: self-check remote enc first_bytes [3, 10, 246, 16, 99, 131, 249, 30, 84, 131, 202, 164, 131, 19, 199, 55]
+uprep: completed successfully

@@ -635,3 +635,689 @@ None
 2026-05-13T10:54:05 [client_database_delete] db=bank02 stopped_jobs=[]
 2026-05-13T10:54:09 [database_delete] db=test2 stopped={'pirexx_sread': False, 'pirex_sread': False, 'pirexx_sprep': False, 'pirex_sprep': False}
 2026-05-13T10:54:09 [client_database_delete] db=test2 stopped_jobs=[]
+2026-05-13T13:44:04 [login] user=admin role=admin
+2026-05-13T13:44:13 [client_database_create_error] db=bank1 error=Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)
+2026-05-13T13:44:23 [client_database_create_error] db=bank1 error=Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)
+2026-05-13T13:47:49 [login] user=admin role=admin
+2026-05-13T13:47:56 [database_create] db=bank1
+2026-05-13T13:47:56 [client_database_create] db=bank1
+2026-05-13T13:48:00 [client_tmpdata_stage] db=bank1 files=3
+2026-05-13T13:48:02 [database_upload] db=bank1 files=3
+2026-05-13T13:48:02 [client_database_upload] db=bank1 files=3
+2026-05-13T13:48:06 [pirex_preprocess_start] db=bank1 addr=127.0.0.1:51324
+2026-05-13T13:48:06 [pirex_preprocess_finalize] db=bank1 success=True manifest_deleted=False
+2026-05-13T13:48:10 [pirexx_preprocess_start] db=bank1 addr=127.0.0.1:51338
+2026-05-13T14:09:00 [login] user=admin role=admin
+2026-05-13T14:10:12 [database_create] db=bank3
+2026-05-13T14:10:12 [client_database_create] db=bank3
+2026-05-13T14:10:16 [client_tmpdata_stage] db=bank3 files=3
+2026-05-13T14:10:23 [database_upload] db=bank3 files=3
+2026-05-13T14:10:23 [client_database_upload] db=bank3 files=3
+2026-05-13T14:10:25 [pirex_preprocess_start] db=bank3 addr=127.0.0.1:54073
+2026-05-13T14:10:25 [pirex_preprocess_finalize] db=bank3 success=True manifest_deleted=False
+2026-05-13T14:10:33 [pirex_preprocess_start] db=bank3 addr=127.0.0.1:54104
+2026-05-13T14:10:33 [pirex_preprocess_finalize] db=bank3 success=True manifest_deleted=False
+2026-05-13T14:10:46 [database_delete_error] db=bank1 error=database not found: bank1
+2026-05-13T14:10:46 [client_database_delete_error] db=bank1 error=server API returned HTTP 400: {"detail":"database not found: bank1"}
+2026-05-13T14:11:12 [login] user=admin role=admin
+2026-05-13T14:11:21 [login] user=admin role=admin
+2026-05-13T14:11:31 [database_delete_error] db=bank1 error=database not found: bank1
+2026-05-13T14:11:31 [client_database_delete_error] db=bank1 error=server API returned HTTP 400: {"detail":"database not found: bank1"}
+2026-05-13T14:12:54 [database_create] db=bank4
+2026-05-13T14:12:54 [client_database_create] db=bank4
+2026-05-13T14:12:58 [client_tmpdata_stage] db=bank4 files=3
+2026-05-13T14:12:59 [database_upload] db=bank4 files=3
+2026-05-13T14:12:59 [client_database_upload] db=bank4 files=3
+2026-05-13T14:15:02 [pirex_preprocess_start] db=bank4 addr=127.0.0.1:54469
+2026-05-13T14:15:02 [pirex_preprocess_finalize] db=bank4 success=True manifest_deleted=False
+2026-05-13T14:16:04 [pirexx_preprocess_start] db=bank4 addr=127.0.0.1:54573
+2026-05-13T14:16:10 [pirexx_preprocess_finalize] db=bank4 success=False manifest_deleted=False
+2026-05-13T14:19:51 [login] user=admin role=admin
+2026-05-13T14:19:59 [login] user=admin role=admin
+2026-05-13T14:20:05 [database_create] db=bank5
+2026-05-13T14:20:05 [client_database_create] db=bank5
+2026-05-13T14:20:09 [client_tmpdata_stage] db=bank5 files=3
+2026-05-13T14:20:10 [database_upload] db=bank5 files=3
+2026-05-13T14:20:10 [client_database_upload] db=bank5 files=3
+2026-05-13T14:20:12 [pirex_preprocess_start] db=bank5 addr=127.0.0.1:55012
+2026-05-13T14:20:12 [pirex_preprocess_finalize] db=bank5 success=True manifest_deleted=False
+2026-05-13T14:21:56 [pirexx_preprocess_start] db=bank5 addr=127.0.0.1:55203
+2026-05-14T00:15:18 [pirexx_preprocess_finalize] db=bank5 success=False manifest_deleted=False
+2026-05-14T00:22:05 [login] user=admin role=admin
+2026-05-14T00:22:59 [pirex_preprocess_start] db=bank5 addr=127.0.0.1:60891
+2026-05-14T00:23:00 [pirex_preprocess_finalize] db=bank5 success=True manifest_deleted=False
+2026-05-14T00:23:03 [pirex_preprocess_start] db=bank4 addr=127.0.0.1:60912
+2026-05-14T00:23:04 [pirex_preprocess_finalize] db=bank4 success=True manifest_deleted=False
+2026-05-14T00:23:07 [pirex_preprocess_start] db=bank3 addr=127.0.0.1:60929
+2026-05-14T00:23:07 [pirex_preprocess_finalize] db=bank3 success=True manifest_deleted=False
+2026-05-14T00:23:27 [database_delete_error] db=bank1 error=database not found: bank1
+2026-05-14T00:23:27 [client_database_delete_error] db=bank1 error=server API returned HTTP 400: {"detail":"database not found: bank1"}
+2026-05-14T00:26:18 [login] user=admin role=admin
+2026-05-14T00:26:31 [pirexx_preprocess_start] db=bank5 addr=127.0.0.1:61745
+2026-05-14T00:28:42 [pirexx_preprocess_finalize] db=bank5 success=True manifest_deleted=False
+2026-05-14T00:29:35 [sread_start] db=bank5 addr=127.0.0.1:62546
+2026-05-14T00:29:35 [client_database_select] db=bank5 scheme=pirexx server=127.0.0.1:62546
+2026-05-14T00:30:28 [restore_pirexx_error] db=bank5 file=提案.docx error=invalid block size for block_0.bin: expected 4096, got 262144
+2026-05-14T00:37:08 [login] user=admin role=admin
+2026-05-14T00:37:15 [database_delete] db=bank1 stopped={'pirexx_sread': False, 'pirex_sread': False, 'pirexx_sprep': False, 'pirex_sprep': False}
+2026-05-14T00:37:15 [client_database_delete] db=bank1 stopped_jobs=[]
+2026-05-14T00:37:28 [database_create] db=k
+2026-05-14T00:37:28 [client_database_create] db=k
+2026-05-14T00:37:34 [client_database_select] db=k scheme=none server=
+2026-05-14T00:37:48 [database_delete] db=k stopped={'pirexx_sread': False, 'pirex_sread': False, 'pirexx_sprep': False, 'pirex_sprep': False}
+2026-05-14T00:37:48 [client_database_delete] db=k stopped_jobs=[]
+2026-05-14T00:46:13 [pirex_sread_start] db=bank3 addr=127.0.0.1:50423
+2026-05-14T00:46:13 [client_database_select] db=bank3 scheme=pirex server=127.0.0.1:50423
+2026-05-14T00:46:18 [sread_start] db=bank5 addr=127.0.0.1:50448
+2026-05-14T00:46:18 [client_database_select] db=bank5 scheme=pirexx server=127.0.0.1:50448
+2026-05-14T00:47:08 [restore_pirexx_error] db=bank5 file=提案.docx error=invalid block size for block_0.bin: expected 4096, got 262144
+2026-05-14T00:47:56 [pirex_sread_start] db=bank5 addr=127.0.0.1:50888
+2026-05-14T00:47:56 [restore_pirex_error] db=bank5 file=提案.docx error=invalid block size for block_0.bin: expected 4096, got 262144
+2026-05-14T00:48:03 [restore_pirex_error] db=bank5 file=附5.docx error=invalid block size for block_4.bin: expected 4096, got 262144
+2026-05-14T00:48:23 [pirex_preprocess_start] db=bank5 addr=127.0.0.1:51033
+2026-05-14T00:48:23 [pirex_preprocess_finalize] db=bank5 success=True manifest_deleted=False
+2026-05-14T00:48:28 [sread_start] db=bank5 addr=127.0.0.1:51058
+2026-05-14T00:48:28 [client_database_select] db=bank5 scheme=pirexx server=127.0.0.1:51058
+2026-05-14T00:48:31 [restore_pirex_error] db=bank5 file=提案.docx error=pirex_uread failed for 提案.docx
+stdout:
+
+===== PIREX - Test DB: 2^8 entries 256 KB
+Test indices [0, 1, 2, 3], n_test 1
+===== client access begin index=0 iter=1/1 =====
+search hit: pk=0, hint_index=32
+search hit: pk=0, hint_index=32
+
+stderr:
+None
+2026-05-14T00:59:33 [login] user=admin role=admin
+2026-05-14T00:59:36 [sread_start] db=bank5 addr=127.0.0.1:53978
+2026-05-14T00:59:36 [client_database_select] db=bank5 scheme=pirexx server=127.0.0.1:53978
+2026-05-14T01:00:15 [pirex_sread_start] db=bank5 addr=127.0.0.1:54144
+2026-05-14T01:00:16 [restore_pirex_error] db=bank5 file=附5.docx error=invalid block size for block_4.bin: expected 4096, got 262144
+2026-05-14T01:00:31 [restore_pirexx_error] db=bank5 file=提案.docx error=invalid block size for block_0.bin: expected 4096, got 262144
+2026-05-14T01:00:53 [restore_pirex_error] db=bank5 file=附7.docx error=pirex_uread failed for 附7.docx
+stdout:
+
+===== PIREX - Test DB: 2^8 entries 256 KB
+Test indices [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37], n_test 1
+===== client access begin index=21 iter=1/1 =====
+search hit: pk=1, hint_index=13
+search hit: pk=1, hint_index=21
+pirex request nbytes 86
+pirex request delay 93.9µs (real measure)
+pirex response nbytes 1048576
+recover dbitem delay 107µs
+raw block exported: index=21, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_21.bin", nbytes=262144
+generate query delay 9.7µs
+pirex bandwidth delay 93.9µs (real measure)
+client access done in 19.8766ms
+===== client access begin index=22 iter=1/1 =====
+search hit: pk=1, hint_index=6
+search hit: pk=1, hint_index=4
+pirex request nbytes 78
+pirex request delay 83.3µs (real measure)
+pirex response nbytes 1048576
+recover dbitem delay 169.6µs
+raw block exported: index=22, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_22.bin", nbytes=262144
+generate query delay 4.3µs
+pirex bandwidth delay 83.3µs (real measure)
+client access done in 19.9833ms
+===== client access begin index=23 iter=1/1 =====
+search hit: pk=1, hint_index=45
+search hit: pk=1, hint_index=54
+pirex request nbytes 82
+pirex request delay 52.3µs (real measure)
+pirex response nbytes 1048576
+recover dbitem delay 161.4µs
+raw block exported: index=23, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_23.bin", nbytes=262144
+generate query delay 10.1µs
+pirex bandwidth delay 52.3µs (real measure)
+client access done in 21.557ms
+===== client access begin index=24 iter=1/1 =====
+search hit: pk=1, hint_index=19
+search hit: pk=1, hint_index=5
+pirex request nbytes 78
+pirex request delay 93.5µs (real measure)
+pirex response nbytes 1048576
+recover dbitem delay 170.8µs
+raw block exported: index=24, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_24.bin", nbytes=262144
+generate query delay 5.9µs
+pirex bandwidth delay 93.5µs (real measure)
+client access done in 140.2608ms
+===== client access begin index=25 iter=1/1 =====
+search hit: pk=1, hint_index=5
+search hit: pk=1, hint_index=54
+pirex request nbytes 86
+pirex request delay 48µs (real measure)
+pirex response nbytes 1048576
+recover dbitem delay 141.6µs
+raw block exported: index=25, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_25.bin", nbytes=262144
+generate query delay 5.7µs
+pirex bandwidth delay 48µs (real measure)
+client access done in 18.0859ms
+===== client access begin index=26 iter=1/1 =====
+search hit: pk=1, hint_index=34
+search hit: pk=1, hint_index=19
+pirex request nbytes 74
+pirex request delay 54.6µs (real measure)
+pirex response nbytes 1048576
+recover dbitem delay 104.6µs
+raw block exported: index=26, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_26.bin", nbytes=262144
+generate query delay 7.4µs
+pirex bandwidth delay 54.6µs (real measure)
+client access done in 12.5072ms
+===== client access begin index=27 iter=1/1 =====
+search hit: pk=1, hint_index=25
+search hit: pk=1, hint_index=36
+pirex request nbytes 74
+pirex request delay 92.1µs (real measure)
+pirex response nbytes 1048576
+recover dbitem delay 102.6µs
+raw block exported: index=27, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_27.bin", nbytes=262144
+generate query delay 7.2µs
+pirex bandwidth delay 92.1µs (real measure)
+client access done in 12.3777ms
+===== client access begin index=28 iter=1/1 =====
+search hit: pk=1, hint_index=21
+search hit: pk=1, hint_index=5
+pirex request nbytes 70
+pirex request delay 40.8µs (real measure)
+pirex response nbytes 1048576
+recover dbitem delay 102.6µs
+raw block exported: index=28, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_28.bin", nbytes=262144
+generate query delay 5.8µs
+pirex bandwidth delay 40.8µs (real measure)
+client access done in 22.0065ms
+===== client access begin index=29 iter=1/1 =====
+search hit: pk=1, hint_index=4
+search hit: pk=1, hint_index=10
+pirex request nbytes 86
+pirex request delay 53.9µs (real measure)
+pirex response nbytes 1048576
+recover dbitem delay 189.6µs
+raw block exported: index=29, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_29.bin", nbytes=262144
+generate query delay 3µs
+pirex bandwidth delay 53.9µs (real measure)
+client access done in 19.2821ms
+===== client access begin index=30 iter=1/1 =====
+search hit: pk=1, hint_index=54
+search hit: pk=1, hint_index=29
+pirex request nbytes 74
+pirex request delay 60µs (real measure)
+pirex response nbytes 1048576
+recover dbitem delay 112.6µs
+raw block exported: index=30, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_30.bin", nbytes=262144
+generate query delay 10.7µs
+pirex bandwidth delay 60µs (real measure)
+client access done in 29.268ms
+===== client access begin index=31 iter=1/1 =====
+search hit: pk=1, hint_index=29
+search hit: pk=1, hint_index=21
+pirex request nbytes 74
+pirex request delay 59.6µs (real measure)
+pirex response nbytes 1048576
+recover dbitem delay 188.8µs
+raw block exported: index=31, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_31.bin", nbytes=262144
+generate query delay 8.1µs
+pirex bandwidth delay 59.6µs (real measure)
+client access done in 19.6223ms
+===== client access begin index=32 iter=1/1 =====
+search hit: pk=2, hint_index=1
+search hit: pk=2, hint_index=2
+pirex request nbytes 94
+pirex request delay 40.7µs (real measure)
+pirex response nbytes 1048576
+recover dbitem delay 112.4µs
+raw block exported: index=32, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_32.bin", nbytes=262144
+generate query delay 4µs
+pirex bandwidth delay 40.7µs (real measure)
+client access done in 12.4691ms
+===== client access begin index=33 iter=1/1 =====
+search hit: pk=2, hint_index=21
+search hit: pk=2, hint_index=4
+pirex request nbytes 78
+pirex request delay 39.8µs (real measure)
+pirex response nbytes 1048576
+recover dbitem delay 110.6µs
+raw block exported: index=33, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_33.bin", nbytes=262144
+generate query delay 4.1µs
+pirex bandwidth delay 39.8µs (real measure)
+client access done in 16.1047ms
+===== client access begin index=34 iter=1/1 =====
+search hit: pk=2, hint_index=4
+search hit: pk=2, hint_index=9
+pirex request nbytes 70
+pirex request delay 36.5µs (real measure)
+pirex response nbytes 1048576
+recover dbitem delay 170µs
+raw block exported: index=34, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_34.bin", nbytes=262144
+generate query delay 4.2µs
+pirex bandwidth delay 36.5µs (real measure)
+client access done in 27.2949ms
+===== client access begin index=35 iter=1/1 =====
+search hit: pk=2, hint_index=15
+search hit: pk=2, hint_index=2
+pirex request nbytes 82
+
+stderr:
+
+2026-05-14T01:10:49 [login] user=admin role=admin
+2026-05-14T01:10:53 [sread_start] db=bank5 addr=127.0.0.1:56930
+2026-05-14T01:10:53 [client_database_select] db=bank5 scheme=pirexx server=127.0.0.1:56930
+2026-05-14T01:10:54 [pirex_sread_start] db=bank5 addr=127.0.0.1:56940
+2026-05-14T01:10:54 [restore_pirex_error] db=bank5 file=附7.docx error=pirex_uread failed for 附7.docx
+stdout:
+
+===== PIREX - Test DB: 2^16 entries 4 KB
+Test indices [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37], n_test 1
+===== client access begin index=21 iter=1/1 =====
+search hit: pk=0, hint_index=34
+
+stderr:
+thread 'main' panicked at src/pirex_uread.rs:63:34:
+range end index 2064 out of range for slice of length 2048
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+2026-05-14T01:11:11 [restore_pirexx_error] db=bank5 file=附7.docx error=pirexx_uread failed for 附7.docx
+stdout:
+
+Loading Table ...
+load_table: opening utils/dlp.bin
+load_table: allocated HashMap (2738041616 bytes)
+load_table: created secp256k1 context
+load_table: loaded secp256k1 discrete log precompute
+load_table: HASHMAP_SIZE=147639491, BABY_RANGE=134217728
+load_table: buckets 5000000/147639491, nodes 4687556, elapsed 0s
+load_table: buckets 10000000/147639491, nodes 9376243, elapsed 1s
+load_table: buckets 15000000/147639491, nodes 14014470, elapsed 1s
+load_table: buckets 20000000/147639491, nodes 18544184, elapsed 2s
+load_table: buckets 25000000/147639491, nodes 23074044, elapsed 2s
+load_table: buckets 30000000/147639491, nodes 27604467, elapsed 3s
+load_table: buckets 35000000/147639491, nodes 32136781, elapsed 3s
+load_table: buckets 40000000/147639491, nodes 36668489, elapsed 4s
+load_table: buckets 45000000/147639491, nodes 41201418, elapsed 4s
+load_table: buckets 50000000/147639491, nodes 45733774, elapsed 5s
+load_table: buckets 55000000/147639491, nodes 50265759, elapsed 6s
+load_table: buckets 60000000/147639491, nodes 54798129, elapsed 6s
+load_table: buckets 65000000/147639491, nodes 59328700, elapsed 7s
+load_table: buckets 70000000/147639491, nodes 63860203, elapsed 7s
+load_table: buckets 75000000/147639491, nodes 68391740, elapsed 7s
+load_table: buckets 80000000/147639491, nodes 72922282, elapsed 8s
+load_table: buckets 85000000/147639491, nodes 77451468, elapsed 8s
+load_table: buckets 90000000/147639491, nodes 81982146, elapsed 9s
+load_table: buckets 95000000/147639491, nodes 86514946, elapsed 9s
+load_table: buckets 100000000/147639491, nodes 91047594, elapsed 9s
+load_table: buckets 105000000/147639491, nodes 95579135, elapsed 10s
+load_table: buckets 110000000/147639491, nodes 100108343, elapsed 10s
+load_table: buckets 115000000/147639491, nodes 104637329, elapsed 11s
+load_table: buckets 120000000/147639491, nodes 109168210, elapsed 11s
+load_table: buckets 125000000/147639491, nodes 113698365, elapsed 11s
+load_table: buckets 130000000/147639491, nodes 118233456, elapsed 12s
+load_table: buckets 135000000/147639491, nodes 122763785, elapsed 12s
+load_table: buckets 140000000/147639491, nodes 127293678, elapsed 13s
+load_table: buckets 145000000/147639491, nodes 131828481, elapsed 13s
+load_table: buckets 147639491/147639491, nodes 134217728, elapsed 13s
+load_table: completed, total nodes=134217728, elapsed=13841ms
+Loading Table done in 13.8418123s
+===== PIREX+ (Per Client Cost) Test DB: 2^16 entries 4 KB
+client storage nbytes 2304
+Client::new done in 18.2075ms
+Test indices [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37], n_test 1
+===== client access begin index=21 iter=1/1 =====
+
+stderr:
+thread 'main' panicked at src/pirexx_uread.rs:176:34:
+range end index 2064 out of range for slice of length 2048
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+2026-05-14T01:22:18 [database_delete] db=bank3 stopped={'pirexx_sread': False, 'pirex_sread': False, 'pirexx_sprep': False, 'pirex_sprep': False}
+2026-05-14T01:22:18 [client_database_delete] db=bank3 stopped_jobs=[]
+2026-05-14T01:22:22 [database_delete] db=bank4 stopped={'pirexx_sread': False, 'pirex_sread': False, 'pirexx_sprep': False, 'pirex_sprep': False}
+2026-05-14T01:22:22 [client_database_delete] db=bank4 stopped_jobs=[]
+2026-05-14T01:22:24 [database_delete_error] db=bank5 error=[WinError 5] 拒绝访问。: 'E:\\pir-worktrees\\new-work-v1\\rust_data\\server-data\\bank5\\state-pirexx\\ehint'
+2026-05-14T01:22:24 [client_database_delete_error] db=bank5 error=server API returned HTTP 400: {"detail":"[WinError 5] 拒绝访问。: 'E:\\\\pir-worktrees\\\\new-work-v1\\\\rust_data\\\\server-data\\\\bank5\\\\state-pirexx\\\\ehint'"}
+2026-05-14T01:22:33 [database_delete] db=bank5 stopped={'pirexx_sread': False, 'pirex_sread': False, 'pirexx_sprep': False, 'pirex_sprep': False}
+2026-05-14T01:22:33 [client_database_delete] db=bank5 stopped_jobs=[]
+2026-05-14T01:22:52 [database_create] db=bank6
+2026-05-14T01:22:52 [client_database_create] db=bank6
+2026-05-14T01:22:55 [client_tmpdata_stage] db=bank6 files=3
+2026-05-14T01:22:58 [database_upload] db=bank6 files=3
+2026-05-14T01:22:58 [client_database_upload] db=bank6 files=3
+2026-05-14T01:23:00 [pirex_preprocess_start] db=bank6 addr=127.0.0.1:59963
+2026-05-14T01:23:00 [pirex_preprocess_finalize] db=bank6 success=True manifest_deleted=False
+2026-05-14T01:23:25 [pirexx_preprocess_start] db=bank6 addr=127.0.0.1:60082
+2026-05-14T01:24:59 [pirexx_preprocess_finalize] db=bank6 success=True manifest_deleted=False
+2026-05-14T01:25:31 [sread_start] db=bank6 addr=127.0.0.1:60596
+2026-05-14T01:25:31 [client_database_select] db=bank6 scheme=pirexx server=127.0.0.1:60596
+2026-05-14T01:25:32 [pirex_sread_start] db=bank6 addr=127.0.0.1:60599
+2026-05-14T01:25:32 [restore_pirex] db=bank6 file=提案.docx server=127.0.0.1:60599
+2026-05-14T01:26:26 [restore_pirexx] db=bank6 file=提案.docx server=127.0.0.1:60596
+2026-05-14T01:33:28 [sread_start] db=bank6 addr=127.0.0.1:60596
+2026-05-14T01:33:28 [client_database_select] db=bank6 scheme=pirexx server=127.0.0.1:60596
+2026-05-14T01:33:56 [restore_pirex_error] db=bank6 file=附7.docx error=pirex_uread failed for 附7.docx
+stdout:
+
+===== PIREX - Test DB: 2^16 entries 4 KB
+Test indices [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37], n_test 1
+===== client access begin index=21 iter=1/1 =====
+search hit: pk=0, hint_index=300
+search hit: pk=0, hint_index=287
+pirex request nbytes 1054
+pirex request delay 891.1279ms (real measure)
+pirex response nbytes 16384
+recover dbitem delay 5µs
+raw block exported: index=21, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_21.bin", nbytes=4096
+generate query delay 121.5µs
+pirex bandwidth delay 891.1279ms (real measure)
+client access done in 1.7213103s
+===== client access begin index=22 iter=1/1 =====
+search hit: pk=0, hint_index=210
+search hit: pk=0, hint_index=198
+pirex request nbytes 1130
+pirex request delay 1.1816538s (real measure)
+pirex response nbytes 16384
+recover dbitem delay 4.4µs
+raw block exported: index=22, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_22.bin", nbytes=4096
+generate query delay 65.4µs
+pirex bandwidth delay 1.1816538s (real measure)
+client access done in 1.8526595s
+===== client access begin index=23 iter=1/1 =====
+search hit: pk=0, hint_index=25
+search hit: pk=0, hint_index=181
+pirex request nbytes 1026
+
+stderr:
+
+easure)
+pirex response nbytes 16384
+recover dbitem delay 1.8µs
+raw block exported: index=6, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_6.bin", nbytes=4096
+generate query delay 9.7µs
+pirex bandwidth delay 83.2µs (real measure)
+client access done in 2.0667543s
+===== client access begin index=7 iter=1/1 =====
+search hit: pk=0, hint_index=849
+search hit: pk=0, hint_index=764
+pirex request nbytes 1050
+pirex request delay 1.2470537s (real measure)
+pirex response nbytes 16384
+recover dbitem delay 2.6µs
+raw block exported: index=7, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_7.bin", nbytes=4096
+generate query delay 78.6µs
+pirex bandwidth delay 1.2470537s (real measure)
+client access done in 2.8720454s
+===== client access begin index=8 iter=1/1 =====
+search hit: pk=0, hint_index=6
+search hit: pk=0, hint_index=5
+pirex request nbytes 1026
+pirex request delay 1.0162195s (real measure)
+pirex response nbytes 16384
+recover dbitem delay 2.4µs
+raw block exported: index=8, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_8.bin", nbytes=4096
+generate query delay 6.1µs
+pirex bandwidth delay 1.0162195s (real measure)
+client access done in 2.4660603s
+===== client access begin index=9 iter=1/1 =====
+search hit: pk=0, hint_index=799
+search hit: pk=0, hint_index=147
+pirex request nbytes 1026
+pirex request delay 1.1757356s (real measure)
+pirex response nbytes 16384
+recover dbitem delay 1.8µs
+raw block exported: index=9, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_9.bin", nbytes=4096
+generate query delay 71.2µs
+pirex bandwidth delay 1.1757356s (real measure)
+client access done in 2.6862674s
+===== client access begin index=10 iter=1/1 =====
+search hit: pk=0, hint_index=868
+search hit: pk=0, hint_index=287
+pirex request nbytes 1078
+pirex request delay 893.1028ms (real measure)
+pirex response nbytes 16384
+recover dbitem delay 3.6µs
+raw block exported: index=10, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_10.bin", nbytes=4096
+generate query delay 73.8µs
+pirex bandwidth delay 893.1028ms (real measure)
+client access done in 2.3340635s
+===== client access begin index=11 iter=1/1 =====
+search hit: pk=0, hint_index=540
+search hit: pk=0, hint_index=179
+pirex request nbytes 1066
+pirex request delay 812.9748ms (real measure)
+pirex response nbytes 16384
+recover dbitem delay 4.6µs
+raw block exported: index=11, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_11.bin", nbytes=4096
+generate query delay 58.8µs
+pirex bandwidth delay 812.9748ms (real measure)
+client access done in 1.9259065s
+===== client access begin index=12 iter=1/1 =====
+search hit: pk=0, hint_index=421
+search hit: pk=0, hint_index=268
+pirex request nbytes 1078
+pirex request delay 824.9689ms (real measure)
+pirex response nbytes 16384
+recover dbitem delay 4.2µs
+raw block exported: index=12, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_12.bin", nbytes=4096
+generate query delay 86.2µs
+pirex bandwidth delay 824.9689ms (real measure)
+client access done in 1.9705022s
+===== client access begin index=13 iter=1/1 =====
+search hit: pk=0, hint_index=56
+search hit: pk=0, hint_index=68
+pirex request nbytes 1062
+pirex request delay 777.5299ms (real measure)
+pirex response nbytes 16384
+recover dbitem delay 4.2µs
+raw block exported: index=13, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_13.bin", nbytes=4096
+generate query delay 31.2µs
+pirex bandwidth delay 777.5299ms (real measure)
+client access done in 1.7795327s
+===== client access begin index=14 iter=1/1 =====
+search hit: pk=0, hint_index=9
+search hit: pk=0, hint_index=315
+pirex request nbytes 1026
+pirex request delay 633.616ms (real measure)
+pirex response nbytes 16384
+recover dbitem delay 6.2µs
+raw block exported: index=14, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_14.bin", nbytes=4096
+generate query delay 42.8µs
+pirex bandwidth delay 633.616ms (real measure)
+client access done in 1.5469603s
+===== client access begin index=15 iter=1/1 =====
+search hit: pk=0, hint_index=116
+search hit: pk=0, hint_index=2130
+pirex request nbytes 1042
+pirex request delay 514.6966ms (real measure)
+pirex response nbytes 16384
+recover dbitem delay 5.2µs
+raw block exported: index=15, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_15.bin", nbytes=4096
+generate query delay 262.2µs
+pirex bandwidth delay 514.6966ms (real measure)
+client access done in 1.3980004s
+===== client access begin index=16 iter=1/1 =====
+search hit: pk=0, hint_index=21
+search hit: pk=0, hint_index=286
+pirex request nbytes 1038
+pirex request delay 1.1955487s (real measure)
+pirex response nbytes 16384
+recover dbitem delay 5.6µs
+raw block exported: index=16, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_16.bin", nbytes=4096
+generate query delay 59.6µs
+pirex bandwidth delay 1.1955487s (real measure)
+client access done in 1.9586826s
+===== client access begin index=17 iter=1/1 =====
+search hit: pk=0, hint_index=349
+search hit: pk=0, hint_index=49
+pirex request nbytes 1070
+pirex request delay 1.0880018s (real measure)
+pirex response nbytes 16384
+recover dbitem delay 5µs
+raw block exported: index=17, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_17.bin", nbytes=4096
+generate query delay 61.3µs
+pirex bandwidth delay 1.0880018s (real measure)
+client access done in 1.8968529s
+===== client access begin index=18 iter=1/1 =====
+search hit: pk=0, hint_index=171
+search hit: pk=0, hint_index=21
+pirex request nbytes 1074
+
+stderr:
+
+2026-05-14T01:33:56 [restore_pirex_error] db=bank6 file=附5.docx error=pirex_uread failed for 附5.docx
+stdout:
+
+===== PIREX - Test DB: 2^16 entries 4 KB
+Test indices [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], n_test 1
+===== client access begin index=4 iter=1/1 =====
+search hit: pk=0, hint_index=151
+search hit: pk=0, hint_index=147
+pirex request nbytes 1030
+pirex request delay 1.2524819s (real measure)
+pirex response nbytes 16384
+recover dbitem delay 1.4µs
+raw block exported: index=4, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_4.bin", nbytes=4096
+generate query delay 28.8µs
+pirex bandwidth delay 1.2524819s (real measure)
+client access done in 2.5060231s
+===== client access begin index=5 iter=1/1 =====
+search hit: pk=0, hint_index=350
+search hit: pk=0, hint_index=15
+pirex request nbytes 1002
+pirex request delay 1.6225414s (real measure)
+pirex response nbytes 16384
+recover dbitem delay 2.2µs
+raw block exported: index=5, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_5.bin", nbytes=4096
+generate query delay 25.5µs
+pirex bandwidth delay 1.6225414s (real measure)
+client access done in 2.6407369s
+===== client access begin index=6 iter=1/1 =====
+search hit: pk=0, hint_index=34
+search hit: pk=0, hint_index=233
+pirex request nbytes 1106
+pirex request delay 1.4477906s (real measure)
+pirex response nbytes 16384
+recover dbitem delay 3.8µs
+raw block exported: index=6, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_6.bin", nbytes=4096
+generate query delay 19.9µs
+pirex bandwidth delay 1.4477906s (real measure)
+client access done in 2.6262795s
+===== client access begin index=7 iter=1/1 =====
+search hit: pk=0, hint_index=849
+search hit: pk=0, hint_index=213
+pirex request nbytes 1050
+pirex request delay 1.5073899s (real measure)
+pirex response nbytes 16384
+recover dbitem delay 3.6µs
+raw block exported: index=7, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_7.bin", nbytes=4096
+generate query delay 83µs
+pirex bandwidth delay 1.5073899s (real measure)
+client access done in 2.4038013s
+===== client access begin index=8 iter=1/1 =====
+search hit: pk=0, hint_index=6
+search hit: pk=0, hint_index=166
+pirex request nbytes 1050
+pirex request delay 1.4377088s (real measure)
+pirex response nbytes 16384
+recover dbitem delay 3.6µs
+raw block exported: index=8, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_8.bin", nbytes=4096
+generate query delay 28.3µs
+pirex bandwidth delay 1.4377088s (real measure)
+client access done in 2.2535727s
+===== client access begin index=9 iter=1/1 =====
+search hit: pk=0, hint_index=799
+search hit: pk=0, hint_index=55
+pirex request nbytes 1074
+pirex request delay 1.1093408s (real measure)
+pirex response nbytes 16384
+recover dbitem delay 2µs
+raw block exported: index=9, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_9.bin", nbytes=4096
+generate query delay 63µs
+pirex bandwidth delay 1.1093408s (real measure)
+client access done in 1.9381116s
+===== client access begin index=10 iter=1/1 =====
+search hit: pk=0, hint_index=868
+search hit: pk=0, hint_index=113
+pirex request nbytes 1046
+pirex request delay 1.141815s (real measure)
+pirex response nbytes 16384
+recover dbitem delay 2µs
+raw block exported: index=10, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_10.bin", nbytes=4096
+generate query delay 75.8µs
+pirex bandwidth delay 1.141815s (real measure)
+client access done in 1.9214776s
+===== client access begin index=11 iter=1/1 =====
+search hit: pk=0, hint_index=540
+search hit: pk=0, hint_index=136
+pirex request nbytes 1062
+pirex request delay 999.6787ms (real measure)
+pirex response nbytes 16384
+recover dbitem delay 4.2µs
+raw block exported: index=11, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_11.bin", nbytes=4096
+generate query delay 59µs
+pirex bandwidth delay 999.6787ms (real measure)
+client access done in 1.6376549s
+===== client access begin index=12 iter=1/1 =====
+search hit: pk=0, hint_index=421
+search hit: pk=0, hint_index=272
+pirex request nbytes 1058
+pirex request delay 908.5333ms (real measure)
+pirex response nbytes 16384
+recover dbitem delay 4.4µs
+raw block exported: index=12, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_12.bin", nbytes=4096
+generate query delay 79.9µs
+pirex bandwidth delay 908.5333ms (real measure)
+client access done in 1.4294886s
+===== client access begin index=13 iter=1/1 =====
+search hit: pk=0, hint_index=56
+search hit: pk=0, hint_index=120
+pirex request nbytes 1018
+pirex request delay 876.5058ms (real measure)
+pirex response nbytes 16384
+recover dbitem delay 4.8µs
+raw block exported: index=13, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_13.bin", nbytes=4096
+generate query delay 37.7µs
+pirex bandwidth delay 876.5058ms (real measure)
+client access done in 1.2659048s
+===== client access begin index=14 iter=1/1 =====
+search hit: pk=0, hint_index=9
+search hit: pk=0, hint_index=106
+pirex request nbytes 974
+pirex request delay 1.5701162s (real measure)
+pirex response nbytes 16384
+recover dbitem delay 5µs
+raw block exported: index=14, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_14.bin", nbytes=4096
+generate query delay 27.8µs
+pirex bandwidth delay 1.5701162s (real measure)
+client access done in 1.9960782s
+===== client access begin index=15 iter=1/1 =====
+search hit: pk=0, hint_index=116
+search hit: pk=0, hint_index=70
+pirex request nbytes 1050
+pirex request delay 1.4707744s (real measure)
+pirex response nbytes 16384
+recover dbitem delay 4.4µs
+raw block exported: index=15, path="E:\\\\pir-worktrees\\\\new-work-v1\\rust_data\\\\client-data\\\\data_item_pirex\\block_15.bin", nbytes=4096
+generate query delay 37.6µs
+pirex bandwidth delay 1.4707744s (real measure)
+client access done in 1.9385062s
+===== client access begin index=16 iter=1/1 =====
+search hit: pk=0, hint_index=21
+search hit: pk=0, hint_index=71
+pirex request nbytes 1046
+
+stderr:
+
+2026-05-14T01:38:58 [login] user=admin role=admin
+2026-05-14T01:39:02 [sread_start] db=bank6 addr=127.0.0.1:64295
+2026-05-14T01:39:02 [client_database_select] db=bank6 scheme=pirexx server=127.0.0.1:64295
+2026-05-14T01:39:03 [pirex_sread_start] db=bank6 addr=127.0.0.1:64300
+2026-05-14T01:39:04 [restore_pirex] db=bank6 file=提案.docx server=127.0.0.1:64300
+2026-05-14T01:39:17 [restore_direct] db=bank6 file=提案.docx
+2026-05-14T01:39:35 [pirex_preprocess_start] db=bank6 addr=127.0.0.1:64453
+2026-05-14T01:39:36 [pirex_preprocess_finalize] db=bank6 success=True manifest_deleted=False
+2026-05-14T01:39:57 [pirexx_preprocess_start] db=bank6 addr=127.0.0.1:64560
+2026-05-14T01:39:59 [pirexx_preprocess_finalize] db=bank6 success=False manifest_deleted=False
+2026-05-14T01:40:04 [pirexx_preprocess_start] db=bank6 addr=127.0.0.1:64600
+2026-05-14T01:40:05 [pirexx_preprocess_finalize] db=bank6 success=False manifest_deleted=False
+2026-05-14T01:40:45 [database_delete] db=bank6 stopped={'pirexx_sread': False, 'pirex_sread': False, 'pirexx_sprep': False, 'pirex_sprep': False}
+2026-05-14T01:40:45 [client_database_delete] db=bank6 stopped_jobs=[]

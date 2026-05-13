@@ -1,1 +1,170 @@
-﻿[]
+[
+  {
+    "db_name": "bank1",
+    "scheme": "pirex",
+    "preprocessing_time_utc": "2026-05-13T05:48:06.686131+00:00",
+    "preprocessing_elapsed_ms": 347.7322,
+    "preprocessing_result": "success"
+  },
+  {
+    "db_name": "bank1",
+    "scheme": "pirex",
+    "preprocessing_time_utc": "2026-05-13T06:09:09.919009+00:00",
+    "preprocessing_elapsed_ms": 4.4346,
+    "preprocessing_result": "failed"
+  },
+  {
+    "db_name": "bank3",
+    "scheme": "pirex",
+    "preprocessing_time_utc": "2026-05-13T06:10:17.667473+00:00",
+    "preprocessing_elapsed_ms": 3.8462,
+    "preprocessing_result": "failed"
+  },
+  {
+    "db_name": "bank3",
+    "scheme": "pirex",
+    "preprocessing_time_utc": "2026-05-13T06:10:25.359501+00:00",
+    "preprocessing_elapsed_ms": 261.7032,
+    "preprocessing_result": "success"
+  },
+  {
+    "db_name": "bank3",
+    "scheme": "pirex",
+    "preprocessing_time_utc": "2026-05-13T06:10:33.799877+00:00",
+    "preprocessing_elapsed_ms": 282.3493,
+    "preprocessing_result": "success"
+  },
+  {
+    "db_name": "bank1",
+    "scheme": "pirex",
+    "preprocessing_time_utc": "2026-05-13T06:10:36.488123+00:00",
+    "preprocessing_elapsed_ms": 10.5097,
+    "preprocessing_result": "failed"
+  },
+  {
+    "db_name": "bank4",
+    "scheme": "pirex",
+    "preprocessing_time_utc": "2026-05-13T06:15:02.786307+00:00",
+    "preprocessing_elapsed_ms": 438.9318,
+    "preprocessing_result": "success"
+  },
+  {
+    "db_name": "bank4",
+    "scheme": "pirexx",
+    "preprocessing_time_utc": "2026-05-13T06:16:10.774867+00:00",
+    "preprocessing_elapsed_ms": 7402.3185,
+    "preprocessing_result": "failed"
+  },
+  {
+    "db_name": "bank5",
+    "scheme": "pirex",
+    "preprocessing_time_utc": "2026-05-13T06:20:12.411292+00:00",
+    "preprocessing_elapsed_ms": 214.2291,
+    "preprocessing_result": "success"
+  },
+  {
+    "db_name": "bank5",
+    "scheme": "pirexx",
+    "preprocessing_time_utc": "2026-05-13T16:15:18.107848+00:00",
+    "preprocessing_elapsed_ms": 35602600.4291,
+    "preprocessing_result": "cancelled"
+  },
+  {
+    "db_name": "bank1",
+    "scheme": "pirexx",
+    "preprocessing_time_utc": "2026-05-13T16:22:30.102172+00:00",
+    "preprocessing_elapsed_ms": 3.5369,
+    "preprocessing_result": "failed"
+  },
+  {
+    "db_name": "bank1",
+    "scheme": "pirex",
+    "preprocessing_time_utc": "2026-05-13T16:22:54.506090+00:00",
+    "preprocessing_elapsed_ms": 3.6643,
+    "preprocessing_result": "failed"
+  },
+  {
+    "db_name": "bank5",
+    "scheme": "pirex",
+    "preprocessing_time_utc": "2026-05-13T16:23:00.243725+00:00",
+    "preprocessing_elapsed_ms": 535.094,
+    "preprocessing_result": "success"
+  },
+  {
+    "db_name": "bank4",
+    "scheme": "pirex",
+    "preprocessing_time_utc": "2026-05-13T16:23:04.061082+00:00",
+    "preprocessing_elapsed_ms": 448.2401,
+    "preprocessing_result": "success"
+  },
+  {
+    "db_name": "bank3",
+    "scheme": "pirex",
+    "preprocessing_time_utc": "2026-05-13T16:23:07.672198+00:00",
+    "preprocessing_elapsed_ms": 435.9712,
+    "preprocessing_result": "success"
+  },
+  {
+    "db_name": "bank5",
+    "scheme": "pirexx",
+    "preprocessing_time_utc": "2026-05-13T16:28:42.053697+00:00",
+    "preprocessing_elapsed_ms": 130375.3514,
+    "preprocessing_result": "success"
+  },
+  {
+    "db_name": "k",
+    "scheme": "pirex",
+    "preprocessing_time_utc": "2026-05-13T16:37:38.980766+00:00",
+    "preprocessing_elapsed_ms": 4.4889,
+    "preprocessing_result": "failed"
+  },
+  {
+    "db_name": "k",
+    "scheme": "pirexx",
+    "preprocessing_time_utc": "2026-05-13T16:37:41.375404+00:00",
+    "preprocessing_elapsed_ms": 4.1845,
+    "preprocessing_result": "failed"
+  },
+  {
+    "db_name": "bank5",
+    "scheme": "pirex",
+    "preprocessing_time_utc": "2026-05-13T16:48:23.496161+00:00",
+    "preprocessing_elapsed_ms": 307.1977,
+    "preprocessing_result": "success"
+  },
+  {
+    "db_name": "bank6",
+    "scheme": "pirex",
+    "preprocessing_time_utc": "2026-05-13T17:23:00.934598+00:00",
+    "preprocessing_elapsed_ms": 758.9887,
+    "preprocessing_result": "success"
+  },
+  {
+    "db_name": "bank6",
+    "scheme": "pirexx",
+    "preprocessing_time_utc": "2026-05-13T17:24:59.119483+00:00",
+    "preprocessing_elapsed_ms": 93928.6824,
+    "preprocessing_result": "success"
+  },
+  {
+    "db_name": "bank6",
+    "scheme": "pirex",
+    "preprocessing_time_utc": "2026-05-13T17:39:36.643885+00:00",
+    "preprocessing_elapsed_ms": 727.7362,
+    "preprocessing_result": "success"
+  },
+  {
+    "db_name": "bank6",
+    "scheme": "pirexx",
+    "preprocessing_time_utc": "2026-05-13T17:39:59.832225+00:00",
+    "preprocessing_elapsed_ms": 2587.393,
+    "preprocessing_result": "cancelled"
+  },
+  {
+    "db_name": "bank6",
+    "scheme": "pirexx",
+    "preprocessing_time_utc": "2026-05-13T17:40:05.774151+00:00",
+    "preprocessing_elapsed_ms": 1782.9435,
+    "preprocessing_result": "cancelled"
+  }
+]

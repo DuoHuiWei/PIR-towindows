@@ -40,7 +40,7 @@ def ensure_default_users() -> None:
 
 def load_users() -> list[dict[str, Any]]:
     ensure_default_users()
-    payload = json.loads(USERS_PATH.read_text(encoding="utf-8"))
+    payload = json.loads(USERS_PATH.read_text(encoding="utf-8-sig"))
     return list(payload.get("users", []))
 
 

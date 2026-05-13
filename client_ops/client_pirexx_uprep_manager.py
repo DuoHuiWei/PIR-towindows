@@ -2,10 +2,11 @@ from __future__ import annotations
 
 import threading
 import time
+from pathlib import Path
 
 from client_ops.preprocessing_log import write_preprocessing_log
 from client_ops.server_bridge import call_json, download_manifest_to_client
-from config import PIREXX_UPREP_EXE, pirexx_dataset_capacity_bytes
+from config import PIREXX_UPREP_EXE, WORKSPACE_ROOT, pirexx_dataset_capacity_bytes
 from database_registry import (
     CLIENT_DB_PATH,
     get_entry,
@@ -14,33 +15,29 @@ from database_registry import (
     replace_entry_stats,
     update_entry_prep_status,
 )
-from utils.rust_ctrl import spawn_process, stop_process
+from utils.rust_ctrl import read_process_log, spawn_logged_process, stop_process
 
 
-def _print_subprocess_output(prefix: str, stdout: str, stderr: str) -> None:
-    stdout_text = stdout.strip()
-    stderr_text = stderr.strip()
+def _pirexx_uprep_log_path(db_name: str) -> Path:
+    return WORKSPACE_ROOT / "logs" / "rust-subprocess" / f"pirexx_uprep_{db_name}.log"
 
-    if stdout_text:
+
+def _print_subprocess_output(prefix: str, output: str) -> None:
+    output_text = output.strip()
+    if output_text:
         print(f"{prefix} stdout begin")
-        print(stdout_text)
+        print(output_text)
         print(f"{prefix} stdout end")
 
-    if stderr_text:
-        print(f"{prefix} stderr begin")
-        print(stderr_text)
-        print(f"{prefix} stderr end")
-
-
-def _wait_abortable(process, cancel_event: threading.Event, poll_interval_s: float = 0.2) -> tuple[int, str, str]:
+ 
+def _wait_abortable(process, cancel_event: threading.Event, poll_interval_s: float = 0.2) -> int:
     while process.poll() is None:
         if cancel_event.is_set():
             stop_process(process)
-            stdout, stderr = process.communicate(timeout=1)
-            raise RuntimeError(f"preprocessing cancelled by user\nstdout:\n{stdout}\nstderr:\n{stderr}")
+            process.wait(timeout=1)
+            raise RuntimeError("preprocessing cancelled by user")
         time.sleep(poll_interval_s)
-    stdout, stderr = process.communicate(timeout=1)
-    return int(process.returncode or 0), stdout, stderr
+    return int(process.returncode or 0)
 
 
 def _raise_if_cancelled(cancel_event: threading.Event) -> None:
@@ -80,14 +77,20 @@ def run_client_pirexx_uprep(db_name: str, cancel_event: threading.Event | None =
 
     start = time.perf_counter()
     finalized = False
+    log_path = _pirexx_uprep_log_path(db_name)
     try:
-        process = spawn_process([str(PIREXX_UPREP_EXE), db_name, server_addr])
-        return_code, stdout, stderr = _wait_abortable(process, task_cancel_event)
-        _print_subprocess_output(f"pirexx_uprep[{db_name}]", stdout, stderr)
+        process = spawn_logged_process([str(PIREXX_UPREP_EXE), db_name, server_addr], log_path)
+        return_code = _wait_abortable(process, task_cancel_event)
+        output = read_process_log(log_path)
+        _print_subprocess_output(f"pirexx_uprep[{db_name}]", output)
         if return_code != 0:
-            raise RuntimeError(f"pirexx_uprep failed for {db_name}\nstdout:\n{stdout}\nstderr:\n{stderr}")
-        if "uprep: completed successfully" not in stdout:
-            raise RuntimeError(f"pirexx_uprep did not report success for {db_name}\nstdout:\n{stdout}\nstderr:\n{stderr}")
+            raise RuntimeError(
+                f"pirexx_uprep failed for {db_name}\nlog_path: {log_path}\noutput:\n{output}"
+            )
+        if "uprep: completed successfully" not in output:
+            raise RuntimeError(
+                f"pirexx_uprep did not report success for {db_name}\nlog_path: {log_path}\noutput:\n{output}"
+            )
 
         _raise_if_cancelled(task_cancel_event)
         manifest_local_path = download_manifest_to_client(db_name)
@@ -110,9 +113,10 @@ def run_client_pirexx_uprep(db_name: str, cancel_event: threading.Event | None =
             "manifest_local_path": str(manifest_local_path),
             "server_finalize_result": finalize_payload,
             "preprocessing_log": log_result,
-            "uprep_stdout": stdout,
-            "uprep_stderr": stderr,
+            "uprep_stdout": output,
+            "uprep_stderr": "",
             "preprocessing_elapsed_ms": log_result["entry"]["preprocessing_elapsed_ms"],
+            "uprep_log_path": str(log_path),
         }
     except Exception:
         if not finalized:

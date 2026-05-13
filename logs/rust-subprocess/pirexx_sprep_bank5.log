@@ -1,0 +1,55 @@
+[2026-05-14T00:26:31] command: E:\pir-worktrees\new-work-v1\rust_project\target\x86_64-pc-windows-gnu\release\pirexx_sprep.exe bank5 127.0.0.1:61745
+sprep: listening on 127.0.0.1:61745
+sprep: accepted client, receiving 8 kset regions
+sprep: received kset region 1/8
+sprep: received kset region 2/8
+sprep: received kset region 3/8
+sprep: received kset region 4/8
+sprep: received kset region 5/8
+sprep: received kset region 6/8
+sprep: received kset region 7/8
+sprep: received kset region 8/8
+thread 0 starts
+thread 1 starts
+thread 2 starts
+thread 4 starts
+thread 5 starts
+thread 3 starts
+thread 7 starts
+thread 6 starts
+thread 5 progress 16/16
+thread 5: 160.2465ms
+thread 1 progress 16/16
+thread 1: 161.5739ms
+thread 4 progress 16/16
+thread 2 progress 16/16
+thread 4: 161.9859ms
+thread 2: 162.1993ms
+thread 0 progress 16/16
+thread 0: 165.1764ms
+thread 7 progress 16/16
+thread 7: 161.7627ms
+thread 3 progress 16/16
+thread 3: 167.7237ms
+thread 6 progress 16/16
+thread 6: 163.8171ms
+sprep: thread 0 joined
+sprep: thread 1 joined
+sprep: thread 2 joined
+sprep: thread 3 joined
+sprep: thread 4 joined
+sprep: thread 5 joined
+sprep: thread 6 joined
+sprep: thread 7 joined
+sprep: all threads completed, sending 8 hint regions
+sprep: sent hint region 1/8
+sprep: sent hint region 2/8
+sprep: sent hint region 3/8
+sprep: sent hint region 4/8
+sprep: sent hint region 5/8
+sprep: sent hint region 6/8
+sprep: sent hint region 7/8
+sprep: sent hint region 8/8
+sprep: waiting for encrypted parity, total 553648128 bytes (initial half 276824064)
+sprep encrypted parity: 276824064/276824064 bytes
+sprep: encrypted parity persisted to ehint (second half zero-initialized)

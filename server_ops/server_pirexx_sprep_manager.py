@@ -2,9 +2,10 @@ from __future__ import annotations
 
 import shutil
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any
 
-from config import PIREXX_SPREP_EXE, pirexx_dataset_capacity_bytes, server_pirexx_state_dir, snapshot_manifest_path
+from config import PIREXX_SPREP_EXE, WORKSPACE_ROOT, pirexx_dataset_capacity_bytes, server_pirexx_state_dir, snapshot_manifest_path
 from database_registry import (
     SERVER_DB_PATH,
     get_entry,
@@ -14,7 +15,7 @@ from database_registry import (
     update_entry_prep_status,
 )
 from server_ops.database_manager import list_source_files, pack_database_snapshot
-from utils.rust_ctrl import find_free_tcp_port, spawn_process, stop_process, wait_for_tcp_listen
+from utils.rust_ctrl import find_free_tcp_port, read_process_log, spawn_logged_process, stop_process, wait_for_tcp_listen
 
 
 @dataclass
@@ -22,6 +23,11 @@ class PirexxSprepState:
     db_name: str
     addr: str
     process: Any
+    log_path: Path
+
+
+def _pirexx_sprep_log_path(db_name: str) -> Path:
+    return WORKSPACE_ROOT / "logs" / "rust-subprocess" / f"pirexx_sprep_{db_name}.log"
 
 
 def get_server_upload_status(db_name: str) -> dict[str, int | str]:
@@ -60,14 +66,15 @@ def ensure_pirexx_sprep(current_state: PirexxSprepState | None, db_name: str) ->
 
     port = find_free_tcp_port()
     addr = f"127.0.0.1:{port}"
-    process = spawn_process([str(PIREXX_SPREP_EXE), db_name, addr])
+    log_path = _pirexx_sprep_log_path(db_name)
+    process = spawn_logged_process([str(PIREXX_SPREP_EXE), db_name, addr], log_path)
     if not wait_for_tcp_listen(addr, process):
-        stdout, stderr = process.communicate(timeout=1)
+        output = read_process_log(log_path)
         raise RuntimeError(
-            f"pirexx_sprep failed to start for {db_name} at {addr}\nstdout:\n{stdout}\nstderr:\n{stderr}"
+            f"pirexx_sprep failed to start for {db_name} at {addr}\nlog_path: {log_path}\noutput:\n{output}"
         )
 
-    return PirexxSprepState(db_name=db_name, addr=addr, process=process), pack_result
+    return PirexxSprepState(db_name=db_name, addr=addr, process=process, log_path=log_path), pack_result
 
 
 def delete_server_manifest(db_name: str) -> bool:

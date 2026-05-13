@@ -256,6 +256,7 @@ fn main()
     }
 
     println!("uprep: finished sending encrypted parity");
+    println!("uprep: waiting for encrypted parity ack");
     let mut acknown = [0u8; 1];
     stream.read_exact(&mut acknown).expect("wait encrypted parity ack fail");
     println!("uprep: server acknowledged encrypted parity");

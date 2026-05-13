@@ -1,0 +1,15 @@
+[2026-05-14T01:40:04] command: E:\pir-worktrees\new-work-v1\rust_project\target\x86_64-pc-windows-gnu\release\pirexx_uprep.exe bank6 127.0.0.1:64600
+uprep: connecting to 127.0.0.1:64600
+uprep: connected, creating local files
+uprep: generated random kset (65536 bytes)
+uprep: sent kset, waiting for hint (16777216 bytes)
+uprep hint: 16777216/16777216 bytes
+uprep: received hint, starting encryption
+uprep: hint nonzero block count 624
+uprep: first nonzero hint block 11 words [107120374, 189487997, 1579521819, 1710433403, 1806557217, 1989301979, 3249466179, 130779010]
+uprep: first zero hint block 0
+load_table: opening utils/dlp.bin
+load_table: allocated HashMap (2738041616 bytes)
+load_table: created secp256k1 context
+load_table: loaded secp256k1 discrete log precompute
+load_table: HASHMAP_SIZE=147639491, BABY_RANGE=134217728

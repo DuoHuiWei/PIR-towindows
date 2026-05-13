@@ -33,7 +33,7 @@ def ensure_default_users() -> None:
 
 def _load_payload() -> dict[str, Any]:
     ensure_default_users()
-    return json.loads(USERS_PATH.read_text(encoding="utf-8"))
+    return json.loads(USERS_PATH.read_text(encoding="utf-8-sig"))
 
 
 def _write_payload(payload: dict[str, Any]) -> None:

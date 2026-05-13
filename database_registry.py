@@ -28,7 +28,7 @@ def _ensure_registry(path: Path) -> None:
 
 def _read_payload(path: Path) -> dict[str, Any]:
     _ensure_registry(path)
-    return json.loads(path.read_text(encoding="utf-8"))
+    return json.loads(path.read_text(encoding="utf-8-sig"))
 
 
 def _write_payload(path: Path, payload: dict[str, Any]) -> None:

@@ -3,6 +3,7 @@ from __future__ import annotations
 import socket
 import subprocess
 import time
+from datetime import datetime
 from pathlib import Path
 
 from config import RUST_PROJECT_DIR
@@ -14,6 +15,8 @@ def run_process(command: list[str], cwd: Path | None = None) -> subprocess.Compl
         cwd=cwd or RUST_PROJECT_DIR,
         capture_output=True,
         text=True,
+        encoding="utf-8",
+        errors="replace",
         check=False,
     )
 
@@ -25,7 +28,38 @@ def spawn_process(command: list[str], cwd: Path | None = None) -> subprocess.Pop
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         text=True,
+        encoding="utf-8",
+        errors="replace",
     )
+
+
+def spawn_logged_process(
+    command: list[str],
+    log_path: Path,
+    cwd: Path | None = None,
+) -> subprocess.Popen[str]:
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+
+    with log_path.open("w", encoding="utf-8", newline="\n") as log_file:
+        stamp = datetime.now().isoformat(timespec="seconds")
+        log_file.write(f"[{stamp}] command: {' '.join(command)}\n")
+        log_file.flush()
+
+        return subprocess.Popen(
+            command,
+            cwd=cwd or RUST_PROJECT_DIR,
+            stdout=log_file,
+            stderr=subprocess.STDOUT,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+        )
+
+
+def read_process_log(log_path: Path) -> str:
+    if not log_path.is_file():
+        return ""
+    return log_path.read_text(encoding="utf-8", errors="replace")
 
 
 def split_host_port(addr: str) -> tuple[str, int]:

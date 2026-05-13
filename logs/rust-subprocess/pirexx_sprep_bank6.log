@@ -1,0 +1,61 @@
+[2026-05-14T01:40:04] command: E:\pir-worktrees\new-work-v1\rust_project\target\x86_64-pc-windows-gnu\release\pirexx_sprep.exe bank6 127.0.0.1:64600
+sprep: listening on 127.0.0.1:64600
+sprep: accepted client, receiving 8 kset regions
+sprep: received kset region 1/8
+sprep: received kset region 2/8
+sprep: received kset region 3/8
+sprep: received kset region 4/8
+sprep: received kset region 5/8
+sprep: received kset region 6/8
+sprep: received kset region 7/8
+sprep: received kset region 8/8
+thread 0 starts
+thread 1 starts
+thread 2 starts
+thread 3 starts
+thread 4 starts
+thread 5 starts
+thread 6 starts
+thread 7 starts
+thread 4 progress 256/512
+thread 1 progress 256/512
+thread 5 progress 256/512
+thread 6 progress 256/512
+thread 0 progress 256/512
+thread 3 progress 256/512
+thread 2 progress 256/512
+thread 7 progress 256/512
+thread 4 progress 512/512
+thread 4: 318.6262ms
+thread 1 progress 512/512
+thread 1: 320.4833ms
+thread 6 progress 512/512
+thread 6: 320.0928ms
+thread 5 progress 512/512
+thread 5: 321.0295ms
+thread 2 progress 512/512
+thread 2: 322.4671ms
+thread 3 progress 512/512
+thread 3: 323.6832ms
+thread 7 progress 512/512
+thread 7: 317.0803ms
+thread 0 progress 512/512
+thread 0: 326.1491ms
+sprep: thread 0 joined
+sprep: thread 1 joined
+sprep: thread 2 joined
+sprep: thread 3 joined
+sprep: thread 4 joined
+sprep: thread 5 joined
+sprep: thread 6 joined
+sprep: thread 7 joined
+sprep: all threads completed, sending 8 hint regions
+sprep: sent hint region 1/8
+sprep: sent hint region 2/8
+sprep: sent hint region 3/8
+sprep: sent hint region 4/8
+sprep: sent hint region 5/8
+sprep: sent hint region 6/8
+sprep: sent hint region 7/8
+sprep: sent hint region 8/8
+sprep: waiting for encrypted parity, total 276824064 bytes (initial half 138412032)

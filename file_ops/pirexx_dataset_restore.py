@@ -77,7 +77,7 @@ def load_manifest(db_name: str) -> tuple[dict[str, object], list[ManifestFile]]:
     if not path.is_file():
         raise FileNotFoundError(f"manifest not found: {path}")
 
-    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload = json.loads(path.read_text(encoding="utf-8-sig"))
     files = [ManifestFile.from_dict(item) for item in payload["files"]]
     return payload, files
 
@@ -107,6 +107,8 @@ def run_uread(db_name: str, indices: list[int], connect_addr: str, uread_command
         env=env,
         capture_output=True,
         text=True,
+        encoding="utf-8",
+        errors="replace",
         check=False,
     )
 
